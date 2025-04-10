@@ -1,0 +1,168 @@
+/*hero section*/
+#hero{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+#hero img{
+    width: 100%;
+    aspect-ratio: 21/9;
+
+    background-color: aliceblue;
+
+    margin-bottom: 25px;
+}
+#hero_txt{
+    max-width: 50%;
+}
+
+
+/*statistics*/
+#statistics{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+.stat_cell{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 325px;
+    min-width: 150px;
+}
+.stat_cell h3{
+    margin: 0;
+    text-align: center;
+}
+
+
+/*projects*/
+#project_sec{
+    position: relative;
+    overflow-x: hidden;
+}
+#project_sec:before{
+    position: absolute;
+
+    content: "";
+
+    top: 0;
+    bottom: 0;
+    right: 0;
+
+    width: 5vw;
+
+    background: linear-gradient(to right, transparent, white);
+}
+#projects{
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+#project_nav{
+    display: flex;
+    gap: 15px;
+}
+.project_nav{
+    border-radius: 100%;
+    height: 35px;
+    width: 35px;
+    border: 1px solid #363230;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*articles*/
+#articles{
+    margin-bottom: 25px;
+}
+
+
+/* giant screen styling */
+@media ( min-width: 1601px ) {
+}
+
+
+/* big tablet styling */
+@media ( max-width: 1080px ) {
+    /*hero section*/
+    #hero img{
+        aspect-ratio: 3/2;
+    }
+    #hero_txt{
+        max-width: 70%;
+    }
+
+    
+    /*statistics*/
+    #statistics{
+        row-gap: 75px;
+    }
+    .stat_cell{
+        width: 300px;
+        min-width: auto;
+        max-width: auto;
+    }
+}
+
+
+/* regular tablet styling */
+@media ( max-width: 850px ) {
+}
+
+
+/* small tablet styling */
+@media ( max-width: 775px ) {
+    #hero img{
+        aspect-ratio: 5/4;
+    }
+    #hero_txt{
+        max-width: 100%;
+    }
+
+    
+    /*statistics*/
+    .stat_cell{
+        width: 250px;
+    }
+}
+
+
+/* smaller tablet styling */
+@media ( max-width: 700px ) {
+    /*statistics*/
+    #statistics{
+        gap: 75px;
+    }
+    .stat_cell{
+        width: calc(100%/2 - (75px/2));
+    }
+}
+
+
+/* big phone styling */
+@media ( max-width: 450px ) {
+    #hero img{
+        aspect-ratio: 4/5;
+    }
+
+    
+    /*statistics*/
+    .stat_cell{
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+
+/* regular phone styling */
+@media ( max-width: 400px ) { 
+}

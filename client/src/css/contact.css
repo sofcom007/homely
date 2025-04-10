@@ -1,0 +1,66 @@
+#contact{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+#inquiry{
+    width: calc(50% - (50px/2));
+}
+#inquiry form{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#details ul{
+    padding: 0;
+    list-style-type: none;
+}
+#details ul a{
+    text-decoration: none;
+}
+
+
+/* giant screen styling */
+@media ( min-width: 1601px ) {
+}
+
+
+/* big tablet styling */
+@media ( max-width: 1080px ) {
+    #inquiry, #details{
+        width: 70%;
+    }
+}
+
+
+/* regular tablet styling */
+@media ( max-width: 850px ) {
+    #inquiry, #details{
+        width: 85%;
+    }
+}
+
+
+/* small tablet styling */
+@media ( max-width: 775px ) {
+}
+
+
+/* smaller tablet styling */
+@media ( max-width: 700px ) {
+    #inquiry, #details{
+        width: 100%;
+    }
+}
+
+
+/* big phone styling */
+@media ( max-width: 450px ) {
+}
+
+
+/* regular phone styling */
+@media ( max-width: 400px ) { 
+}
