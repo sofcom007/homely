@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import App from './App.jsx'
 //import public pages
+import Layout from './components/Layout.jsx'
 import Index from './pages/home.jsx'
 import Portfolio from './pages/portfolio.jsx'
 import Articles from './pages/articles.jsx'
@@ -21,56 +22,29 @@ import "./css/general.css"
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Index />
-  },
-  {
-    path: "/about",
-    element: <About />
-  },
-  {
-    path: "/portfolio",
-    element: <Portfolio />
-  },
-  {
-    path: "/articles",
-    element: <Articles />
-  },
-  {
-    path: "/contact",
-    element: <Contact />
+    element: <Layout />, // <-- here
+    children: [
+      { path: "/", element: <Index /> },
+      { path: "/about", element: <About /> },
+      { path: "/portfolio", element: <Portfolio /> },
+      { path: "/articles", element: <Articles /> },
+      { path: "/contact", element: <Contact /> },
+    ],
   },
   {
     path: "/admin",
     element: <AdminLayout />,
     children: [
-      {
-        index: true,
-        element: <AdminDashboard />,
-      },
-      {
-        path: "projects",
-        element: <AdminProjects />,
-      },
-      {
-        path: "articles",
-        element: <AdminArticles />,
-      },
-      {
-        path: "awards",
-        element: <AdminAwards />,
-      },
-      {
-        path: "staff",
-        element: <AdminStaff />,
-      },
-      {
-        path: "users",
-        element: <AdminUsers />,
-      }
+      { index: true, element: <AdminDashboard /> },
+      { path: "projects", element: <AdminProjects /> },
+      { path: "articles", element: <AdminArticles /> },
+      { path: "awards", element: <AdminAwards /> },
+      { path: "staff", element: <AdminStaff /> },
+      { path: "users", element: <AdminUsers /> },
     ],
   },
-])
+]);
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

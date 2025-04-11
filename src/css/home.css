@@ -2,6 +2,8 @@
 #hero img{
     width: 100%;
     aspect-ratio: 19/9;
+    object-fit: cover;
+    object-position: 0px -650px;
 
     background-color: aliceblue;
 }
@@ -100,6 +102,7 @@
     /*hero section*/
     #hero img{
         aspect-ratio: 5/4;
+        object-position: bottom;
     }
     #hero_txt{
         max-width: 70%;

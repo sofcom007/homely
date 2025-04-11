@@ -13,6 +13,8 @@ import Project from '../components/project'
 import Article from '../components/article'
 //css imports
 import '../css/home.css'
+//media imports
+import hero from '../assets/images/home/hero.webp'
 
 const home = () => {
   return (
@@ -21,7 +23,7 @@ const home = () => {
       
       <main>
         <section id="hero" className='double_topped bottomed lefted righted'>
-          <img src="" alt="" />
+          <img src={hero} alt="" />
         </section>
 
         <section id="about" className="double_bottomed lefted righted">

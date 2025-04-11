@@ -4,6 +4,9 @@ import PublicNav from '../components/publicNav'
 import PublicFooter from '../components/publicFooter'
 //import css
 import '../css/about.css'
+//import images
+import staffPic from '../assets/images/about/staff_picture.webp'
+import heroDesc from '../assets/images/about/about_desc.webp'
 //import components
 import DropDownSec from '../components/dropDownSec'
 
@@ -16,7 +19,7 @@ const about = () => {
         <section id="desc_sec" className='double_topped double_bottomed lefted righted'>
           <div id="dsc_top">
             <h1>Tagline of Homely Architecture Agency</h1>
-            <img src="" alt="" />
+            <img src={heroDesc} alt="" />
           </div>
           <div id="dsc_txt">
             <p>
@@ -109,7 +112,7 @@ const about = () => {
         </section>
 
         <section id="abt_bottom" className='lefted righted'>
-          <img src="" alt="" />
+          <img src={staffPic} alt="" />
         </section>
       </main>
 

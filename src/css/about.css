@@ -6,9 +6,10 @@
     margin-bottom: 50px;
 }
 #dsc_top img{
-    width: 50em;
-    min-width: 50em;
-    aspect-ratio: 16/9;
+    width: 40em;
+    min-width: 40em;
+    aspect-ratio: 5/4;
+    object-fit: cover;
     background-color: aliceblue;
     max-width: 100%;
 }
@@ -34,8 +35,9 @@
 /*bottom section*/
 #abt_bottom img{
     width: 100%;
-    aspect-ratio: 19/9;
     background-color: aliceblue;
+    aspect-ratio: 19/9;
+    object-fit: cover;
 }
 
 
