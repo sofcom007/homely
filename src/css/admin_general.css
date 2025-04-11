@@ -1,0 +1,191 @@
+/*general*/
+#admin_layout{
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    height: 100vh;
+}
+#admin_main{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+#page_content{
+    min-height: 50vh;
+}
+
+
+/*header*/
+#ah_top{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid black;
+}
+#ah_top h2{
+    margin: 0;
+}
+#aht_btns{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+/*modal*/
+.modal_bcg{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(2px);
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.125s;
+}
+.modal_bcg.on{
+    opacity: 1;
+    pointer-events: all;
+}
+.modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #dadada;
+    box-sizing: border-box;
+    max-width: 90vw;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.125s;
+}
+.modal.on{
+    opacity: 1;
+    pointer-events: all;
+}
+.modal_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.modal_header h2{
+    margin: 0;
+}
+.modal_header button{
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+.conf_modal_msg{
+    margin-bottom: 10px;
+}
+.conf_modal_btns{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+/*filters*/
+#filters_holder{
+    overflow-y: hidden;
+    transition: height 0.125s;
+}
+#filters{
+    display: flex;
+    gap: 10px;
+    padding: 15px 0;
+    border-bottom: 1px solid #dadada;
+}
+#filters select, #filters input{
+    width: fit-content;
+}
+
+
+/*content*/
+#content_table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#content_table thead{
+    background-color: #5a5350;
+}
+#content_table th{
+    padding: 10px;
+}
+#content_table th p{
+    color: white;
+    text-align: left;
+}
+#content_table tr:nth-child(odd){
+    background-color: #8b817c;
+}
+#content_table tr:nth-child(even){
+    background-color: #aca19b;    
+}
+
+
+/* giant screen styling */
+@media ( min-width: 1601px ) {
+}
+
+
+/* big tablet styling */
+@media ( max-width: 1080px ) {
+    /*general*/
+    main{
+        min-width: 100%;
+    }    
+}
+
+
+/* regular tablet styling */
+@media ( max-width: 850px ) {
+}
+
+
+/* small tablet styling */
+@media ( max-width: 775px ) {
+}
+
+
+/* smaller tablet styling */
+@media ( max-width: 700px ) {
+    /*header*/
+    #aht_btns p{
+        display: none;
+    }
+
+
+    /*content*/ 
+    #content_table thead{
+        display: none;
+    }
+}
+
+
+/* big phone styling */
+@media ( max-width: 450px ) {
+}
+
+
+/* regular phone styling */
+@media ( max-width: 400px ) { 
+}

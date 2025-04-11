@@ -1,0 +1,163 @@
+/*public nav*/
+#public_nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 3vw;
+    z-index: 50;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #fafaff;
+}
+#public_nav a{
+    box-sizing: border-box;
+}
+#public_nav img{
+    height: 45px;
+}
+#public_nav ul{
+    display: flex;
+
+    list-style-type: none;
+    
+    padding: 0;
+    gap: 5px;
+}
+.nav_link{
+    padding: 5px 15px;
+    display: flex;
+    border: 1px solid;
+    color: transparent;
+    border-radius: 1000px;
+    text-decoration: none;
+    transition: border 0.25s;
+}
+.nav_link.current, .nav_link:hover{
+    border-color: black;
+}
+#p_mnav_btn{
+    padding: 0;
+    margin: 0;
+
+    background-color: transparent;
+    border: none;
+
+    display: none;
+    
+    font-size: 2.5rem;
+}
+#public_mobile_nav{
+    display: none;
+}
+
+
+/*public footer*/
+#public_footer img{
+    max-width: 100%;
+    margin-bottom: 25px;
+}
+#pf_bottom{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+}
+#pf_bottom ul{
+    display: flex;
+    gap: 10px;
+
+    padding: 0;
+    margin: 0;
+
+    list-style-type: none;
+}
+#pf_bottom a{
+    text-decoration: none;
+}
+
+
+
+/* giant screen styling */
+@media ( min-width: 1601px ) {
+    /*public nav*/
+    #public_nav{
+        padding: 10px calc((100vw - (1600px * 0.94))/2);
+    }
+}
+
+
+/* big tablet styling */
+@media ( max-width: 1080px ) { 
+}
+
+
+/* regular tablet styling */
+@media ( max-width: 850px ) {  
+}
+
+
+/* small tablet styling */
+@media ( max-width: 775px ) {
+    #public_nav ul{
+        display: none;
+    }
+    #p_mnav_btn{
+        display: block;
+
+        position: fixed;
+
+        right: 5vw;
+
+        z-index: 52;
+    }
+
+
+    #public_mobile_nav{
+        display: block;
+
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        transform: translateX(100%);
+
+        padding: 80px 5vw 80px 10vw;
+
+        border-left: 1px solid #363230;
+        background-color: white;
+
+        z-index: 51;
+
+        transition: transform 0.5s;
+    }
+    #public_mobile_nav.on{
+        transform: translateX(0%);
+    }
+    #public_mobile_nav ul{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        list-style-type: none;
+
+        padding: 0;
+        margin: 0;
+        gap: 5px;
+    }
+}
+
+
+/* big phone styling */
+@media ( max-width: 450px ) {    
+}
+
+
+/* regular phone styling */
+@media ( max-width: 400px ) { 
+}
