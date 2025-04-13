@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router'
 //import css
-import '../css/projectS_articles.css'
+import '../css/projects_articles.css'
 //font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
