@@ -1,0 +1,21 @@
+#image{
+    width: 50em;
+    max-width: 100%;
+    aspect-ratio: 3/2;
+    background-color: aliceblue;
+    margin-bottom: 25px;
+}
+#return_link{
+    display: flex;
+    align-content: center;
+    gap: 10px;
+    text-decoration: none;
+    margin-bottom: 25px;
+}
+#content p{
+    text-align: justify;
+    text-align-last: left;
+}
+#content p:not(:last-child){
+    margin-bottom: 15px;
+}

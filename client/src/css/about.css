@@ -1,0 +1,120 @@
+/*description section*/
+#dsc_top{
+    display: flex;
+    align-items: flex-end;
+    gap: 25px;
+    margin-bottom: 50px;
+}
+#dsc_top img{
+    width: 43em;
+    min-width: 43em;
+    aspect-ratio: 10/7;
+    object-fit: cover;
+    background-color: aliceblue;
+    max-width: 100%;
+}
+#dsc_txt{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+#dsc_txt p{
+    width: calc(100%/2 - (50px/2));
+    text-align: justify;
+    text-align-last: left;
+}
+
+
+/*phylosophy*/
+#philo_sec p{
+    text-align: justify;
+    text-align-last: left;
+}
+
+
+/*bottom section*/
+#abt_bottom img{
+    width: 100%;
+    background-color: aliceblue;
+    aspect-ratio: 19/9;
+    object-fit: cover;
+}
+
+
+/* giant screen styling */
+@media ( min-width: 1601px ) {
+}
+
+
+/* big tablet styling */
+@media ( max-width: 1080px ) {
+    /*description section*/
+    #dsc_top{
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 25px;
+    }
+    #dsc_top img{
+        min-width: 0;
+        width: 100%;
+    }
+    #dsc_txt{
+        gap: 25px;
+    }
+    #dsc_txt p{
+        width: calc(100%/2 - (25px/2));
+    }
+
+
+    /*bottom section*/
+    #abt_bottom img{
+        aspect-ratio: auto;
+    }
+}
+
+
+/* regular tablet styling */
+@media ( max-width: 850px ) {
+}
+
+
+/* small tablet styling */
+@media ( max-width: 775px ) {
+    /*description section*/
+    #dsc_top{
+        gap: 0;
+        margin-bottom: 25px;
+    }
+    #dsc_txt{
+        gap: 25px;
+    }
+}
+
+
+/* smaller tablet styling */
+@media ( max-width: 700px ) {
+    /*description section*/
+    #dsc_top img{
+        aspect-ratio: 3/2;
+    }
+    #dsc_txt p{
+        width: 100%;
+    }
+
+
+    /*bottom section*/
+    #abt_bottom img{
+        aspect-ratio: 3/2;
+    }
+}
+
+
+/* big phone styling */
+@media ( max-width: 450px ) {
+}
+
+
+/* regular phone styling */
+@media ( max-width: 400px ) { 
+}
