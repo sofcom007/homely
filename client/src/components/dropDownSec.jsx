@@ -20,7 +20,7 @@ const DropDownSec = ({ text1, text2, img, paragraph }) => {
   }, [paragraph]);
 
   return (
-    <div className={`dropdown ${isOpen ? 'unrolled' : ''}`}>
+    <div className={`dropdown ${isOpen ? 'unrolled animated fade_in' : 'animated fade_in'}`}>
       <div className="dd_header" onClick={handleToggle}>
         <div className="dd_header_half1">
           <h4>{text1}</h4>

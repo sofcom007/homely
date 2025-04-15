@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react'
 //nav imports
 import PublicNav from '../components/publicNav'
 import PublicFooter from '../components/publicFooter'
@@ -7,6 +8,28 @@ import Article from '../components/article'
 import CTASection from '../components/ctaSec'
 
 const articles = () => {
+  //scroll animation
+  useEffect(() => {
+    document.title = "Homely Articles"
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.target.classList.contains('animated')) {
+          if (entry.isIntersecting)
+            entry.target.classList.add('show')
+          else
+            entry.target.classList.remove('show')
+        }
+      });
+    },
+    { threshold: 0.1 })
+
+    const animatedElements = document.querySelectorAll('.animated')
+    animatedElements.forEach((el) => observer.observe(el))
+
+    return () => {animatedElements.forEach((el) => observer.unobserve(el));}
+  }, [])
+
   return (
     <>
       <PublicNav />

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 //import components
 import AdminHeader from '../components/adminHeaderTop'
 import FormModalWrapper from '../components/formModalWrapper'
@@ -9,7 +9,11 @@ const adminArticles = () => {
     const [filtersOn, setFiltersOn] = useState(false);
     const [createModalOn, setCreateModalOn] = useState(false);
     const [delAllModalOn, setDelAllModalOn] = useState(false);
-
+    
+    useEffect(() => {
+      document.title = "Admin Articles | Homely"
+    }, [])
+      
   return (
     <>
         {/*create modal*/} 

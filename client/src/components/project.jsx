@@ -4,7 +4,7 @@ import "../css/public_nav.css"
 
 const project = ({image, name, link}) => {
   return (
-    <div className='project'>
+    <div className='project animated fade_in'>
         <img src={image} alt="" />
         <div className="project_txt">
             <h3>{name}</h3>

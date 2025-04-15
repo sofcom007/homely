@@ -1,0 +1,13 @@
+.animated, .animated .fade_in{
+    transition-duration: 1s;
+}
+
+
+/*fade in*/
+.animated.fade_in, .animated .fade_in{
+    opacity: 0;
+    transition-property: opacity;
+}
+.show.fade_in, .show .fade_in{
+    opacity: 1;
+}
