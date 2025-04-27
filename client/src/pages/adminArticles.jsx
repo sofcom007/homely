@@ -37,7 +37,7 @@ const adminArticles = () => {
             formData.append('content', createContentRef.current.value)
     
             //make the request
-            const response = await fetch('http://localhost:8080/create-article', {
+            const response = await fetch('http://localhost:8080/articles/create-article', {
                 method: "POST",
                 body: formData
             })
@@ -64,7 +64,7 @@ const adminArticles = () => {
     //read articles
     async function fetchArticles() {
         try{
-            const response = await axios.get('http://localhost:8080/read-articles')
+            const response = await axios.get('http://localhost:8080/articles/read-articles')
             const data = response.data
             return(data)
         } catch (error) {
@@ -100,7 +100,7 @@ const adminArticles = () => {
                 formData.append("thumbnail", updateThumbnailRef.current.files[0])
     
             //make the request
-            const response = await fetch(`http://localhost:8080/update-article/${updateIdRef.current.value}`, {
+            const response = await fetch(`http://localhost:8080/articles/update-article/${updateIdRef.current.value}`, {
                 method: "PUT",
                 body: formData
             })
@@ -121,7 +121,7 @@ const adminArticles = () => {
     const [delId, setDelId] = useState("")
     async function deleteSingleArticle() {
         try{
-            const response = await fetch(`http://localhost:8080/delete-article/${delId}`, {
+            const response = await fetch(`http://localhost:8080/articles/delete-article/${delId}`, {
                 method: "DELETE"
             })
             const result = await response.json()
@@ -140,7 +140,7 @@ const adminArticles = () => {
     const [delAllModalOn, setDelAllModalOn] = useState(false);
     async function delAllArticles() {
         try{
-            const response = await fetch('http://localhost:8080/delete-articles', {
+            const response = await fetch('http://localhost:8080/articles/delete-articles', {
                 method: "DELETE"
             })
             const result = await response.json()

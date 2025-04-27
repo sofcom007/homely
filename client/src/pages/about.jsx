@@ -16,7 +16,7 @@ const about = () => {
   const [awards, setAwards] = useState()
   async function fetchAwards(){
     try{
-        const response = await fetch('http://localhost:8080/read-awards', {
+        const response = await fetch('http://localhost:8080/awards/read-awards', {
             method: "GET"
         })
         const result = await response.json()
@@ -50,7 +50,7 @@ const about = () => {
   }, [awards, staff])
   async function fetchStaff() {
     try{
-        const response = await fetch('http://localhost:8080/read-staff', {
+        const response = await fetch('http://localhost:8080/staff/read-staff', {
             method: "GET"
         })
         const result = await response.json()

@@ -21,7 +21,7 @@ const adminAwards = () => {
   }, [awards])
   async function fetchAwards(){
     try{
-        const response = await fetch('http://localhost:8080/read-awards', {
+        const response = await fetch('http://localhost:8080/awards/read-awards', {
             method: "GET"
         })
         const result = await response.json()
@@ -52,7 +52,7 @@ const adminAwards = () => {
             formData.append('picture', createPicture.current.files[0])
 
         //make request
-        const response = await fetch('http://localhost:8080/create-award', {
+        const response = await fetch('http://localhost:8080/awards/create-award', {
             method: "POST",
             body: formData
         })
@@ -108,7 +108,7 @@ const adminAwards = () => {
             formData.append('picture', updatePicture.current.files[0])
 
         //make request
-        const response = await fetch(`http://localhost:8080/update-award/${updateIdRef.current.value}`, {
+        const response = await fetch(`http://localhost:8080/awards/update-award/${updateIdRef.current.value}`, {
             method: "PUT",
             body: formData
         })
@@ -132,7 +132,7 @@ const adminAwards = () => {
   const [delId, setDelId] = useState(false)
   async function deleteAward() {
     try{
-        const response = await fetch(`http://localhost:8080/delete-award/${delId}`, {
+        const response = await fetch(`http://localhost:8080/awards/delete-award/${delId}`, {
             method: "DELETE"
         })
         const result = await response.json()
@@ -154,7 +154,7 @@ const adminAwards = () => {
   const [delAllModalOn, setDelAllModalOn] = useState(false)
   async function deleteAllAwards() {
     try{
-        const response = await fetch('http://localhost:8080/delete-all-awards', {
+        const response = await fetch('http://localhost:8080/awards/delete-all-awards', {
             method: "DELETE"
         })
         const result = await response.json()

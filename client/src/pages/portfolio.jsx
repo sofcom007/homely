@@ -30,7 +30,7 @@ const portfolio = () => {
   }, [projects])
   const fetchProjects = async () => {
       try{
-        const response = await axios.get('http://localhost:8080/read-projects')
+        const response = await axios.get('http://localhost:8080/projects/read-projects')
         const data = response.data
         return(data)
       } catch (error) {

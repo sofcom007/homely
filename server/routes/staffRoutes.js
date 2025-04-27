@@ -28,7 +28,7 @@ router.get('/read-staff', async (req, res) => {
         res.status(500).json({ error: "Failed to read staff"})
     }
 })
-router.post('/read-staff', uploadPictures.single('picture'), async (req, res) => {
+router.post('/create-staff', uploadPictures.single('picture'), async (req, res) => {
     try{
         const { firstName, lastName, position, description } = req.body
         if(!firstName || !lastName || !position)

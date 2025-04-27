@@ -21,7 +21,7 @@ const adminStaff = () => {
   }, [staff])
   async function fetchStaff() {
     try{
-        const response = await fetch('http://localhost:8080/read-staff', {
+        const response = await fetch('http://localhost:8080/staff/read-staff', {
             method: "GET"
         })
         const result = await response.json()
@@ -54,7 +54,7 @@ const adminStaff = () => {
             formData.append('picture', createPictureRef.current.files[0])
 
         //make the request
-        const response = await fetch('http://localhost:8080/read-staff', {
+        const response = await fetch('http://localhost:8080/staff/create-staff', {
             method: "POST",
             body: formData
         })
@@ -116,7 +116,7 @@ const adminStaff = () => {
 
         //make request
         console.log(updateIdRef.current.value)
-        const response = await fetch (`http://localhost:8080/update-member/${updateIdRef.current.value}`, {
+        const response = await fetch (`http://localhost:8080/staff/update-member/${updateIdRef.current.value}`, {
             method: "PUT",
             body: formData
         })
@@ -142,7 +142,7 @@ const adminStaff = () => {
   async function deleteMember() {
     try{
         //make request
-        const response = await fetch (`http://localhost:8080/delete-member/${delId}`, {
+        const response = await fetch (`http://localhost:8080/staff/delete-member/${delId}`, {
             method: "DELETE"
         })
         const result = await response.json()
@@ -166,7 +166,7 @@ const adminStaff = () => {
   async function deleteEntireStaff() {
     try{
         //make request
-        const response = await fetch ('http://localhost:8080/delete-staff', {
+        const response = await fetch ('http://localhost:8080/staff/delete-staff', {
             method: "DELETE"
         })
         const result = await response.json()

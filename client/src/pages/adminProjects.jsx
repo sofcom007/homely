@@ -55,7 +55,7 @@ const adminProjects = () => {
         console.log(createPicturesRef.current.files)
 
         //make request
-        const response = await fetch('http://localhost:8080/create-project', {
+        const response = await fetch('http://localhost:8080/projects/create-project', {
             method: "POST",
             body: formData
         });
@@ -114,7 +114,7 @@ const adminProjects = () => {
             }
 
         //make request
-        const response = await fetch(`http://localhost:8080/update-project/${updateIdRef.current.value}`, {
+        const response = await fetch(`http://localhost:8080/projects/update-project/${updateIdRef.current.value}`, {
             method: 'PUT',
             body: formData
         })
@@ -129,7 +129,7 @@ const adminProjects = () => {
     //CRUD read
     const fetchProjects = async () => {
         try{
-            const response = await axios.get('http://localhost:8080/read-projects')
+            const response = await axios.get('http://localhost:8080/projects/read-projects')
             const data = response.data
             return(data)
         } catch (error) {
@@ -142,7 +142,7 @@ const adminProjects = () => {
     async function delSinglePic(delPicture){
         try{
             console.log("deleting pic", delPicture)
-            const response = await fetch(`http://localhost:8080/delete-project-picture/${editId}/${delPicture}`, {
+            const response = await fetch(`http://localhost:8080/projects/delete-project-picture/${editId}/${delPicture}`, {
                 method: 'DELETE',
                 headers: {
                     "content-type" : "application/json"
@@ -163,7 +163,7 @@ const adminProjects = () => {
     //CRUD delete single project
     async function delSingle(){
         try{
-            const response = await fetch(`http://localhost:8080/delete-project/${delId}`, {
+            const response = await fetch(`http://localhost:8080/projects/delete-project/${delId}`, {
                 method: "DELETE",
                 headers: {
                     "content-type": "application/json"
@@ -188,7 +188,7 @@ const adminProjects = () => {
     //CRUD delete all
     async function delAll(){
         try{
-        const response = await fetch("http://localhost:8080/delete-portfolio", {
+        const response = await fetch("http://localhost:8080/projects/delete-portfolio", {
             method: "DELETE",
             headers: {
             "content-type": "application/json"

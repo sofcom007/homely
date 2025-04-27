@@ -24,7 +24,7 @@ const home = () => {
   const [projects, setProjects] = useState()
   const fetchProjects = async () => {
       try{
-        const response = await axios.get('http://localhost:8080/read-home-projects')
+        const response = await axios.get('http://localhost:8080/projects/read-home-projects')
         const data = response.data
         //console.log("projects:", data)
         return(data)
@@ -90,7 +90,7 @@ const home = () => {
   }, [projects, articles])
   const fetchArticles = async () => {
     try{
-      const response = await axios.get('http://localhost:8080/read-home-articles')
+      const response = await axios.get('http://localhost:8080/articles/read-home-articles')
       const data = response.data
       //console.log(data)
       return data
