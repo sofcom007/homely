@@ -20,14 +20,14 @@ const DropDownSec = ({ text1, text2, img, paragraph }) => {
   }, [paragraph]);
 
   return (
-    <div className={`dropdown ${isOpen ? 'unrolled animated fade_in' : 'animated fade_in'}`}>
-      <div className="dd_header" onClick={handleToggle}>
+    <div className='animated fade_in'>
+      <div className={(paragraph || img? 'active' : '') + ' dd_header'} onClick={handleToggle}>
         <div className="dd_header_half1">
           <h4>{text1}</h4>
         </div>
         <div className="dd_header_half2">
           <h4>{text2}</h4>
-          {paragraph ? (
+          {paragraph || img ? (
             <button className="dd_toggle" onClick={(e) => { e.stopPropagation(); handleToggle(); }} style={{rotate: isOpen? '-180deg' : '0deg'}}>
               <FontAwesomeIcon icon={faChevronDown} />
             </button>
@@ -35,19 +35,13 @@ const DropDownSec = ({ text1, text2, img, paragraph }) => {
         </div>
       </div>
 
-      <div
-        className="dd_content_holder"
-        style={{
-          height: isOpen ? `${contentHeight}px` : '0px',
-          transition: 'height 0.3s ease',
-          overflow: 'hidden'
-        }}
-      >
+      {paragraph || img?
+      <div className="dd_content_holder" style={{ height: isOpen ? `${contentHeight + 2}px` : '0px', transition: 'height 0.3s ease', overflow: 'hidden' }}>
         <div className="dd_content" ref={contentRef}>
-          {img? <img src={img} alt="" /> : null}
+          {(img && img != "") ? <img src={img} alt="" /> : null}
           <p>{paragraph}</p>
         </div>
-      </div>
+      </div> : null}
     </div>
   );
 };

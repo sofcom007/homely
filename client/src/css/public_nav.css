@@ -94,10 +94,6 @@
 
 /* big tablet styling */
 @media ( max-width: 1080px ) { 
-    /*public nav*/
-    #public_nav{
-        padding: 10px 5vw;
-    }
 }
 
 
@@ -116,7 +112,7 @@
 
         position: fixed;
 
-        right: 5vw;
+        right: 3vw;
 
         z-index: 52;
     }
@@ -158,7 +154,14 @@
 
 
 /* big phone styling */
-@media ( max-width: 450px ) {    
+@media ( max-width: 450px ) { 
+    /*public nav*/
+    #public_nav{
+        padding: 10px 5vw;
+    }  
+    #p_mnav_btn{
+        right: 5vw;
+    } 
 }
 
 

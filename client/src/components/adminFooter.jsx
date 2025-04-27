@@ -5,7 +5,7 @@ import logo from '../assets/images/branding/homely_text_symbol_logo.png'
 const adminFooter = () => {
   return (
     <footer id='admin_footer' className='topped bottomed fixed_lefted righted'>
-      <img src={logo} alt="" />
+      <Link to='/'><img src={logo} alt="" /></Link>
       <ul>
         <li><Link to='/'><p>Home</p></Link></li>
         <li><Link to='/about'><p>About</p></Link></li>

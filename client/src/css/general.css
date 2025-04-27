@@ -1,7 +1,7 @@
 /*general*/
-html{
+/*html{
     scroll-behavior: smooth;
-}
+}*/
 body{
     margin: 0;
     padding: 0;
@@ -53,14 +53,17 @@ p{
 
 
 /*sections*/
-.lefted{
+.lefted, .fixed_lefted{
     padding-left: 3vw;
 }
-.fixed_lefted{
-    padding-left: 3vw;
+.wide_lefted{
+    padding-left: 15vw;
 }
 .righted{
     padding-right: 3vw;
+}
+.wide_righted{
+    padding-right: 15vw;
 }
 .topped{
     padding-top: 5vw;
@@ -153,15 +156,10 @@ input, textarea, select, #form_submit{
 
 
 /*project*/
-.project{
-    min-width: 40em;
-    text-decoration: none;
-}
 .project img{
-    aspect-ratio: 3/2;
     background-color: aliceblue;
-    width: 100%;
     margin-bottom: 15px;
+    border-radius: 10px;
 }
 .project_txt{
     display: flex;
@@ -171,14 +169,6 @@ input, textarea, select, #form_submit{
 }
 .project_txt h3{
     margin: 0;
-}
-#project_holder{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-}
-#project_holder .project{
-    width: calc(100%/2 - (25px/2));
 }
 
 
@@ -194,8 +184,9 @@ input, textarea, select, #form_submit{
 }
 .article img{
     width: 100%;
-    aspect-ratio: 16/9;
     background-color: aliceblue;
+    margin-bottom: 15px;
+    border-radius: 10px;
 }
 .article h3{
     margin-bottom: 10px;
@@ -205,6 +196,7 @@ input, textarea, select, #form_submit{
     border: 1px solid #dadada;
     width: fit-content;
     padding: 5px 15px;
+    margin-bottom: 15px;
 }
 
 
@@ -272,11 +264,11 @@ input, textarea, select, #form_submit{
     border-bottom: 1px solid #dadada;
 }
 .dd_content img{
-    width: calc(35em);
-    aspect-ratio: 3/2;
+    height: 350px;
+    max-width: 100%;
     margin-bottom: 15px;
     background-color: aliceblue;
-    max-width: 100%;
+    border-radius: 10px;
 }
 .dd_content p{
     text-align: justify;
@@ -313,8 +305,14 @@ input, textarea, select, #form_submit{
     .fixed_lefted{
         padding-left: calc(1600px * 0.03);
     }
+    .wide_lefted{
+        padding-left: calc((100vw - (1600px * 0.76))/2);
+    }
     .righted{
         padding-right: calc((100vw - (1600px * 0.94))/2);
+    }
+    .wide_righted{
+        padding-right: calc((100vw - (1600px * 0.76))/2);
     }
     .topped{
         padding-top: calc(1600px * 0.05);
@@ -346,14 +344,11 @@ input, textarea, select, #form_submit{
 /* big tablet styling */
 @media ( max-width: 1080px ) {
     /*sections*/
-    .lefted{
-        padding-left: 5vw;
+    .wide_lefted{
+        padding-left: 10vw;
     }
-    .fixed_lefted{
-        padding-left: 5vw;
-    }
-    .righted{
-        padding-right: 5vw;
+    .wide_righted{
+        padding-right: 10vw;
     }
     .topped{
         padding-top: 8vw;
@@ -375,16 +370,6 @@ input, textarea, select, #form_submit{
     }
 
 
-    /*projects*/
-    #project_holder{
-        gap: 15px;
-    }
-    #project_holder .project{
-        width: calc(100%/2 - (15px/2));
-        min-width: 0;
-    }
-
-
     /*articles*/
     #articles{
         gap: 15px;
@@ -395,6 +380,10 @@ input, textarea, select, #form_submit{
 
 
     /*dropdown*/
+    .dd_content img{
+        width: 350px;
+        height: auto;
+    }
     .dd_header_half1{
         width: calc(20% - (50px/2));
     }
@@ -409,9 +398,24 @@ input, textarea, select, #form_submit{
 
 /* regular tablet styling */
 @media ( max-width: 850px ) {
-    /*project*/
-    .project{
-        min-width: 35em;
+    /*sections*/
+    .lefted, .wide_lefted{
+        padding-left: 3vw;
+    }
+    .righted, .wide_righted{
+        padding-right: 3vw;
+    }
+
+
+    /*dropdown*/
+    .dd_header_half1{
+        width: calc(25% - (50px/2));
+    }
+    .dd_header_half2{
+        width: calc(75% - (50px/2));
+    }    
+    .dd_content {
+        padding-left: calc(25% + (50px/2));
     }
 }
 
@@ -421,42 +425,14 @@ input, textarea, select, #form_submit{
     #hero_txt{
         max-width: 100%;
     }
-
-    
-    /*project*/
-    .project{
-        min-width: 30em;
-    }
 }
 
 
 /* smaller tablet styling */
 @media ( max-width: 700px ) {
-    /*projects*/
-    #project_holder{
-        gap: 50px;
-    }
-    #project_holder .project{
-        width: 100%;
-        min-width: 0;
-    }
-
-
     /*articles*/
     .article{
         width: 100%;
-    }
-
-
-    /*dropdown*/
-    .dd_header_half1{
-        width: calc(15% - (50px/2));
-    }
-    .dd_header_half2{
-        width: calc(85% - (50px/2));
-    }    
-    .dd_content {
-        padding-left: calc(15% + (50px/2));
     }
 }
 
@@ -477,6 +453,12 @@ input, textarea, select, #form_submit{
 
 
     /*sections*/
+    .lefted, .wide_lefted{
+        padding-left: 5vw;
+    }
+    .righted, .wide_righted{
+        padding-right: 5vw;
+    }
     .topped{
         padding-top: 12vw;
     }
@@ -491,12 +473,6 @@ input, textarea, select, #form_submit{
     }
     .double_bottomed{
         padding-bottom: 24vw;
-    }
-
-    
-    /*project*/
-    .project{
-        min-width: 90vw;
     }
 
 

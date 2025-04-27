@@ -1,51 +1,99 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
+import { useParams } from 'react-router'
 //import css
 import '../css/projects_articles.css'
 //font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 //import components
 import PublicNav from '../components/publicNav'
 import PublicFooter from '../components/publicFooter'
 
 
 const projectPage = () => {
-    const navigate = useNavigate()
+  const { slug } = useParams()
+  const navigate = useNavigate()
+
+  //get project
+  const [project, setProject] = useState()
+  useEffect(() => {
+    if(project){
+      document.title = project.name
+      setPicSliderImg(0)
+    }
+  }, [project])
+  async function fetchProjectBySlug() {
+    const response = await fetch(`http://localhost:8080/read-project/${slug}`, {
+      method: "GET"
+    })
+    const prj = await response.json()
+
+    if(prj.message){
+      alert(prj.message)
+      return
+    }
+    
+    setProject(prj)
+  }
+  
+  //picture slider
+  const [picSliderImg, setPicSliderImg] = useState()
+  useEffect(() => {
+    if(picSliderImg != null){      
+      //clamp the value
+      if(picSliderImg < 0){
+        setPicSliderImg(0)
+        return
+      }
+      else if(picSliderImg > project.pictures.length){
+        setPicSliderImg(project.pictures.length)
+        return
+      }
+
+      //move the project holder
+      const picSlider = document.getElementById("prj_slider")
+      const projectHolder = document.getElementById("prjs")
+      projectHolder.style.transform = `translateX(${-picSlider.clientWidth * picSliderImg}px)`
+    }
+  }, [picSliderImg])
+  //picture slider nav
+  function nextPicture(){
+    setPicSliderImg(prev => prev + 1)
+  }
+  function previousPicture(){
+    setPicSliderImg(prev => prev - 1)
+  }
+
+  useEffect(() => {
+    fetchProjectBySlug()
+  }, [])
     
   return (
     <>
       <PublicNav />
 
       <main>
-        <section id="project" className='double_topped bottomed lefted righted'>
+        <section id="project" className='double_topped bottomed wide_righted wide_lefted'>
                   <p id='return_link' onClick={() => {navigate(-1)}}><FontAwesomeIcon icon={faChevronLeft} /> Return</p>
           
-          <img id='image' src="" alt="" />
-          
-          <h1>This is The Title of The Project</h1>
-
-          <div id="content">
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit totam aspernatur magnam laboriosam, molestiae voluptas dolor at quod quasi ex deserunt, modi facere voluptates corrupti unde recusandae facilis fuga aut?
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis aliquid, expedita, quasi laudantium recusandae accusamus dignissimos illo sapiente quod ad nam eum consequatur aperiam beatae repellendus, quia explicabo labore sit?
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati magni esse voluptatibus atque amet dicta, cumque corporis illum distinctio dolore praesentium inventore reiciendis culpa sunt autem placeat error excepturi architecto!
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur dicta odit nulla autem voluptas dolorum culpa eaque blanditiis incidunt. Omnis eligendi nihil culpa ratione vitae neque aperiam modi corporis veniam!
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio rem quisquam recusandae ex et quod quasi temporibus impedit tenetur ipsam suscipit inventore numquam fugiat cumque, eveniet provident obcaecati sapiente? Beatae?
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit, sunt ea. Temporibus enim debitis, obcaecati accusamus ad nihil molestiae. Animi officiis dolore quibusdam, ipsum reiciendis inventore modi vero? Odit, recusandae?
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi et, quia reiciendis cumque ab corrupti ex voluptates veritatis praesentium impedit perferendis facilis natus autem sint fugiat libero esse aliquam possimus?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure ipsa aliquid autem rerum odit facilis, fugiat laborum aut nesciunt sapiente dicta cupiditate nobis voluptatum vero totam possimus aliquam rem labore!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci quibusdam architecto ducimus magni exercitationem sapiente odio unde? Beatae veritatis aliquid repellendus harum, sapiente minima suscipit autem est, repudiandae excepturi aspernatur?
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta officia alias odit mollitia nihil, quod repudiandae at doloremque autem eveniet vero aperiam repellendus. Placeat unde quasi omnis ex hic?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro quia voluptas vel neque placeat similique laboriosam omnis a suscipit harum dolor, nihil illum voluptates laborum eius expedita maxime totam? Enim.
-            </p>
+          <div id="prj_slider">
+              <button className='prj_nav' onClick={() => {previousPicture()}}><FontAwesomeIcon icon={faChevronLeft} /></button>
+              <button className='prj_nav' onClick={() => {nextPicture()}}><FontAwesomeIcon icon={faChevronRight} /></button>
+            <div id="prjs">
+              {project? <img src={"http://localhost:8080/uploads/" + project.cover} className='sldrPic' alt="" /> : null}
+              {project && project.pictures.map((picture, id) => {
+                return (
+                  <img src={"http://localhost:8080/uploads/" + picture} key={id} className='sldrPic' />
+                )
+              })}
+            </div>
           </div>
+          
+          <h1>{project? project.name : "project not found"}</h1>
+
+          <div id="content" dangerouslySetInnerHTML={project? { __html: project.descriptionHTML } : null}></div>
         </section>
       </main>
 

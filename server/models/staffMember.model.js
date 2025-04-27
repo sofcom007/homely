@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
 
-const staffMemberSchema = new mongoose.model(
+const staffMemberSchema = new mongoose.Schema(
     {
         firstName: {
             type: String,
@@ -10,17 +10,9 @@ const staffMemberSchema = new mongoose.model(
             type: String,
             required: true
         },
-        fullName: {
-            type: String,
-            required: false
-        },
-        email: {
+        position: {
             type: String,
             required: true
-        },
-        phone: {
-            type: String,
-            required: false
         },
         picture: {
             type: String,
@@ -28,7 +20,7 @@ const staffMemberSchema = new mongoose.model(
         },
         description: {
             type: String,
-            required: true
+            required: false
         }
     },
     {

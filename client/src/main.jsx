@@ -23,14 +23,14 @@ import "./css/general.css"
 
 const router = createBrowserRouter([
   {
-    element: <Layout />, // <-- here
+    element: <Layout />,
     children: [
       { path: "/", element: <Index /> },
       { path: "/about", element: <About /> },
       { path: "/portfolio",element: <Portfolio /> },
-      { path: "/portfolio/:id",element: <ProjectPage /> },
+      { path: "/portfolio/:slug",element: <ProjectPage /> },
       { path: "/articles", element: <Articles /> },
-      { path: "/articles/:id", element: <ArticlePage /> },
+      { path: "/articles/:slug", element: <ArticlePage /> },
       { path: "/contact", element: <Contact /> },
     ],
   },
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  //<StrictMode>
     <RouterProvider router ={router}/>
-  </StrictMode>,
+  //</StrictMode>
 )

@@ -1,17 +1,19 @@
 import React from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router'
-import "../css/public_nav.css"
 
-const project = ({image, name, link}) => {
+const Project = ({image, name, link, ref}) => {
+  const imgRef = useRef()
+
   return (
-    <div className='project animated fade_in'>
-        <img src={image} alt="" />
-        <div className="project_txt">
+    <div className='project animated fade_in' ref={ref? ref : null}>
+        <img ref={imgRef} src={image} alt={name} />
+        <div className="project_txt" style={{ maxWidth: imgRef.current? imgRef.current.clientWidth + "px" : "100%" }}>
             <h3>{name}</h3>
-            <Link to='/portfolio/a54dve5r4fev4' className='cta'><p>View</p></Link>
+            <Link to={ `/portfolio/${link}` } className='cta'><p>View</p></Link>
         </div>
     </div>
   )
 }
 
-export default project
+export default Project

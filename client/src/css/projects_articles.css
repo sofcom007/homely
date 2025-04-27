@@ -1,9 +1,11 @@
+/*general*/
 #image{
-    width: 50em;
-    max-width: 100%;
-    aspect-ratio: 3/2;
+    width: 100%;
     background-color: aliceblue;
     margin-bottom: 25px;
+    border-radius: 10px;
+    max-height: 900px;
+    object-fit: contain;
 }
 #return_link{
     display: flex;
@@ -20,3 +22,49 @@
 #content p:not(:last-child){
     margin-bottom: 15px;
 }
+
+/*projects*/
+#prj_slider{
+    width: 100%;
+    height: 600px;
+    max-width: 100%;
+    background-color: aliceblue;
+    margin-bottom: 50px;
+    overflow-x: hidden;
+    position: relative;
+}
+#prjs{
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100%;
+    transition: transform 0.5s;
+}
+#prjs img{
+    min-width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.prj_nav{
+    position: absolute;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 15px;
+    font-size: 2rem;
+    background-color: transparent;
+    transition: background 0.125s;
+    border: none;
+    z-index: 1;
+}
+.prj_nav:hover{
+    background-color: rgba(0, 0, 0, 0.125);
+}
+.prj_nav:nth-child(2){
+    right: 0;
+}
+.prj_nav path{
+    color: white;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
+}
+
+/*articles*/

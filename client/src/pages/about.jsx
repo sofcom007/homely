@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 //nav imports
 import PublicNav from '../components/publicNav'
 import PublicFooter from '../components/publicFooter'
@@ -12,9 +12,63 @@ import heroDesc from '../assets/images/about/about_desc.webp'
 import DropDownSec from '../components/dropDownSec'
 
 const about = () => {
+  //fetch awards
+  const [awards, setAwards] = useState()
+  async function fetchAwards(){
+    try{
+        const response = await fetch('http://localhost:8080/read-awards', {
+            method: "GET"
+        })
+        const result = await response.json()
+        //console.log(result)
+        if(result.message)
+            return alert(result.message)
+        
+        setAwards(result)
+    } catch (error) {
+        alert("Error: Couldn't read awards")
+        console.error("Error reading awards: ", error)
+    }
+  }
+  
+  //fetch staff
+  const [staff, setStaff] = useState()
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.target.classList.contains('animated')) {
+          if (entry.isIntersecting)
+            entry.target.classList.add('show')
+          else
+            entry.target.classList.remove('show')
+        }
+      });
+    },
+    { threshold: 0.1 })
+    const animatedElements = document.querySelectorAll('.animated')
+    animatedElements.forEach((el) => observer.observe(el))
+  }, [awards, staff])
+  async function fetchStaff() {
+    try{
+        const response = await fetch('http://localhost:8080/read-staff', {
+            method: "GET"
+        })
+        const result = await response.json()
+        if(response.message)
+            return alert(response.message)
+        setStaff(result)
+    } catch (error) {
+        alert("Error: Couldn't read staff")
+        console.error("Error fetching staff:", error)
+    }
+  }
+
   //scroll animation
   useEffect(() => {
     document.title = "About Homely"
+
+    fetchAwards()
+    fetchStaff()
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -27,11 +81,8 @@ const about = () => {
       });
     },
     { threshold: 0.1 })
-
     const animatedElements = document.querySelectorAll('.animated')
     animatedElements.forEach((el) => observer.observe(el))
-
-    return () => {animatedElements.forEach((el) => observer.unobserve(el));}
   }, [])
 
   return (
@@ -68,72 +119,34 @@ const about = () => {
         <section id="awards_sec" className="double_bottomed lefted righted">
           <h2 className='animated fade_in'>Our Awards</h2>
           <div id="awards">
-            <DropDownSec 
-              text1='20XX'
-              text2='Award name title'
-              img=''
-              paragraph='Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste!'
-            />
-            <DropDownSec 
-              text1='20XX'
-              text2='Award name title'
-              img=''
-              paragraph='Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste!'
-            />
-            <DropDownSec 
-              text1='20XX'
-              text2='Award name title'
-              img=''
-              paragraph='Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste!'
-            />
-            <DropDownSec 
-              text1='20XX'
-              text2='Award name title'
-              img=''
-              paragraph='Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste!'
-            />
+            {awards && awards.map((award, i) => {
+              return(
+                <DropDownSec 
+                  text1={new Date(award.date).getUTCFullYear()}
+                  text2={award.name}
+                  img={award.picture? `http://localhost:8080/uploads/${award.picture}` : ""}
+                  paragraph={award.description}
+                  key={i}
+                />
+              )
+            })}
           </div>
         </section>
 
         <section id="team_sec" className="double_bottomed lefted righted">
           <h2 className='animated fade_in'>Our Team</h2>
           <div id="team">
-            <DropDownSec 
-              text1='John Doe'
-              text2='Team member full name'
-              img=''
-              paragraph='Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste!'
-            />
-            <DropDownSec 
-              text1='John Doe'
-              text2='Team member full name'
-              img=''
-              paragraph='Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste!'
-            />
-            <DropDownSec 
-              text1='John Doe'
-              text2='Team member full name'
-              img=''
-              paragraph='Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste!'
-            />
-            <DropDownSec 
-              text1='John Doe'
-              text2='Team member full name'
-              img=''
-              paragraph='Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam animi ullam veniam quas cupiditate quidem qui exercitationem vel? Corporis doloremque delectus corrupti assumenda fugiat ex in, atque veniam iste!'
-            />
-            <DropDownSec 
-              text1='John Doe'
-              text2='Team member full name'
-              img=''
-              paragraph=''
-            />
-            <DropDownSec 
-              text1='John Doe'
-              text2='Team member full name'
-              img=''
-              paragraph=''
-            />
+            {staff && staff.map((member, i) => {
+              return(
+                <DropDownSec 
+                  text1={member.firstName + " " + member.lastName}
+                  text2={member.position}
+                  img={member.picture? `http://localhost:8080/uploads/${member.picture}` : ""}
+                  paragraph={member.description}
+                  key={i}
+                />
+              )
+            })}
           </div>
         </section>
 

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
+import { useParams } from 'react-router'
 //import css
 import '../css/projects_articles.css'
 //font awesome
@@ -12,55 +13,120 @@ import Article from '../components/article'
 
 
 const articlePage = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
+  const { slug } = useParams()
+  
+  //get article
+  const [article, setArticle] = useState()
+  useEffect(() => {
+    if(article){
+      document.title = article.title
+      fetchRecommendedArticles()
+    }
+  }, [article])
+  async function fetchArticleBySlug() {
+    try{
+      const response = await fetch(`http://localhost:8080/read-article/${slug}`, {
+        method: "GET"
+      })
+      const atc = await response.json()
+  
+      if(atc.message){
+        alert(atc.message)
+        return
+      }
+        
+      setArticle(atc)
+    } catch (error) {
+      alert("Error: Couldn't fetch article")
+      console.error("Error fetching article:", error)
+    }
+  }
+
+  //get recommended articles
+  const [recomArticles, setRecomArticles] = useState()
+  useEffect(() => {
+    console.log(recomArticles)
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.target.classList.contains('animated')) {
+          if (entry.isIntersecting)
+            entry.target.classList.add('show')
+          else
+            entry.target.classList.remove('show')
+        }
+      });
+    },
+    { threshold: 0.1 })
+    const animatedElements = document.querySelectorAll('.animated')
+    animatedElements.forEach((el) => observer.observe(el))
+  }, [recomArticles])
+  async function fetchRecommendedArticles() {
+    try{
+      const response = await fetch(`http://localhost:8080/read-recommended-articles/${article._id}`, {
+        method: "GET"
+      })
+      const atc = await response.json()
+  
+      if(atc.message){
+        alert(atc.message)
+        return
+      }
+
+      setRecomArticles(atc)
+    } catch (error) {
+      alert("Error: Couldn't fetch recommended articles")
+      console.error("Error fetching recommended articles")
+    }
+  }
+
+  useEffect(() => {
+    fetchArticleBySlug()
+
+    //scroll animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.target.classList.contains('animated')) {
+          if (entry.isIntersecting)
+            entry.target.classList.add('show')
+          else
+            entry.target.classList.remove('show')
+        }
+      });
+    },
+    { threshold: 0.1 })
+    const animatedElements = document.querySelectorAll('.animated')
+    animatedElements.forEach((el) => observer.observe(el))
+  }, [])
 
   return (
     <>
       <PublicNav />
 
       <main>
-        <section className='double_topped bottomed lefted righted'>
+        <section className='double_topped bottomed wide_righted wide_lefted'>
           <p id='return_link' onClick={() => {navigate(-1)}}><FontAwesomeIcon icon={faChevronLeft} /> Return</p>
           
-          <img id='image' src="" alt="" />
+          <img id='image' src={article? `http://localhost:8080/uploads/${article.thumbnail}` : null} alt="" />
           
-          <h1>This is The Title of The Article</h1>
+          <h1>{article? article.title: null}</h1>
 
-          <div id="content">
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit totam aspernatur magnam laboriosam, molestiae voluptas dolor at quod quasi ex deserunt, modi facere voluptates corrupti unde recusandae facilis fuga aut?
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis aliquid, expedita, quasi laudantium recusandae accusamus dignissimos illo sapiente quod ad nam eum consequatur aperiam beatae repellendus, quia explicabo labore sit?
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati magni esse voluptatibus atque amet dicta, cumque corporis illum distinctio dolore praesentium inventore reiciendis culpa sunt autem placeat error excepturi architecto!
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur dicta odit nulla autem voluptas dolorum culpa eaque blanditiis incidunt. Omnis eligendi nihil culpa ratione vitae neque aperiam modi corporis veniam!
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio rem quisquam recusandae ex et quod quasi temporibus impedit tenetur ipsam suscipit inventore numquam fugiat cumque, eveniet provident obcaecati sapiente? Beatae?
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit, sunt ea. Temporibus enim debitis, obcaecati accusamus ad nihil molestiae. Animi officiis dolore quibusdam, ipsum reiciendis inventore modi vero? Odit, recusandae?
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi et, quia reiciendis cumque ab corrupti ex voluptates veritatis praesentium impedit perferendis facilis natus autem sint fugiat libero esse aliquam possimus?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure ipsa aliquid autem rerum odit facilis, fugiat laborum aut nesciunt sapiente dicta cupiditate nobis voluptatum vero totam possimus aliquam rem labore!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci quibusdam architecto ducimus magni exercitationem sapiente odio unde? Beatae veritatis aliquid repellendus harum, sapiente minima suscipit autem est, repudiandae excepturi aspernatur?
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta officia alias odit mollitia nihil, quod repudiandae at doloremque autem eveniet vero aperiam repellendus. Placeat unde quasi omnis ex hic?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro quia voluptas vel neque placeat similique laboriosam omnis a suscipit harum dolor, nihil illum voluptates laborum eius expedita maxime totam? Enim.
-            </p>
-          </div>
+          <div id="content" dangerouslySetInnerHTML={article? { __html: article.contentHTML } : null}></div>
         </section>
-        <section id="recoms" className="lefted righted bottomed">
-            <h3>Recent articles</h3>
+        <section id="recoms" className="lefted wide_righted wide_lefted">
+            <h3>Recommended Articles</h3>
             <div id="articles">
-                <Article 
-                image=""
-                title="Title of an article 1"
-                date="00.00.0000"
-                />
-                <Article 
-                image=""
-                title="Title of an article 1"
-                date="00.00.0000"
-                />
+              {recomArticles && recomArticles.map((article, i) => {
+                return (
+                  <Article 
+                    link={article.slug}
+                    image={`http://localhost:8080/uploads/${article.thumbnail}`}
+                    title={article.title}
+                    date="00.00.0000"
+                    key={i}
+                  />)
+              })}
             </div>
         </section>
       </main>

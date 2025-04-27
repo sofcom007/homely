@@ -1,5 +1,6 @@
 .animated, .animated .fade_in{
     transition-duration: 1s;
+    transition-delay: 0.25s;
 }
 
 

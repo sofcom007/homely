@@ -1,0 +1,62 @@
+#project_holder{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+#project_holder .project{
+    width: calc(100%/3 - (50px/3));
+}
+#project_holder .project img{
+    height: auto;
+    width: 100%;
+}
+
+
+/* giant screen styling */
+@media ( min-width: 1601px ) {
+}
+
+
+/* big tablet styling */
+@media ( max-width: 1080px ) {
+    #project_holder{
+        gap: 15px;
+    }
+    #project_holder .project{
+        width: calc(100%/2 - (15px/2));
+    }
+}
+
+
+/* regular tablet styling */
+@media ( max-width: 850px ) {
+}
+
+
+/* small tablet styling */
+@media ( max-width: 775px ) {
+    #project_holder .project_txt{
+        gap: 5px;
+    }
+}
+
+
+/* smaller tablet styling */
+@media ( max-width: 700px ) {
+    #project_holder{
+        gap: 50px;
+    }
+    #project_holder .project{
+        width: 100%;
+    }
+}
+
+
+/* big phone styling */
+@media ( max-width: 450px ) {
+}
+
+
+/* regular phone styling */
+@media ( max-width: 400px ) { 
+}

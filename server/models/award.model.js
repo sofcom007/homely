@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
 
-const awardSchema = new mongoose.model(
+const awardSchema = new mongoose.Schema(
     {
-        title: {
+        name: {
             type: String,
             required: true
         },
