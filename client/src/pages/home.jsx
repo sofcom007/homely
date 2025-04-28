@@ -106,7 +106,6 @@ const home = () => {
   }
 
   useEffect(() => {
-    console.log(backendUrl)
     document.title = "Homely"
     
     //get projects
