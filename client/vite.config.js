@@ -8,6 +8,6 @@ export default defineConfig({
     port: 5050
   },
   preview: {
-    allowedHosts: ['homely-lqy0.onrender.com', 'localhost'], // Add Render host here
+    allowedHosts: ['homely-architecture.onrender.com', 'localhost'], // Add Render host here
   }
 })
