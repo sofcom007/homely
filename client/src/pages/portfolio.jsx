@@ -1,6 +1,8 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
+//api url
+import { useApiUrl } from '../context/apiContext'
 //import css
 import '../css/portfolio.css'
 //nav imports
@@ -11,6 +13,9 @@ import Project from '../components/project'
 import CTASection from '../components/ctaSec'
 
 const portfolio = () => {
+  //url
+  const backendUrl = useApiUrl()
+
   //CRUD read projects
   const [projects, setProjects] = useState()
   useEffect(() => {
@@ -30,7 +35,7 @@ const portfolio = () => {
   }, [projects])
   const fetchProjects = async () => {
       try{
-        const response = await axios.get('http://localhost:8080/projects/read-projects')
+        const response = await axios.get(`${backendUrl}/projects/read-projects`)
         const data = response.data
         return(data)
       } catch (error) {

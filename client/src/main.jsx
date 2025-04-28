@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
+//context
+import { ApiUrlProvider } from './context/apiContext.jsx'
 //import public pages
 import Layout from './components/Layout.jsx'
 import Index from './pages/home.jsx'

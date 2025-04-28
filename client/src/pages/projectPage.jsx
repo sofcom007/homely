@@ -2,6 +2,8 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useParams } from 'react-router'
+//api url
+import { useApiUrl } from '../context/apiContext'
 //import css
 import '../css/projects_articles.css'
 //font awesome
@@ -13,6 +15,10 @@ import PublicFooter from '../components/publicFooter'
 
 
 const projectPage = () => {
+  //url
+  const backendUrl = useApiUrl()
+  
+  //get the project slug
   const { slug } = useParams()
   const navigate = useNavigate()
 
@@ -25,7 +31,7 @@ const projectPage = () => {
     }
   }, [project])
   async function fetchProjectBySlug() {
-    const response = await fetch(`http://localhost:8080/read-project/${slug}`, {
+    const response = await fetch(`${backendUrl}/projects/read-project/${slug}`, {
       method: "GET"
     })
     const prj = await response.json()

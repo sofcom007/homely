@@ -3,25 +3,40 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const DropDownSec = ({ text1, text2, img, paragraph }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [contentHeight, setContentHeight] = useState(0);
-  const contentRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const [contentHeight, setContentHeight] = useState(0)
+  const contentRef = useRef(null)
+  const headerRef = useRef(null)
 
   const handleToggle = () => {
     if (paragraph) {
       setIsOpen(prev => !prev);
     }
-  };
+  }
 
   useEffect(() => {
     if (contentRef.current) {
       setContentHeight(contentRef.current.scrollHeight);
     }
-  }, [paragraph]);
+  }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if ( isOpen && headerRef.current && contentRef.current && !headerRef.current.contains(e.target) && !contentRef.current.contains(e.target) ) {
+        setIsOpen(false)
+      }
+    }
+    document.addEventListener('click', handleClickOutside)
+  
+    // Cleanup function
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [isOpen])
 
   return (
     <div className='animated fade_in'>
-      <div className={(paragraph || img? 'active' : '') + ' dd_header'} onClick={handleToggle}>
+      <div ref={headerRef} className={(paragraph || img? 'active' : '') + ' dd_header'} onClick={handleToggle}>
         <div className="dd_header_half1">
           <h4>{text1}</h4>
         </div>

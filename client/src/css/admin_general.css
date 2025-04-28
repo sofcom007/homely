@@ -110,6 +110,16 @@
     flex-wrap: wrap;
     gap: 10px;
 }
+.modal_picture_holder{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.modal_picture{
+    width: calc(100%/2 - (5px)/2);
+    max-width: 100%;
+    position: relative;
+}
 .picture_del{
     background-color: white;
     position: absolute;
@@ -185,6 +195,15 @@
     main{
         min-width: 100%;
     }    
+
+    
+    /*modal*/
+    .modal{
+        width: 90vw
+    }
+    .modal_picture{
+        width: calc(100%/3 - (10px)/3);
+    }
 }
 
 
@@ -217,12 +236,22 @@
     td::before{
         content: attr(data-label);
         font-weight: bold;
+    } 
+
+    
+    /*modal*/
+    .modal_picture{
+        width: calc(100%/2 - (5px)/2);
     }
 }
 
 
 /* big phone styling */
 @media ( max-width: 450px ) {
+    /*modal*/
+    .modal_picture{
+        width: 100%;
+    }
 }
 
 

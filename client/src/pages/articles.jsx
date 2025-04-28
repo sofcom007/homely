@@ -1,6 +1,8 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
+//api url
+import { useApiUrl } from '../context/apiContext'
 //nav imports
 import PublicNav from '../components/publicNav'
 import PublicFooter from '../components/publicFooter'
@@ -9,6 +11,9 @@ import Article from '../components/article'
 import CTASection from '../components/ctaSec'
 
 const articles = () => {
+  //url
+  const backendUrl = useApiUrl()
+
   //read articles articles
   const [articles, setArticles] = useState()
   useEffect(() => {
@@ -28,7 +33,7 @@ const articles = () => {
   }, [articles])
   const fetchArticles = async () => {
     try{
-      const response = await axios.get('http://localhost:8080/articles/read-articles')
+      const response = await axios.get(`${backendUrl}/articles/read-articles`)
       const data = response.data
       //console.log(data)
       return data
@@ -43,7 +48,7 @@ const articles = () => {
   const filterOlderRef = useRef()
   async function filterArticles(order) {
     const ats = await fetchArticles()
-    console.log(ats)
+    //console.log(ats)
     let newAts
     if( order == 'newer' )
       newAts = ats.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))

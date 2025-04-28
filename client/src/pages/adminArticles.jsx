@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
+//api url
+import { useApiUrl } from '../context/apiContext'
 //import components
 import AdminHeader from '../components/adminHeaderTop'
 import FormModalWrapper from '../components/formModalWrapper'
@@ -10,6 +12,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminArticles = () => {
+    //url
+    const backendUrl = useApiUrl()
+
     const [filtersOn, setFiltersOn] = useState(false);
 
     const [articles, setArticles] = useState()
@@ -37,7 +42,7 @@ const adminArticles = () => {
             formData.append('content', createContentRef.current.value)
     
             //make the request
-            const response = await fetch('http://localhost:8080/articles/create-article', {
+            const response = await fetch(`${backendUrl}/articles/create-article`, {
                 method: "POST",
                 body: formData
             })
@@ -64,7 +69,7 @@ const adminArticles = () => {
     //read articles
     async function fetchArticles() {
         try{
-            const response = await axios.get('http://localhost:8080/articles/read-articles')
+            const response = await axios.get(`${backendUrl}/articles/read-articles`)
             const data = response.data
             return(data)
         } catch (error) {
@@ -81,7 +86,7 @@ const adminArticles = () => {
         if(UMContent){
             updateIdRef.current.value = UMContent._id
             updateTitleRef.current.value = UMContent.title
-            updateThumbnailImgRef.current.src = "http://localhost:8080/uploads/" + UMContent.thumbnail
+            updateThumbnailImgRef.current.src = `${backendUrl}/uploads/${UMContent.thumbnail}` 
             updateContentRef.current.value = UMContent.content
         }
     }, [UMContent])
@@ -100,7 +105,7 @@ const adminArticles = () => {
                 formData.append("thumbnail", updateThumbnailRef.current.files[0])
     
             //make the request
-            const response = await fetch(`http://localhost:8080/articles/update-article/${updateIdRef.current.value}`, {
+            const response = await fetch(`${backendUrl}/articles/update-article/${updateIdRef.current.value}`, {
                 method: "PUT",
                 body: formData
             })
@@ -121,7 +126,7 @@ const adminArticles = () => {
     const [delId, setDelId] = useState("")
     async function deleteSingleArticle() {
         try{
-            const response = await fetch(`http://localhost:8080/articles/delete-article/${delId}`, {
+            const response = await fetch(`${backendUrl}/articles/delete-article/${delId}`, {
                 method: "DELETE"
             })
             const result = await response.json()
@@ -140,7 +145,7 @@ const adminArticles = () => {
     const [delAllModalOn, setDelAllModalOn] = useState(false);
     async function delAllArticles() {
         try{
-            const response = await fetch('http://localhost:8080/articles/delete-articles', {
+            const response = await fetch(`${backendUrl}/articles/delete-articles`, {
                 method: "DELETE"
             })
             const result = await response.json()

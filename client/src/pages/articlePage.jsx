@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useParams } from 'react-router'
+//api url
+import { useApiUrl } from '../context/apiContext'
 //import css
 import '../css/projects_articles.css'
 //font awesome
@@ -13,6 +15,10 @@ import Article from '../components/article'
 
 
 const articlePage = () => {
+  //url
+  const backendUrl = useApiUrl()
+
+  //get the article slug
   const navigate = useNavigate()
   const { slug } = useParams()
   
@@ -26,7 +32,7 @@ const articlePage = () => {
   }, [article])
   async function fetchArticleBySlug() {
     try{
-      const response = await fetch(`http://localhost:8080/read-article/${slug}`, {
+      const response = await fetch(`${backendUrl}/articles/read-article/${slug}`, {
         method: "GET"
       })
       const atc = await response.json()
@@ -46,8 +52,6 @@ const articlePage = () => {
   //get recommended articles
   const [recomArticles, setRecomArticles] = useState()
   useEffect(() => {
-    console.log(recomArticles)
-    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.target.classList.contains('animated')) {
@@ -64,7 +68,7 @@ const articlePage = () => {
   }, [recomArticles])
   async function fetchRecommendedArticles() {
     try{
-      const response = await fetch(`http://localhost:8080/read-recommended-articles/${article._id}`, {
+      const response = await fetch(`${backendUrl}/articles/read-recommended-articles/${article._id}`, {
         method: "GET"
       })
       const atc = await response.json()

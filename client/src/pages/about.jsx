@@ -1,5 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
+//api url
+import { useApiUrl } from '../context/apiContext'
 //nav imports
 import PublicNav from '../components/publicNav'
 import PublicFooter from '../components/publicFooter'
@@ -12,11 +14,14 @@ import heroDesc from '../assets/images/about/about_desc.webp'
 import DropDownSec from '../components/dropDownSec'
 
 const about = () => {
+  //url
+  const backendUrl = useApiUrl()
+  
   //fetch awards
   const [awards, setAwards] = useState()
   async function fetchAwards(){
     try{
-        const response = await fetch('http://localhost:8080/awards/read-awards', {
+        const response = await fetch(`${backendUrl}/awards/read-awards`, {
             method: "GET"
         })
         const result = await response.json()
@@ -50,7 +55,7 @@ const about = () => {
   }, [awards, staff])
   async function fetchStaff() {
     try{
-        const response = await fetch('http://localhost:8080/staff/read-staff', {
+        const response = await fetch(`${backendUrl}/staff/read-staff`, {
             method: "GET"
         })
         const result = await response.json()

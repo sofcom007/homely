@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
+//api url
+import { useApiUrl } from '../context/apiContext'
 //import components
 import AdminHeader from '../components/adminHeaderTop'
 import AdminFilters from '../components/adminFilters'
@@ -11,19 +13,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminProjects = () => {
+    //url
+    const backendUrl = useApiUrl()
+  
     const [filtersOn, setFiltersOn] = useState(false)
-    
-    const [delAllModalOn, setDelAllModalOn] = useState(false)
-    
-    const [delModalOn, setDelModalOn] = useState(false)
-    const [delId, setDelId] = useState("")
-    
-    const [projects, setProjects] = useState([])
-    useEffect(() => {
-        const project = projects.find(prj => prj._id === editId)
-        setEMContent(project)
-    }, [projects])
-
     
     //create modal
     const [createModalOn, setCreateModalOn] = useState(false)
@@ -55,7 +48,7 @@ const adminProjects = () => {
         console.log(createPicturesRef.current.files)
 
         //make request
-        const response = await fetch('http://localhost:8080/projects/create-project', {
+        const response = await fetch(`${backendUrl}/projects/create-project`, {
             method: "POST",
             body: formData
         });
@@ -114,7 +107,7 @@ const adminProjects = () => {
             }
 
         //make request
-        const response = await fetch(`http://localhost:8080/projects/update-project/${updateIdRef.current.value}`, {
+        const response = await fetch(`${backendUrl}/projects/update-project/${updateIdRef.current.value}`, {
             method: 'PUT',
             body: formData
         })
@@ -126,10 +119,15 @@ const adminProjects = () => {
         setProjects(prjs)
     }
 
-    //CRUD read
+    //read projects
+    const [projects, setProjects] = useState([])
+    useEffect(() => {
+        const project = projects.find(prj => prj._id === editId)
+        setEMContent(project)
+    }, [projects])
     const fetchProjects = async () => {
         try{
-            const response = await axios.get('http://localhost:8080/projects/read-projects')
+            const response = await axios.get(`${backendUrl}/projects/read-projects`)
             const data = response.data
             return(data)
         } catch (error) {
@@ -138,11 +136,11 @@ const adminProjects = () => {
         }
     }
 
-    //CRUD delete single project image
+    //delete single project image
     async function delSinglePic(delPicture){
         try{
             console.log("deleting pic", delPicture)
-            const response = await fetch(`http://localhost:8080/projects/delete-project-picture/${editId}/${delPicture}`, {
+            const response = await fetch(`${backendUrl}/projects/delete-project-picture/${editId}/${delPicture}`, {
                 method: 'DELETE',
                 headers: {
                     "content-type" : "application/json"
@@ -160,10 +158,12 @@ const adminProjects = () => {
         }
     }
 
-    //CRUD delete single project
+    //delete single project
+    const [delModalOn, setDelModalOn] = useState(false)
+    const [delId, setDelId] = useState("")
     async function delSingle(){
         try{
-            const response = await fetch(`http://localhost:8080/projects/delete-project/${delId}`, {
+            const response = await fetch(`${backendUrl}/projects/delete-project/${delId}`, {
                 method: "DELETE",
                 headers: {
                     "content-type": "application/json"
@@ -185,10 +185,11 @@ const adminProjects = () => {
         }
     }
     
-    //CRUD delete all
+    //delete all projects
+    const [delAllModalOn, setDelAllModalOn] = useState(false)
     async function delAll(){
         try{
-        const response = await fetch("http://localhost:8080/projects/delete-portfolio", {
+        const response = await fetch(`${backendUrl}/projects/delete-portfolio`, {
             method: "DELETE",
             headers: {
             "content-type": "application/json"
@@ -284,15 +285,15 @@ const adminProjects = () => {
                     <div id='edit_cover'>
                         <h5 style={{margin:0}}>Cover</h5>
                         <input ref={updateCoverRef} type="file" name="edit_prj_cover" id="edit_cover"/>
-                        <img src={`http://localhost:8080/uploads/${EMContent? EMContent.cover: ""}`} style={{ maxWidth: '100%', width: '300px' }} alt="" />
+                        <img src={`${backendUrl}/uploads/${EMContent? EMContent.cover: ""}`} style={{ maxWidth: '100%', width: '300px' }} alt="" />
                     </div>
                     <div id='edit_pictures'>
                         <h5 style={{margin:0}}>Pictures</h5>
                         <input ref={updatePicturesRef} type="file" name="edit_prj_pictures" id="edit_pictures" multiple/>
-                        {(EMContent && EMContent.pictures)? <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', padding: '5px 0'}}>
+                        {(EMContent && EMContent.pictures)? <div className='modal_picture_holder'>
                             {EMContent.pictures.map((picture, index) => (
-                                <div key={index} className="picture" style={{ position: 'relative', width: '300px', maxWidth: '100%', maxHeight: 'fit-content' }}>
-                                    <img src={`http://localhost:8080/uploads/${EMContent? picture : ""}`} style={{ width: '100%' }} alt="" />
+                                <div key={index} className="modal_picture">
+                                    <img src={`${backendUrl}/uploads/${EMContent? picture : ""}`} style={{ width: '100%' }} alt="" />
                                     <button type='button' className="picture_del"><FontAwesomeIcon icon={faTrash} onClick={() => {delSinglePic(picture)}} /></button>
                                 </div>
                             ))}

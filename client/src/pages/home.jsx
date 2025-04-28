@@ -2,6 +2,8 @@ import React, { useRef } from 'react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import axios from 'axios'
+//api url
+import { useApiUrl } from '../context/apiContext'
 //font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
@@ -20,11 +22,14 @@ import '../css/scrollAnim.css'
 import hero from '../assets/images/home/hero.webp'
 
 const home = () => {
+  //url
+  const backendUrl = useApiUrl()
+
   //read projects
   const [projects, setProjects] = useState()
   const fetchProjects = async () => {
       try{
-        const response = await axios.get('http://localhost:8080/projects/read-home-projects')
+        const response = await axios.get(`${backendUrl}/projects/read-home-projects`)
         const data = response.data
         //console.log("projects:", data)
         return(data)
@@ -90,7 +95,7 @@ const home = () => {
   }, [projects, articles])
   const fetchArticles = async () => {
     try{
-      const response = await axios.get('http://localhost:8080/articles/read-home-articles')
+      const response = await axios.get(`${backendUrl}/articles/read-home-articles`)
       const data = response.data
       //console.log(data)
       return data
@@ -101,6 +106,7 @@ const home = () => {
   }
 
   useEffect(() => {
+    console.log(backendUrl)
     document.title = "Homely"
     
     //get projects
@@ -118,26 +124,32 @@ const home = () => {
     getArticles()
 
     //statistics section
-    const stats = [10, 10, 6]
+    const stats = [9, 10, 6]
     const statCells = document.querySelectorAll(".stat_cell")
     const statDuration = 1000 //in milliseconds
-    const statObserver = new IntersectionObserver((cells) => {
-      for (let i = 0; i < cells.length; i++) {
-        const cell = cells[i]
-        const cellNumber = cell.target.querySelectorAll("h1")[0]
-        const time = statDuration / stats[i]
-
-        if(cell.isIntersecting){
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const cell = entry.target
+          const index = Array.from(statCells).indexOf(cell)
+          const cellNumber = cell.querySelector("h1")
+          const target = stats[index]
+          const time = statDuration / target
+          
           let number = 0
           const interval = setInterval(() => {
             number++
-            cellNumber.innerHTML = number
+            if(number >= 10)
+              cellNumber.innerHTML = number
+            else
+              cellNumber.innerHTML = "0" + number
+
             
-            if(number >= stats[i])
+            if(number >= target)
               clearInterval(interval)
           }, time)
-        }
-      }
+        }       
+      })
     })
     statCells.forEach((cell) => statObserver.observe(cell))
     

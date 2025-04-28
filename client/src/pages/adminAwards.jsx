@@ -1,5 +1,7 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
+//api url
+import { useApiUrl } from '../context/apiContext'
 //import components
 import AdminHeader from '../components/adminHeaderTop'
 import FormModalWrapper from '../components/formModalWrapper'
@@ -9,6 +11,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminAwards = () => {
+  //url
+  const backendUrl = useApiUrl()
+
   const [filtersOn, setFiltersOn] = useState(false)
 
   //fetch awards
@@ -21,7 +26,7 @@ const adminAwards = () => {
   }, [awards])
   async function fetchAwards(){
     try{
-        const response = await fetch('http://localhost:8080/awards/read-awards', {
+        const response = await fetch(`${backendUrl}/awards/read-awards`, {
             method: "GET"
         })
         const result = await response.json()
@@ -52,7 +57,7 @@ const adminAwards = () => {
             formData.append('picture', createPicture.current.files[0])
 
         //make request
-        const response = await fetch('http://localhost:8080/awards/create-award', {
+        const response = await fetch(`${backendUrl}/awards/create-award`, {
             method: "POST",
             body: formData
         })
@@ -86,7 +91,7 @@ const adminAwards = () => {
         updateDate.current.value = UMContent.date
         updateDescription.current.value = UMContent.description
         if(UMContent.picture)
-            updatePictureEL.current.src = `http://localhost:8080/uploads/${UMContent.picture}`
+            updatePictureEL.current.src = `${backendUrl}/uploads/${UMContent.picture}`
         else
             updatePictureEL.current.src = ""
     }
@@ -108,7 +113,7 @@ const adminAwards = () => {
             formData.append('picture', updatePicture.current.files[0])
 
         //make request
-        const response = await fetch(`http://localhost:8080/awards/update-award/${updateIdRef.current.value}`, {
+        const response = await fetch(`${backendUrl}/awards/update-award/${updateIdRef.current.value}`, {
             method: "PUT",
             body: formData
         })
@@ -132,7 +137,7 @@ const adminAwards = () => {
   const [delId, setDelId] = useState(false)
   async function deleteAward() {
     try{
-        const response = await fetch(`http://localhost:8080/awards/delete-award/${delId}`, {
+        const response = await fetch(`${backendUrl}/awards/delete-award/${delId}`, {
             method: "DELETE"
         })
         const result = await response.json()
@@ -154,7 +159,7 @@ const adminAwards = () => {
   const [delAllModalOn, setDelAllModalOn] = useState(false)
   async function deleteAllAwards() {
     try{
-        const response = await fetch('http://localhost:8080/awards/delete-all-awards', {
+        const response = await fetch(`${backendUrl}/awards/delete-all-awards`, {
             method: "DELETE"
         })
         const result = await response.json()

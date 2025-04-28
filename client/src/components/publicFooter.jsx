@@ -11,10 +11,10 @@ const publicNav = () => {
             <div id="pf_bottom">
                 <p>&copy; 2025 Atlasoft. All rights reserved.</p>
                 <ul>
-                    <li><a href=""><p>Linkedin</p></a></li>
-                    <li><a href=""><p>Facebook</p></a></li>
-                    <li><a href=""><p>Twitter</p></a></li>
-                    <li><a href=""><p>Instagram</p></a></li>
+                    <li><a href="" target='_blank'><p>Linkedin</p></a></li>
+                    <li><a href="" target='_blank'><p>Facebook</p></a></li>
+                    <li><a href="" target='_blank'><p>Twitter</p></a></li>
+                    <li><a href="" target='_blank'><p>Instagram</p></a></li>
                 </ul>
             </div>
         </footer>
