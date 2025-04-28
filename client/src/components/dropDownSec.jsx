@@ -12,6 +12,7 @@ const DropDownSec = ({ text1, text2, img, paragraph }) => {
   const [contentHeight, setContentHeight] = useState(0)
   const contentRef = useRef(null)
   const headerRef = useRef(null)
+  const [imgLoaded, setImgLoaded] = useState(false)
 
   const handleToggle = () => {
     if (paragraph) {
@@ -23,7 +24,7 @@ const DropDownSec = ({ text1, text2, img, paragraph }) => {
     if (contentRef.current) {
       setContentHeight(contentRef.current.scrollHeight);
     }
-  }, [])
+  }, [imgLoaded])
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -58,12 +59,12 @@ const DropDownSec = ({ text1, text2, img, paragraph }) => {
       {paragraph || img?
       <div className="dd_content_holder" style={{ height: isOpen ? `${contentHeight + 2}px` : '0px', transition: 'height 0.3s ease', overflow: 'hidden' }}>
         <div className="dd_content" ref={contentRef}>
-          {(img && img != "") ? <img src={img? `${backendUrl}/uploads/${img}` : img} alt="" /> : null}
+          {(img && img != "") ? <img src={img? `${backendUrl}/uploads/${img}` : img} alt="" onLoad={() => {setImgLoaded(true)}} /> : null}
           <p>{paragraph}</p>
         </div>
       </div> : null}
     </div>
-  );
-};
+  )
+}
 
-export default DropDownSec;
+export default DropDownSec

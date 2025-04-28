@@ -88,10 +88,10 @@ const projectPage = () => {
               <button className='prj_nav' onClick={() => {previousPicture()}}><FontAwesomeIcon icon={faChevronLeft} /></button>
               <button className='prj_nav' onClick={() => {nextPicture()}}><FontAwesomeIcon icon={faChevronRight} /></button>
             <div id="prjs">
-              {project? <img src={"http://localhost:8080/uploads/" + project.cover} className='sldrPic' alt="" /> : null}
+              {project? <img src={`${backendUrl}/uploads/${project.cover}`} className='sldrPic' alt="" /> : null}
               {project && project.pictures.map((picture, id) => {
                 return (
-                  <img src={"http://localhost:8080/uploads/" + picture} key={id} className='sldrPic' />
+                  <img src={`${backendUrl}/uploads/${picture}`} key={id} className='sldrPic' />
                 )
               })}
             </div>

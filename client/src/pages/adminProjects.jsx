@@ -114,6 +114,9 @@ const adminProjects = () => {
         const result = await response.json()
         alert(result.message || result.error)
 
+        if(response.status === 200)
+            updatePicturesRef.current.value = ''
+
         //refresh projects
         const prjs = await fetchProjects()
         setProjects(prjs)
