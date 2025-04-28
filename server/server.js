@@ -17,7 +17,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 //cors setup
 const corsOptions = {
-    origin: ["http://localhost:5050"]
+    origin: ["http://localhost:5050", "https://homely-architecture.onrender.com"]
 }
 app.use(cors(corsOptions))
 console.log('Cors was setup successfully')
