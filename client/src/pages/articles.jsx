@@ -117,7 +117,7 @@ const articles = () => {
               return (
                 <Article 
                   link={article.slug}
-                  image={`http://localhost:8080/uploads/${article.thumbnail}`}
+                  image={article.thumbnail}
                   title={article.title}
                   date={new Date(article.updatedAt).toISOString().split("T")[0]}
                   key={i}

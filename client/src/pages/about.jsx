@@ -129,7 +129,7 @@ const about = () => {
                 <DropDownSec 
                   text1={new Date(award.date).getUTCFullYear()}
                   text2={award.name}
-                  img={award.picture? `http://localhost:8080/uploads/${award.picture}` : ""}
+                  img={award.picture?  award.picture : ""}
                   paragraph={award.description}
                   key={i}
                 />
@@ -146,7 +146,7 @@ const about = () => {
                 <DropDownSec 
                   text1={member.firstName + " " + member.lastName}
                   text2={member.position}
-                  img={member.picture? `http://localhost:8080/uploads/${member.picture}` : ""}
+                  img={member.picture? member.picture : ""}
                   paragraph={member.description}
                   key={i}
                 />

@@ -119,7 +119,7 @@ const portfolio = () => {
             {projects && projects.map((project, i) => {
               return (
                 <Project 
-                  image={`http://localhost:8080/uploads/${project.cover}`}
+                  image={project.cover}
                   name={project.name}
                   link={project.slug}
                   key={i}

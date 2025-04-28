@@ -1,8 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+//api url
+import { useApiUrl } from '../context/apiContext'
 
 const DropDownSec = ({ text1, text2, img, paragraph }) => {
+  //url
+  const backendUrl = useApiUrl()
+  
   const [isOpen, setIsOpen] = useState(false)
   const [contentHeight, setContentHeight] = useState(0)
   const contentRef = useRef(null)
@@ -53,7 +58,7 @@ const DropDownSec = ({ text1, text2, img, paragraph }) => {
       {paragraph || img?
       <div className="dd_content_holder" style={{ height: isOpen ? `${contentHeight + 2}px` : '0px', transition: 'height 0.3s ease', overflow: 'hidden' }}>
         <div className="dd_content" ref={contentRef}>
-          {(img && img != "") ? <img src={img} alt="" /> : null}
+          {(img && img != "") ? <img src={img? `${backendUrl}/uploads/${img}` : img} alt="" /> : null}
           <p>{paragraph}</p>
         </div>
       </div> : null}

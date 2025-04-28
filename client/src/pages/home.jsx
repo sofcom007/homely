@@ -209,7 +209,7 @@ const home = () => {
             {projects && projects.map((project, i) => {
               return (
                 <Project 
-                  image={`http://localhost:8080/uploads/${project.cover}`}
+                  image={project.cover}
                   name={project.name}
                   link={project.slug}
                   key={i}
@@ -231,7 +231,7 @@ const home = () => {
               return (
                 <Article 
                   link={article.slug}
-                  image={`http://localhost:8080/uploads/${article.thumbnail}`}
+                  image={article.thumbnail}
                   title={article.title}
                   date={new Date(article.updatedAt).toISOString().split("T")[0]}
                   key={i}
