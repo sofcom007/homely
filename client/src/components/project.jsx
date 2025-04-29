@@ -13,9 +13,9 @@ const Project = ({image, name, link, ref}) => {
   return (
     <div className='project animated fade_in' ref={ref? ref : null}>
         <img ref={imgRef} src={image? `${backendUrl}/uploads/${image}` : ''} alt={name} />
-        <div className="project_txt" style={{ maxWidth: imgRef.current? imgRef.current.clientWidth + "px" : "100%" }}>
-            <h3>{name}</h3>
-            <Link to={ `/portfolio/${link}` } className='cta'><p>View</p></Link>
+        <div className="project_txt">
+            <h3>{name? name : ''}</h3>
+            <Link to={ link ? `/portfolio/${link}` : '' } className='cta'><p>View</p></Link>
         </div>
     </div>
   )

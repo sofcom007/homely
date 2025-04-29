@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router'
 import { useParams } from 'react-router'
 //api url
 import { useApiUrl } from '../context/apiContext'
+//scroll animation
+import { scrollAnim } from '../components/scrollAnim'
 //import css
 import '../css/projects_articles.css'
 //font awesome
@@ -51,21 +53,7 @@ const articlePage = () => {
 
   //get recommended articles
   const [recomArticles, setRecomArticles] = useState()
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.target.classList.contains('animated')) {
-          if (entry.isIntersecting)
-            entry.target.classList.add('show')
-          else
-            entry.target.classList.remove('show')
-        }
-      });
-    },
-    { threshold: 0.1 })
-    const animatedElements = document.querySelectorAll('.animated')
-    animatedElements.forEach((el) => observer.observe(el))
-  }, [recomArticles])
+  useEffect(() => { scrollAnim() }, [recomArticles])
   async function fetchRecommendedArticles() {
     try{
       const response = await fetch(`${backendUrl}/articles/read-recommended-articles/${article._id}`, {
@@ -112,7 +100,7 @@ const articlePage = () => {
         <section className='double_topped bottomed wide_righted wide_lefted'>
           <p id='return_link' onClick={() => {navigate(-1)}}><FontAwesomeIcon icon={faChevronLeft} /> Return</p>
           
-          <img id='image' src={article? `http://localhost:8080/uploads/${article.thumbnail}` : null} alt="" />
+          <img id='image' src={article? `${backendUrl}/uploads/${article.thumbnail}` : null} alt="" />
           
           <h1>{article? article.title: null}</h1>
 

@@ -4,6 +4,8 @@ import { Link } from 'react-router'
 import axios from 'axios'
 //api url
 import { useApiUrl } from '../context/apiContext'
+//scroll animation
+import { scrollAnim } from '../components/scrollAnim'
 //font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
@@ -78,21 +80,7 @@ const home = () => {
 
   //read articles articles
   const [articles, setArticles] = useState()
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.target.classList.contains('animated')) {
-          if (entry.isIntersecting)
-            entry.target.classList.add('show')
-          else
-            entry.target.classList.remove('show')
-        }
-      });
-    },
-    { threshold: 0.1 })
-    const animatedElements = document.querySelectorAll('.animated')
-    animatedElements.forEach((el) => observer.observe(el))
-  }, [projects, articles])
+  useEffect(() => { scrollAnim() }, [projects, articles])
   const fetchArticles = async () => {
     try{
       const response = await axios.get(`${backendUrl}/articles/read-home-articles`)
@@ -153,19 +141,7 @@ const home = () => {
     statCells.forEach((cell) => statObserver.observe(cell))
     
     //scroll animation
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.target.classList.contains('animated')) {
-          if (entry.isIntersecting)
-            entry.target.classList.add('show')
-          else
-            entry.target.classList.remove('show')
-        }
-      });
-    },
-    { threshold: 0.1 })
-    const animatedElements = document.querySelectorAll('.animated')
-    animatedElements.forEach((el) => observer.observe(el))
+    scrollAnim()
   }, [])
 
   return (
@@ -179,10 +155,8 @@ const home = () => {
 
         <section id="about" className="double_bottomed lefted righted">
           <div id="abt_content" className='animated fade_in'>
-            <h1>Tagline of Homely Architecture Agency</h1>
-            <p id='about_prg'>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam dolores et unde nostrum voluptatibus necessitatibus officiis magnam assumenda quasi perferendis doloremque quae molestias exercitationem, iste repellat optio. Voluptates, magni minima?
-            </p>
+            <h1>Designing Homes Since 2016</h1>
+            <p id='about_prg'>Since September 3rd 2016, we've been committed to designing homes that stand the test of time — spaces built with care for the people who live in them and the environment that surrounds them. Our work is rooted in the belief that great architecture should be lasting, thoughtful, and in harmony with its place.</p>
             <Link className='cta' to='/about'><p>Learn more</p></Link> 
           </div>         
         </section>

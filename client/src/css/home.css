@@ -32,6 +32,7 @@
     width: 100%;
     width: calc(100%/3 - (2px/3));
     padding: 25px 50px;
+    box-sizing: border-box;
 }
 .stat_cell:nth-child(2){
     transition-delay: 0.75s;
@@ -175,6 +176,10 @@
 
 /* smaller tablet styling */
 @media ( max-width: 700px ) {
+    /*statistics*/
+    .stat_cell h1{
+        font-size: 4em;
+    }
 
 
     /*projects*/
@@ -189,6 +194,15 @@
 @media ( max-width: 450px ) {
     #hero img{
         aspect-ratio: 9/15;
+    }
+
+
+    /*statistics*/
+    .stat_cell:nth-child(1), .stat_cell:nth-child(2) {
+        width: 50%;
+    }
+    .stat_cell{
+        padding: 25px;
     }
 }
 

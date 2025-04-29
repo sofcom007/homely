@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 //api url
 import { useApiUrl } from '../context/apiContext'
+//scroll animation
+import { scrollAnim } from '../components/scrollAnim'
 //nav imports
 import PublicNav from '../components/publicNav'
 import PublicFooter from '../components/publicFooter'
@@ -16,21 +18,7 @@ const articles = () => {
 
   //read articles articles
   const [articles, setArticles] = useState()
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.target.classList.contains('animated')) {
-          if (entry.isIntersecting)
-            entry.target.classList.add('show')
-          else
-            entry.target.classList.remove('show')
-        }
-      });
-    },
-    { threshold: 0.1 })
-    const animatedElements = document.querySelectorAll('.animated')
-    animatedElements.forEach((el) => observer.observe(el))
-  }, [articles])
+  useEffect(() => { scrollAnim() }, [articles])
   const fetchArticles = async () => {
     try{
       const response = await axios.get(`${backendUrl}/articles/read-articles`)
@@ -84,19 +72,7 @@ const articles = () => {
     getArticles()
 
     //scroll anim
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.target.classList.contains('animated')) {
-          if (entry.isIntersecting)
-            entry.target.classList.add('show')
-          else
-            entry.target.classList.remove('show')
-        }
-      });
-    },
-    { threshold: 0.1 })
-    const animatedElements = document.querySelectorAll('.animated')
-    animatedElements.forEach((el) => observer.observe(el))
+    scrollAnim()
   }, [])
 
   return (

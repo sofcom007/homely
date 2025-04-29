@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 //api url
 import { useApiUrl } from '../context/apiContext'
+//scroll animation
+import { scrollAnim } from '../components/scrollAnim'
 //import css
 import '../css/portfolio.css'
 //nav imports
@@ -18,21 +20,7 @@ const portfolio = () => {
 
   //CRUD read projects
   const [projects, setProjects] = useState()
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.target.classList.contains('animated')) {
-          if (entry.isIntersecting)
-            entry.target.classList.add('show')
-          else
-            entry.target.classList.remove('show')
-        }
-      });
-    },
-    { threshold: 0.1 })
-    const animatedElements = document.querySelectorAll('.animated')
-    animatedElements.forEach((el) => observer.observe(el))
-  }, [projects])
+  useEffect(() => { scrollAnim() }, [projects])
   const fetchProjects = async () => {
       try{
         const response = await axios.get(`${backendUrl}/projects/read-projects`)
@@ -86,19 +74,7 @@ const portfolio = () => {
     selectfilter( filterBtns[0] )
 
     //scroll anim
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.target.classList.contains('animated')) {
-          if (entry.isIntersecting)
-            entry.target.classList.add('show')
-          else
-            entry.target.classList.remove('show')
-        }
-      });
-    },
-    { threshold: 0.1 })
-    const animatedElements = document.querySelectorAll('.animated')
-    animatedElements.forEach((el) => observer.observe(el))
+    scrollAnim()
   }, [])
 
   return (

@@ -2,6 +2,8 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 //api url
 import { useApiUrl } from '../context/apiContext'
+//scroll animation
+import { scrollAnim } from '../components/scrollAnim'
 //nav imports
 import PublicNav from '../components/publicNav'
 import PublicFooter from '../components/publicFooter'
@@ -38,21 +40,7 @@ const about = () => {
   
   //fetch staff
   const [staff, setStaff] = useState()
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.target.classList.contains('animated')) {
-          if (entry.isIntersecting)
-            entry.target.classList.add('show')
-          else
-            entry.target.classList.remove('show')
-        }
-      });
-    },
-    { threshold: 0.1 })
-    const animatedElements = document.querySelectorAll('.animated')
-    animatedElements.forEach((el) => observer.observe(el))
-  }, [awards, staff])
+  useEffect(() => { scrollAnim() }, [awards, staff])
   async function fetchStaff() {
     try{
         const response = await fetch(`${backendUrl}/staff/read-staff`, {
@@ -75,19 +63,8 @@ const about = () => {
     fetchAwards()
     fetchStaff()
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.target.classList.contains('animated')) {
-          if (entry.isIntersecting)
-            entry.target.classList.add('show')
-          else
-            entry.target.classList.remove('show')
-        }
-      });
-    },
-    { threshold: 0.1 })
-    const animatedElements = document.querySelectorAll('.animated')
-    animatedElements.forEach((el) => observer.observe(el))
+    //scroll animation
+    scrollAnim()
   }, [])
 
   return (
@@ -97,27 +74,32 @@ const about = () => {
       <main>
         <section id="desc_sec" className='double_topped double_bottomed lefted righted'>
           <div id="dsc_top">
-            <h1 className='animated fade_in'>Tagline of Homely Architecture Agency</h1>
+            <h1 className='animated fade_in'> Our Story: Building with Heart and Purpose </h1>
             <img src={heroDesc} alt="" className='animated fade_in' />
           </div>
           <div id="dsc_txt">
             <p className='animated fade_in'>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed consectetur molestiae voluptates quibusdam amet? At sed, quibusdam beatae consequuntur mollitia quas exercitationem pariatur omnis modi. Veniam omnis expedita quam voluptatibus.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio excepturi, incidunt earum similique reiciendis modi libero doloremque provident. Possimus a qui fugit eos libero voluptate rem error eveniet necessitatibus sed?
+              Homely was founded on September 3rd, 2016, with a simple but powerful idea: to create homes that feel as lasting and welcoming as the memories made inside them.
+              What began as a small, passionate team has grown into a full-service architectural agency known for its commitment to craftsmanship, sustainability, and human-centered design.
+              From the very beginning, our focus has been on building not just houses, but enduring spaces that people are proud to call home.
             </p>
             <p className='animated fade_in'>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed consectetur molestiae voluptates quibusdam amet? At sed, quibusdam beatae consequuntur mollitia quas exercitationem pariatur omnis modi. Veniam omnis expedita quam voluptatibus.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio excepturi, incidunt earum similique reiciendis modi libero doloremque provident. Possimus a qui fugit eos libero voluptate rem error eveniet necessitatibus sed?
+              Our philosophy is rooted in respect — for the people who live in the homes we design, and for the environment we all share.
+              We believe great architecture balances beauty with responsibility, combining timeless materials and thoughtful layouts with energy-efficient practices.
+              Every project we take on is an opportunity to create something meaningful: a home that stands strong for generations while treading lightly on the earth.
             </p>
           </div>
         </section>
 
         <section id="philo_sec" className="double_bottomed lefted righted">
-          <h2 className='animated fade_in'>Our Philosophy</h2>
+          <h2 className='animated fade_in'>A Commitment to Homes That Endure and Inspire</h2>
           <p className='animated fade_in'>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique recusandae esse aut nihil praesentium nesciunt. Pariatur repellat tenetur voluptates, quidem nulla, nisi inventore iure beatae, odio dolores earum dolorum fugiat.
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint voluptate recusandae ipsum assumenda harum error est ex accusamus fugiat esse repellendus nobis sapiente doloremque dolorem, corporis, amet, alias unde dicta.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem recusandae placeat cumque dolor quos cum illum, sit aut rerum voluptas tenetur minus ut, fuga, animi ea! Adipisci quasi autem sapiente.
+            At Homely, our philosophy has always been clear: to design homes that are built to last — homes that nurture the lives within them and honor the world beyond their walls.
+            We believe that true architecture doesn’t chase trends; it embraces timeless principles of comfort, durability, and environmental stewardship.
+            Every home we create is shaped by a deep respect for human needs, blending natural light, thoughtful materials, and practical layouts to support daily life with ease and beauty.
+            Just as importantly, we are committed to reducing our ecological footprint by making responsible choices at every stage of the design and building process.
+            From sustainable sourcing to energy-efficient solutions, we aim to craft spaces that feel good to live in and do good for the planet.
+            For us, designing a home isn’t just about today — it’s about shaping a future where homes are not only loved by their owners, but also respected by the generations yet to come.
           </p>
         </section>
 

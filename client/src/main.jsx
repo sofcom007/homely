@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
 //context
 import { ApiUrlProvider } from './context/apiContext.jsx'
+//error page
+import ErrorPage from './pages/errorPage.jsx'
 //import public pages
 import Layout from './components/Layout.jsx'
 import Index from './pages/home.jsx'
@@ -35,6 +37,7 @@ const router = createBrowserRouter([
       { path: "/articles/:slug", element: <ArticlePage /> },
       { path: "/contact", element: <Contact /> },
     ],
+    errorElement: <ErrorPage />
   },
   {
     path: "/the-under-belly",
@@ -47,7 +50,8 @@ const router = createBrowserRouter([
       { path: "staff", element: <AdminStaff /> },
       { path: "users", element: <AdminUsers /> },
     ],
-  },
+    errorElement: <ErrorPage />
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(

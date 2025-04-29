@@ -54,6 +54,29 @@ p{
 }
 
 
+/*not found*/
+#not_found{
+    padding: 10vw 5vw;
+}
+#not_found img, #not_found h1{
+    margin-bottom: 10px;
+}
+#not_found h3{
+    margin: 7px;
+}
+#not_found ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+#not_found ul a{
+    text-decoration: none;
+}
+
+
 /*sections*/
 .lefted, .fixed_lefted{
     padding-left: 3vw;
@@ -168,6 +191,7 @@ input, textarea, select, #form_submit{
     justify-content: space-between;
     align-items: center;
     gap: 15px;
+    width: 100%;
 }
 .project_txt h3{
     margin: 0;

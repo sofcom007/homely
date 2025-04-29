@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router'
 import { useParams } from 'react-router'
 //api url
 import { useApiUrl } from '../context/apiContext'
+//scroll animation
+import { scrollAnim } from '../components/scrollAnim'
 //import css
 import '../css/projects_articles.css'
 //font awesome
@@ -12,7 +14,6 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 //import components
 import PublicNav from '../components/publicNav'
 import PublicFooter from '../components/publicFooter'
-
 
 const projectPage = () => {
   //url
