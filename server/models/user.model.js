@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
 
-const staffMemberSchema = new mongoose.model(
+const userSchema = new mongoose.Schema(
     {
         firstName: {
             type: String,
@@ -10,11 +10,15 @@ const staffMemberSchema = new mongoose.model(
             type: String,
             required: true
         },
+        fullName: {
+            type: String,
+            required: false
+        },
         picture: {
             type: String,
             required: false
         },
-        status: {
+        permission: {
             type: String,
             required: true
         },
@@ -40,5 +44,9 @@ const staffMemberSchema = new mongoose.model(
     }
 )
 
-const StaffMember = mongoose.model("Staff_member", staffMemberSchema)
-module.exports = StaffMember
+userSchema.pre('save', () => {
+    this.fullName = `${this.firstName} ${this.lastName}`
+})
+
+const User = mongoose.model("User", userSchema)
+module.exports = User

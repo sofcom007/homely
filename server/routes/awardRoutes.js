@@ -89,6 +89,32 @@ router.put('/update-award/:id', uploadPictures.single('picture'), async (req, re
         res.status(500).json({ error: "Failed to update award" })
     }
 })
+router.delete('/delete-award-picture/:id', async (req, res) => {
+    try{
+        const { id } = req.params
+
+        //get the award
+        const award = await awardModel.findById(id)
+        if(!award)
+            return res.status(400).json({ message: 'Award not found' })
+        if(!award.picture)
+            return res.status(200).json({ message: 'The award has no associated picture' })
+
+        //delete the picture file
+        const picturePath = path.join(__dirname, '../uploads', path.basename(award.picture))
+        if(fs.existsSync(picturePath))
+            fs.unlinkSync(picturePath)
+
+        //remove the file from the record
+        award.picture = ''
+        await award.save()
+        
+        res.status(200).json({ message: 'Award picture deleted successfully' })
+    } catch (error) {
+        console.log("Error deleting award picture: ", error)
+        res.status(500).json({ error: "Failed to delete award picture" })
+    }
+})
 router.delete('/delete-award/:id', async (req, res) => {
     try{
         const { id } = req.params

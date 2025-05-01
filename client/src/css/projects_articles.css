@@ -12,6 +12,7 @@
     align-content: center;
     gap: 10px;
     text-decoration: none;
+    width: fit-content;
     margin-bottom: 25px;
     cursor: pointer;
 }
@@ -29,8 +30,9 @@
     height: 600px;
     max-width: 100%;
     background-color: aliceblue;
+    border-radius: 10px;
     margin-bottom: 50px;
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
 }
 #prjs{

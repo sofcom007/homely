@@ -154,14 +154,7 @@
 
 
 /* big phone styling */
-@media ( max-width: 450px ) { 
-    /*public nav*/
-    #public_nav{
-        padding: 10px 5vw;
-    }  
-    #p_mnav_btn{
-        right: 5vw;
-    } 
+@media ( max-width: 450px ) {  
 }
 
 

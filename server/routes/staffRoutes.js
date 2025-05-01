@@ -89,6 +89,32 @@ router.put('/update-member/:id', uploadPictures.single('picture'), async (req, r
         res.status(500).json({ error: "Failed to update staff member"})
     }
 })
+router.delete('/delete-member-picture/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+
+        //find the member
+        const member = await staffModel.findById(id)
+        if (!member)
+            return res.status(400).json({ message: 'Member not found' })
+        if(!member.picture)
+            return res.status(400).json({ message: 'Member has no associated picture' })
+
+        //delete the picture
+        const picturePath = path.join(__dirname, '../uploads', path.basename(member.picture))
+        if(fs.existsSync(picturePath))
+            fs.unlinkSync(picturePath)
+
+        //remove the picture from the record
+        member.picture = ''
+        await member.save()
+
+        res.status(200).json({ message: 'Staff member picture deleted successfully' })
+    } catch (error) {
+        console.log("Error deleting staff member picture: ", error)
+        res.status(500).json({ error: "Failed to delete staff member picture"})
+    }
+})
 router.delete('/delete-member/:id', async (req, res) => {
     try{
         const { id } = req.params

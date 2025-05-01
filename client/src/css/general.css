@@ -99,6 +99,9 @@ p{
 .double_topped{
     padding-top: 10vw;
 }
+.first_topped{
+    padding-top: 8vw;
+}
 .bottomed{
     padding-bottom: 5vw;
 }
@@ -191,7 +194,6 @@ input, textarea, select, #form_submit{
     justify-content: space-between;
     align-items: center;
     gap: 15px;
-    width: 100%;
 }
 .project_txt h3{
     margin: 0;
@@ -265,6 +267,7 @@ input, textarea, select, #form_submit{
     justify-content: space-between;
     align-items: center;
     width: calc(70% - (50px/2));
+    gap: 10px;
 }
 .dd_toggle{
     padding: 0;
@@ -316,9 +319,41 @@ input, textarea, select, #form_submit{
     transition: background 0.125s;
     background-color: transparent;
     border-radius: 1000px;
+    cursor: pointer;
 }
 .filter.current, .filter:hover{
     background-color: #dadada;
+}
+
+
+/*login page*/
+#login_sec{
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    padding: 50px;
+    position: absolute;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+#login_sec h1 {
+    text-align: center;
+}
+#login_sec input{
+    text-align: center;
+}
+#login_sec ul{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0 0;
+}
+#login_sec ul a{
+    text-decoration: none;
 }
 
 
@@ -348,6 +383,9 @@ input, textarea, select, #form_submit{
     }
     .double_topped{
         padding-top: calc(1600px * 0.1);
+    }
+    .first_topped{
+        padding-top: calc(1600px * 0.08);
     }
     .bottomed{
         padding-bottom: calc(1600px * 0.05);
@@ -385,6 +423,9 @@ input, textarea, select, #form_submit{
     .double_topped{
         padding-top: 16vw;
     }
+    .first_topped{
+        padding-top: 13vw;
+    }
     .bottomed{
         padding-bottom: 8vw;
     }
@@ -419,20 +460,17 @@ input, textarea, select, #form_submit{
     .dd_content {
         padding-left: calc(20% + (50px/2));
     }
+
+
+    /*login page*/
+    #login_sec{
+        width: 550px;
+    }
 }
 
 
 /* regular tablet styling */
 @media ( max-width: 850px ) {
-    /*sections*/
-    .lefted, .wide_lefted{
-        padding-left: 3vw;
-    }
-    .righted, .wide_righted{
-        padding-right: 3vw;
-    }
-
-
     /*dropdown*/
     .dd_header_half1{
         width: calc(25% - (50px/2));
@@ -460,6 +498,13 @@ input, textarea, select, #form_submit{
     .article{
         width: 100%;
     }
+
+
+    /*login page*/
+    #login_sec{
+        padding: 50px 25px;
+        width: 96vw;
+    }
 }
 
 
@@ -480,10 +525,10 @@ input, textarea, select, #form_submit{
 
     /*sections*/
     .lefted, .wide_lefted{
-        padding-left: 5vw;
+        padding-left: 3vw;
     }
     .righted, .wide_righted{
-        padding-right: 5vw;
+        padding-right: 3vw;
     }
     .topped{
         padding-top: 12vw;
@@ -493,6 +538,9 @@ input, textarea, select, #form_submit{
     }
     .double_topped{
         padding-top: 24vw;
+    }
+    .first_topped{
+        padding-top: 20vw;
     }
     .bottomed{
         padding-bottom: 12vw;
@@ -507,10 +555,10 @@ input, textarea, select, #form_submit{
         gap: 15px;
     }
     .dd_header_half1{
-        width: calc(25% - (15px/2));
+        width: calc(30% - (15px/2));
     }
     .dd_header_half2{
-        width: calc(75% - (15px/2));
+        width: calc(70% - (15px/2));
     }    
     .dd_content {
         padding-left: 0;

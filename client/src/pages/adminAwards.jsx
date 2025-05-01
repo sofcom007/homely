@@ -90,15 +90,19 @@ const adminAwards = () => {
         updateName.current.value = UMContent.name
         updateDate.current.value = UMContent.date
         updateDescription.current.value = UMContent.description
-        if(UMContent.picture)
+        if(UMContent.picture){
+            updatePictureHolder.current.style.display = 'block'
             updatePictureEL.current.src = `${backendUrl}/uploads/${UMContent.picture}`
-        else
+        } else{
+            updatePictureHolder.current.style.display = 'none'
             updatePictureEL.current.src = ""
+        }
     }
   }, [UMContent])
   const updateIdRef = useRef()
   const updateName = useRef()
   const updateDate = useRef()
+  const updatePictureHolder = useRef()
   const updatePicture = useRef()
   const updatePictureEL = useRef()
   const updateDescription = useRef()
@@ -129,6 +133,25 @@ const adminAwards = () => {
     } catch (error) {
         alert("Error: Couldn't update award")
         console.error("Error updating award: ", error)
+    }
+  }
+
+  //delete award picture
+  async function deleteAwardPicture() {
+    try{
+        //make request
+        const response = await fetch(`${backendUrl}/awards/delete-award-picture/${updateIdRef.current.value}`, {
+            method: 'DELETE'
+        })
+        const result = await response.json()
+        alert(result.message || result.error)
+
+        //refresh data
+        const awds = await fetchAwards()
+        setAwards(awds)        
+    } catch (error) {
+        alert("Error: Couldn't delete award picture")
+        console.error("Error deleting award picture: ", error)
     }
   }
 
@@ -213,7 +236,10 @@ const adminAwards = () => {
                     <input ref={updateDate} type="date" name="" id="" placeholder='Date' required />
                 </div>
                 <input ref={updatePicture} type="file" name="" id="" required />
-                <img ref={updatePictureEL} style={{ width: '300px', maxWidth: '100%', marginBottom: '10px'}} src="" alt="" />
+                <div ref={updatePictureHolder} className="modal_picture" style={{ width: '300px', maxWidth: '100%', marginBottom: '10px'}}>
+                    <img ref={updatePictureEL} style={{ width: '100%' }} src="" alt="" />
+                    <button type='button' className="picture_del"><FontAwesomeIcon icon={faTrash} onClick={() => { deleteAwardPicture() }} /></button>
+                </div>
                 <textarea ref={updateDescription} name="" id="" cols="30" rows="10" placeholder='Description' required></textarea>
                 <button className='cta form_submit' type="button" onClick={() => {updateAward()}}><p>Update</p></button>
             </form>
@@ -236,7 +262,6 @@ const adminAwards = () => {
             message='Are you sure you want to delete this award? It cannot be recovered!'
             confirmFunction = {() => {deleteAward()}}
         />
-
         
         <section id="admin_header" className='three_quarter_topped half_bottomed fixed_lefted righted'>
             <AdminHeader title='Awards' noFilter={true} noCreate={false} noDel={false} openCreate={() => { setCreateModalOn(true) }} openDel={() => { setDelAllModalOn(true) }} openFilter={() => { setFiltersOn(!filtersOn) }} />

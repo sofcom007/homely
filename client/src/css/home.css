@@ -144,6 +144,7 @@
     }
     .stat_cell:nth-child(1), .stat_cell:nth-child(2){
         border-bottom: 1px solid #dadada;
+        width: 50%;
     } 
     .stat_cell:nth-child(3) {
         width: 100%;
@@ -185,7 +186,7 @@
     /*projects*/
     #projects .project img{
         height: auto;
-        width: 90vw;
+        width: 94vw;
     }
 }
 
@@ -198,9 +199,6 @@
 
 
     /*statistics*/
-    .stat_cell:nth-child(1), .stat_cell:nth-child(2) {
-        width: 50%;
-    }
     .stat_cell{
         padding: 25px;
     }

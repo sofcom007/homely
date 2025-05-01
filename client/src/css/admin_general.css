@@ -65,8 +65,9 @@
     border-radius: 15px;
     border: 1px solid #dadada;
     box-sizing: border-box;
-    max-width: 90vw;
-    max-height: calc(100% - 10vw);
+    width: 50em;
+    max-width: 96vw;
+    max-height: calc(100% - 6vw);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.125s;
@@ -186,6 +187,12 @@
 
 /* giant screen styling */
 @media ( min-width: 1601px ) {
+    /*modal*/
+    .modal{
+        width: 50em;
+        max-width: 96vw;
+        max-height: calc(100% - (1600px * 0.06));
+    }
 }
 
 
@@ -199,7 +206,7 @@
     
     /*modal*/
     .modal{
-        width: 90vw
+        width: 94vw;
     }
     .modal_picture{
         width: calc(100%/3 - (10px)/3);

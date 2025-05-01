@@ -13,6 +13,7 @@ import Articles from './pages/articles.jsx'
 import About from './pages/about.jsx'
 import Contact from './pages/contact.jsx'
 //import admin pages
+import AdminLogin from './pages/adminLogin.jsx'
 import AdminLayout from './pages/adminLayout.jsx'
 import AdminDashboard from './pages/adminDashboard.jsx'
 import AdminProjects from './pages/adminProjects.jsx'
@@ -38,6 +39,9 @@ const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
     ],
     errorElement: <ErrorPage />
+  },
+  {
+    path: "/login", element: <AdminLogin />
   },
   {
     path: "/the-under-belly",

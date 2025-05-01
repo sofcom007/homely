@@ -30,7 +30,6 @@ const adminStaff = () => {
             method: "GET"
         })
         const result = await response.json()
-        console.log(result)
         if(response.message)
             return alert(response.message)
         return result
@@ -94,10 +93,14 @@ const adminStaff = () => {
         updateFirstNameRef.current.value = UMContent.firstName
         updateLastNameRef.current.value = UMContent.lastName
         updatePositionRef.current.value = UMContent.position
-        if(UMContent.picture)
+        if(UMContent.picture) {
+            updatePictureHolder.current.style.display = 'block'
             updatePictureElRef.current.src = `${backendUrl}/uploads/${UMContent.picture}`
-        else
+        }
+        else {
+            updatePictureHolder.current.style.display = 'none'
             updatePictureElRef.current.src = ""
+        }
         updateDescriptionRef.current.value = UMContent.description
     }
   }, [UMContent])
@@ -105,6 +108,7 @@ const adminStaff = () => {
   const updateFirstNameRef = useRef()
   const updateLastNameRef = useRef()
   const updatePositionRef = useRef()
+  const updatePictureHolder = useRef()
   const updatePictureRef = useRef()
   const updatePictureElRef = useRef()
   const updateDescriptionRef = useRef()
@@ -120,7 +124,6 @@ const adminStaff = () => {
             formData.append('picture', updatePictureRef.current.files[0])
 
         //make request
-        console.log(updateIdRef.current.value)
         const response = await fetch (`${backendUrl}/staff/update-member/${updateIdRef.current.value}`, {
             method: "PUT",
             body: formData
@@ -138,6 +141,25 @@ const adminStaff = () => {
     } catch (error) {
         alert("Error: Couldn't update staff member")
         console.error("Error updating staff member:", error)
+    }
+  }
+
+  //delete staff member picture
+  async function deleteMemberPicture() {
+    try{
+        //make request
+        const response = await fetch(`${backendUrl}/staff/delete-member-picture/${updateIdRef.current.value}`, {
+            method: 'DELETE'
+        })
+        const result = await response.json()
+        alert(result.message || result.error)
+
+        //refresh data
+        const staff_ = await fetchStaff()
+        setStaff(staff_)
+    } catch (error) {
+        alert("Error: Couldn't delete staff member")
+        console.error("Error deleting staff member:", error)
     }
   }
 
@@ -231,7 +253,10 @@ const adminStaff = () => {
                     <input ref={updatePositionRef} type="text" name="" id="" placeholder='Position'/>
                     <input ref={updatePictureRef} type="file" name="" id="" />
                 </div>
-                <img ref={updatePictureElRef} src="" alt="" style={{ width: '300px', maxWidth: '100%', marginBottom: '10px' }} />
+                <div ref={updatePictureHolder} className="modal_picture" style={{ width: '300px', maxWidth: '100%', marginBottom: '10px'}}>
+                    <img ref={updatePictureElRef} src="" alt="" style={{ width: '100%' }} />
+                    <button type='button' className="picture_del"><FontAwesomeIcon icon={faTrash} onClick={() => { deleteMemberPicture() }} /></button>
+                </div>
                 <textarea ref={updateDescriptionRef} name="" id="" cols="30" rows="10" placeholder='Description'></textarea>
                 <button className='cta form_submit' type="button" onClick={() => {updateMember()}}><p>Update</p></button>
             </form>

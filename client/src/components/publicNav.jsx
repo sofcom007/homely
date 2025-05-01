@@ -16,6 +16,7 @@ const publicNav = () => {
     const navHeight = navRef.current.clientHeight
     const transitionDuration = 0.5 //in seconds
 
+    //toggle on scroll
     function initializeScroll(){
       if( !scrollInitialized ){
         //adjust the offset

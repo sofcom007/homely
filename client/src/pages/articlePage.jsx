@@ -113,7 +113,7 @@ const articlePage = () => {
                 return (
                   <Article 
                     link={article.slug}
-                    image={`http://localhost:8080/uploads/${article.thumbnail}`}
+                    image={article.thumbnail}
                     title={article.title}
                     date="00.00.0000"
                     key={i}

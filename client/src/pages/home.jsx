@@ -149,7 +149,7 @@ const home = () => {
       <PublicNav />
       
       <main>
-        <section id="hero" className='double_topped bottomed lefted righted'>
+        <section id="hero" className='first_topped bottomed lefted righted'>
           <img src={hero} className='animated fade_in' alt="Modern house designed by 'y0 Design Architect'" />
         </section>
 
