@@ -18,6 +18,26 @@ import DropDownSec from '../components/dropDownSec'
 const about = () => {
   //url
   const backendUrl = useApiUrl()
+
+  //update session
+  async function updateSession(){
+    try {
+      //make request
+      const response = await fetch(`${backendUrl}/update-session`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ page: 'about' })
+      })
+      const result = await response.json()
+      if(result.error)
+        alert(result.error)
+
+    } catch (error) {
+      alert("Error: Couldn't update session info")
+      console.log("Error updating session info:", error)
+    }
+  }
   
   //fetch awards
   const [awards, setAwards] = useState()
@@ -44,7 +64,8 @@ const about = () => {
   async function fetchStaff() {
     try{
         const response = await fetch(`${backendUrl}/staff/read-staff`, {
-            method: "GET"
+          method: "GET",
+          credentials: 'include'
         })
         const result = await response.json()
         if(response.message)
@@ -59,6 +80,12 @@ const about = () => {
   //scroll animation
   useEffect(() => {
     document.title = "About Homely"
+    
+    //update session
+    const upSesh = async () => {
+      await updateSession()
+    }
+    upSesh()
 
     fetchAwards()
     fetchStaff()

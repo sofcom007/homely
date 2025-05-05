@@ -16,13 +16,36 @@ const articles = () => {
   //url
   const backendUrl = useApiUrl()
 
+  //update session
+  async function updateSession(){
+    try {
+      //make request
+      const response = await fetch(`${backendUrl}/update-session`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ page: 'articles' })
+      })
+      const result = await response.json()
+      if(result.error)
+        alert(result.error)
+
+    } catch (error) {
+      alert("Error: Couldn't update session info")
+      console.log("Error updating session info:", error)
+    }
+  }
+
   //read articles articles
   const [articles, setArticles] = useState()
   useEffect(() => { scrollAnim() }, [articles])
   const fetchArticles = async () => {
     try{
-      const response = await axios.get(`${backendUrl}/articles/read-articles`)
-      const data = response.data
+      const response = await fetch(`${backendUrl}/articles/read-articles`, {
+        method: "GET",
+        credentials: 'include'
+      })
+      const data = response.json()
       //console.log(data)
       return data
     } catch (error) {
@@ -48,6 +71,12 @@ const articles = () => {
   //scroll animation
   useEffect(() => {
     document.title = "Homely Articles"
+    
+    //update session
+    const upSesh = async () => {
+      await updateSession()
+    }
+    upSesh()
 
     //filterArticles
     const filterBtns = [filterNewerRef.current, filterOlderRef.current]
@@ -84,8 +113,8 @@ const articles = () => {
           <h1 className='animated fade_in'>Articles</h1>
 
           <ul className="filters animated fade_in">
-            <li><button ref={filterNewerRef} onClick={() => { filterArticles('newer') }} className="filter"><p>Newer</p></button></li>
-            <li><button ref={filterOlderRef} onClick={() => { filterArticles('older') }} className="filter"><p>Older</p></button></li>
+            <li><button ref={filterNewerRef} onClick={() => { filterArticles('newer') }} className="bullet"><p>Newer</p></button></li>
+            <li><button ref={filterOlderRef} onClick={() => { filterArticles('older') }} className="bullet"><p>Older</p></button></li>
           </ul>
 
           <div id="articles">

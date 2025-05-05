@@ -18,13 +18,36 @@ const portfolio = () => {
   //url
   const backendUrl = useApiUrl()
 
-  //CRUD read projects
+  //update session
+  async function updateSession(){
+    try {
+      //make request
+      const response = await fetch(`${backendUrl}/update-session`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ page: 'portfolio' })
+      })
+      const result = await response.json()
+      if(result.error)
+        alert(result.error)
+
+    } catch (error) {
+      alert("Error: Couldn't update session info")
+      console.log("Error updating session info:", error)
+    }
+  }
+
+  //read projects
   const [projects, setProjects] = useState()
   useEffect(() => { scrollAnim() }, [projects])
   const fetchProjects = async () => {
       try{
-        const response = await axios.get(`${backendUrl}/projects/read-projects`)
-        const data = response.data
+        const response = await fetch(`${backendUrl}/projects/read-projects`, {
+          method: "GET",
+          credentials: 'include'
+        })
+        const data = response.json()
         return(data)
       } catch (error) {
         alert("Error: Couldn't fetch projects")
@@ -50,6 +73,12 @@ const portfolio = () => {
   //scroll animation
   useEffect(() => {
     document.title = "Homely Portfolio"
+    
+    //update session
+    const upSesh = async () => {
+      await updateSession()
+    }
+    upSesh()
     
     //get projects
     const getProjects = async () => {
@@ -86,9 +115,9 @@ const portfolio = () => {
           <h1 className='animated fade_in'>Portfolio</h1>
 
           <ul className="filters animated fade_in">
-            <li><button ref={filterAllRef} onClick={() => { filterProjects('') }} className="filter"><p>All</p></button></li>
-            <li><button ref={filterCompleteRef} onClick={() => { filterProjects('complete') }} className="filter"><p>Complete</p></button></li>
-            <li><button ref={filterOngoingRef} onClick={() => { filterProjects('ongoing') }} className="filter"><p>Ongoing</p></button></li>
+            <li><button ref={filterAllRef} onClick={() => { filterProjects('') }} className="bullet"><p>All</p></button></li>
+            <li><button ref={filterCompleteRef} onClick={() => { filterProjects('complete') }} className="bullet"><p>Complete</p></button></li>
+            <li><button ref={filterOngoingRef} onClick={() => { filterProjects('ongoing') }} className="bullet"><p>Ongoing</p></button></li>
           </ul>
 
           <div id="project_holder">

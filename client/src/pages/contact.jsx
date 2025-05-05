@@ -1,5 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
+//api url
+import { useApiUrl } from '../context/apiContext'
 //nav imports
 import PublicNav from '../components/publicNav'
 import PublicFooter from '../components/publicFooter'
@@ -7,9 +9,38 @@ import PublicFooter from '../components/publicFooter'
 import '../css/contact.css'
 
 const contact = () => {
+  //url
+  const backendUrl = useApiUrl()
+
+  //update session
+  async function updateSession(){
+    try {
+      //make request
+      const response = await fetch(`${backendUrl}/update-session`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ page: 'contact' })
+      })
+      const result = await response.json()
+      if(result.error)
+        alert(result.error)
+
+    } catch (error) {
+      alert("Error: Couldn't update session info")
+      console.log("Error updating session info:", error)
+    }
+  }
+
   //scroll animation
   useEffect(() => {
     document.title = "Contact Homely"
+    
+    //update session
+    const upSesh = async () => {
+      await updateSession()
+    }
+    upSesh()
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

@@ -7,6 +7,7 @@ const publicNav = () => {
   const [navOn, setNavOn] = useState( false )
 
   const navRef = useRef()
+  const mobileNavRef = useRef()
   const navBtnRef = useRef()
 
   useEffect(() => {
@@ -87,7 +88,7 @@ const publicNav = () => {
       </nav>
       <button ref={navBtnRef} id="p_mnav_btn" onClick={() => {setNavOn(!navOn)}}>&#9776;</button>
 
-      <nav id="public_mobile_nav" className={navOn? "on": ""}>       
+      <nav ref={mobileNavRef} id="public_mobile_nav" className={navOn? "on": ""}>       
           <ul>
             <li><NavLink to="/" className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>Home</p></NavLink></li>
             <li><NavLink to="/about" className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>About</p></NavLink></li>

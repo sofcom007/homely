@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema(
         },
         picture: {
             type: String,
-            required: false
+            required: false,
+            default:  ""
         },
         permission: {
             type: String,
@@ -44,8 +45,9 @@ const userSchema = new mongoose.Schema(
     }
 )
 
-userSchema.pre('save', () => {
+userSchema.pre('save', function (next) {
     this.fullName = `${this.firstName} ${this.lastName}`
+    next()
 })
 
 const User = mongoose.model("User", userSchema)

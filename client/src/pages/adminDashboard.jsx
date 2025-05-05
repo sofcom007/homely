@@ -4,8 +4,9 @@ import { useEffect } from 'react'
 import AdminHeader from '../components/adminHeaderTop'
 
 const adminDashboard = () => {
+  document.title = 'Dashboard | Homely Admin'
+  
   useEffect(() => {
-    document.title = "Admin Dashboard | Homely"
   }, [])
 
   return (

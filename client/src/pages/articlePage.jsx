@@ -20,6 +20,26 @@ const articlePage = () => {
   //url
   const backendUrl = useApiUrl()
 
+  //update session
+  async function updateSession(){
+    try {
+      //make request
+      const response = await fetch(`${backendUrl}/update-session`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ article: slug })
+      })
+      const result = await response.json()
+      if(result.error)
+        alert(result.error)
+
+    } catch (error) {
+      alert("Error: Couldn't update session info")
+      console.log("Error updating session info:", error)
+    }
+  }
+
   //get the article slug
   const navigate = useNavigate()
   const { slug } = useParams()
@@ -35,7 +55,8 @@ const articlePage = () => {
   async function fetchArticleBySlug() {
     try{
       const response = await fetch(`${backendUrl}/articles/read-article/${slug}`, {
-        method: "GET"
+        method: "GET",
+        credentials: 'include'
       })
       const atc = await response.json()
   
@@ -57,7 +78,8 @@ const articlePage = () => {
   async function fetchRecommendedArticles() {
     try{
       const response = await fetch(`${backendUrl}/articles/read-recommended-articles/${article._id}`, {
-        method: "GET"
+        method: "GET",
+        credentials: 'include'
       })
       const atc = await response.json()
   
@@ -74,6 +96,13 @@ const articlePage = () => {
   }
 
   useEffect(() => {
+    //update session
+    const upSesh = async () => {
+      await updateSession()
+    }
+    upSesh()
+
+
     fetchArticleBySlug()
 
     //scroll animation

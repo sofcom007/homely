@@ -13,10 +13,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminProjects = () => {
+    document.title = 'Projects | Homely Admin'
+    
     //url
     const backendUrl = useApiUrl()
   
+    //filter projects
     const [filtersOn, setFiltersOn] = useState(false)
+    const filterStatus = useRef()
     
     //create modal
     const [createModalOn, setCreateModalOn] = useState(false)
@@ -124,7 +128,9 @@ const adminProjects = () => {
 
     //read projects
     const [projects, setProjects] = useState([])
+    const contentNumber = useRef()
     useEffect(() => {
+        contentNumber.current.innerHTML = projects.length
         const project = projects.find(prj => prj._id === editId)
         setEMContent(project)
     }, [projects])
@@ -132,7 +138,13 @@ const adminProjects = () => {
         try{
             const response = await axios.get(`${backendUrl}/projects/read-projects`)
             const data = response.data
-            return(data)
+
+            //filter
+            let newPrjs = data
+            if(filterStatus.current.value != '')
+                newPrjs = data.filter(prj => prj.status === filterStatus.current.value)
+
+            return(newPrjs)
         } catch (error) {
             alert("Error: Couldn't fetch projects")
             console.error("Project fetching failed: ", error)
@@ -216,32 +228,13 @@ const adminProjects = () => {
     }
 
     //general effects
-    useEffect(() => {
-        //change header
-        document.title = "Admin Projects | Homely"
-
-        //filter projects
-        const filterStatus = document.getElementById("filter_status")
-        async function filterProjects() {
-            //get the full list
+    useEffect(() => {        
+        //CRUD read
+        const getProjects = async () => {
             const prjs = await fetchProjects()
-
-            //filter the projects
-            let newPrjs
-            if(filterStatus.value != ""){
-                if(filterStatus.value == "ongoing")
-                    newPrjs = prjs.filter(prj => prj.status === "ongoing")
-                else if(filterStatus.value == "complete")
-                    newPrjs = prjs.filter(prj => prj.status === "complete")
-            }
-            
-            //update the projects state
             setProjects(prjs)
         }
-        filterProjects()
-        filterStatus.addEventListener("change", async () => {
-            await filterProjects()
-        })
+        getProjects()
 
         //CRUD create
         const createBtn = createBtnRef.current
@@ -326,8 +319,8 @@ const adminProjects = () => {
             <section id="admin_header" className='three_quarter_topped half_bottomed fixed_lefted righted'>
                 <AdminHeader title='Projects' noFilter={false} noCreate={false} noDel={false} openCreate={() => { setCreateModalOn(true) }} openDel={() => { setDelAllModalOn(true) }} openFilter={() => { setFiltersOn(!filtersOn) }} />
                 <AdminFilters filtersOn={filtersOn}>
-                    <select name="" id="filter_status" onChange={() => {filterProjects()}}>
-                        <option value="all">All</option>
+                    <select ref={filterStatus} name="" onChange={async () => { setProjects(await fetchProjects()) }}>
+                        <option value="">All</option>
                         <option value="ongoing">Ongoing</option>
                         <option value="complete">Complete</option>
                     </select>
@@ -335,6 +328,7 @@ const adminProjects = () => {
             </section>
 
             <section id="content" className="fixed_lefted righted bottomed">
+                <p><span ref={contentNumber} className='numb_disp'></span> Elements displayed</p>
                 <table id="content_table">
                     <thead>
                         <tr id='ct_head'>

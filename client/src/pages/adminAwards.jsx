@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminAwards = () => {
+  document.title = 'Awards | Homely Admin'
+    
   //url
   const backendUrl = useApiUrl()
 
@@ -18,8 +20,10 @@ const adminAwards = () => {
 
   //fetch awards
   const [awards, setAwards] = useState()
+  const contentNumber = useRef()
   useEffect(() => {
     if(awards){
+        contentNumber.current.innerHTML = awards.length
         const awd = awards.find(award => award._id === updateId)
         setUMContent(awd)
     }
@@ -201,8 +205,6 @@ const adminAwards = () => {
   }
 
   useEffect(() => {
-    document.title = "Admin Awards | Homely"
-
     //get awards
     async function getAwards () {
         const awds = await fetchAwards()
@@ -268,6 +270,7 @@ const adminAwards = () => {
         </section>
 
         <section id="content" className="fixed_lefted righted bottomed">
+            <p><span ref={contentNumber} className='numb_disp'></span> Elements displayed</p>
             <table id="content_table">
                 <thead>
                     <tr id="ct_head">

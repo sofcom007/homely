@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminStaff = () => {
+  document.title = 'Staff | Homely Admin'
+    
   //url
   const backendUrl = useApiUrl()
 
@@ -18,8 +20,10 @@ const adminStaff = () => {
 
   //fetch staff
   const [staff, setStaff] = useState()
+  const contentNumber = useRef()
   useEffect(() => {
     if(staff) {
+        contentNumber.current.innerHTML = staff.length
         const mbr = staff.find(member => member._id == updateId)
         setUMContent(mbr)
     }
@@ -212,10 +216,7 @@ const adminStaff = () => {
     }
   }
 
-
   useEffect(() => {
-    document.title = "Admin Staff | Homely"
-
     async function setTheStaff() {
         const staff_ = await fetchStaff()
         setStaff(staff_)
@@ -286,6 +287,7 @@ const adminStaff = () => {
         </section>
 
         <section id="content" className="fixed_lefted righted bottomed">
+            <p><span ref={contentNumber} className='numb_disp'></span> Elements displayed</p>
             <table id="content_table">
                 <thead>
                     <tr id="ct_head">

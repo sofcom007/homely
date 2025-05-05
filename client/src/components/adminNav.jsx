@@ -25,6 +25,7 @@ const adminNav = () => {
                 <img src={logo} alt="" />
                 <ul>
                     <li><NavLink to='/the-under-belly' end className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>Dashboard</p></NavLink></li>
+                    <li><NavLink to='/the-under-belly/statistics' end className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>Statistics</p></NavLink></li>
                     <li><NavLink to='/the-under-belly/projects' className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>Projects</p></NavLink></li>
                     <li><NavLink to='/the-under-belly/articles' className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>Articles</p></NavLink></li>
                     <li><NavLink to='/the-under-belly/awards' className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>Awards</p></NavLink></li>

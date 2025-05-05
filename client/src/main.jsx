@@ -14,6 +14,7 @@ import About from './pages/about.jsx'
 import Contact from './pages/contact.jsx'
 //import admin pages
 import AdminLogin from './pages/adminLogin.jsx'
+import AdminStatisticsLayout from './pages/adminStatistics.jsx'
 import AdminLayout from './pages/adminLayout.jsx'
 import AdminDashboard from './pages/adminDashboard.jsx'
 import AdminProjects from './pages/adminProjects.jsx'
@@ -28,15 +29,16 @@ import "./css/general.css"
 
 const router = createBrowserRouter([
   {
+    path: '/',
     element: <Layout />,
     children: [
       { path: "/", element: <Index /> },
-      { path: "/about", element: <About /> },
-      { path: "/portfolio",element: <Portfolio /> },
-      { path: "/portfolio/:slug",element: <ProjectPage /> },
-      { path: "/articles", element: <Articles /> },
-      { path: "/articles/:slug", element: <ArticlePage /> },
-      { path: "/contact", element: <Contact /> },
+      { path: "about", element: <About /> },
+      { path: "portfolio",element: <Portfolio /> },
+      { path: "portfolio/:slug",element: <ProjectPage /> },
+      { path: "articles", element: <Articles /> },
+      { path: "articles/:slug", element: <ArticlePage /> },
+      { path: "contact", element: <Contact /> },
     ],
     errorElement: <ErrorPage />
   },
@@ -48,6 +50,7 @@ const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       { index: true, element: <AdminDashboard /> },
+      { path: 'statistics', element: <AdminStatisticsLayout /> },
       { path: "projects", element: <AdminProjects /> },
       { path: "articles", element: <AdminArticles /> },
       { path: "awards", element: <AdminAwards /> },

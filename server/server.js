@@ -1,4 +1,5 @@
 const express = require('express')
+const session = require('express-session')
 const dotenv = require('dotenv')
 dotenv.config()
 const mongoose = require('mongoose')
@@ -10,16 +11,23 @@ const path = require('path')
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-//app.use(express.static(path.join(__dirname, '../client/dist')))
-//app.use(express.static(path.join(__dirname, 'public')))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+//setting up session
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: 60000 * 60 * 1 //seconds(in 1 mnt) * minutes * hours
+    }
+}))
 
 
 //cors setup
-const corsOptions = {
+app.use(cors({
+    credentials: true,
     origin: ["http://localhost:5050", "https://homely-architecture.onrender.com"]
-}
-app.use(cors(corsOptions))
+}))
 console.log('Cors was setup successfully')
 
 
@@ -37,11 +45,15 @@ mongoose.connect(mongoURI).then(() => {
 
 
 //routing
+const publicRouter = require("./routes/publicRoutes.js")
+const analyticsRouter = require("./routes/analyticsRoutes.js")
 const projectRouter = require("./routes/projectRoutes.js")
 const articleRouter = require("./routes/articleRoutes.js")
 const awardRouter = require("./routes/awardRoutes.js")
 const staffRouter = require("./routes/staffRoutes.js")
 const userRouter = require("./routes/userRoutes.js")
+app.use("/", publicRouter)
+app.use("/analytics", analyticsRouter)
 app.use("/projects", projectRouter)
 app.use("/articles", articleRouter)
 app.use("/awards", awardRouter)

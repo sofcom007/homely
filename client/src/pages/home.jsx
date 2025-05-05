@@ -27,12 +27,35 @@ const home = () => {
   //url
   const backendUrl = useApiUrl()
 
+  //update session
+  async function updateSession(){
+    try {
+      //make request
+      const response = await fetch(`${backendUrl}/update-session`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ page: 'home' })
+      })
+      const result = await response.json()
+      if(result.error)
+        alert(result.error)
+
+    } catch (error) {
+      alert("Error: Couldn't update session info")
+      console.log("Error updating session info:", error)
+    }
+  }
+
   //read projects
   const [projects, setProjects] = useState()
   const fetchProjects = async () => {
       try{
-        const response = await axios.get(`${backendUrl}/projects/read-home-projects`)
-        const data = response.data
+        const response = await fetch(`${backendUrl}/projects/read-home-projects`, {
+          method: "GET",
+          credentials: 'include'
+        })
+        const data = response.json()
         //console.log("projects:", data)
         return(data)
       } catch (error) {
@@ -83,8 +106,11 @@ const home = () => {
   useEffect(() => { scrollAnim() }, [projects, articles])
   const fetchArticles = async () => {
     try{
-      const response = await axios.get(`${backendUrl}/articles/read-home-articles`)
-      const data = response.data
+      const response = await fetch(`${backendUrl}/articles/read-home-articles`, {
+        method: "GET",
+        credentials: 'include'
+      })
+      const data = response.json()
       //console.log(data)
       return data
     } catch (error) {
@@ -96,6 +122,12 @@ const home = () => {
   useEffect(() => {
     document.title = "Homely"
     
+    //update session
+    const upSesh = async () => {
+      await updateSession()
+    }
+    upSesh()
+
     //get projects
     const getProjects = async () => {
       const prjs = await fetchProjects()

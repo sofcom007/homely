@@ -134,7 +134,7 @@
     }
     .stat_cell{
         width: calc(100%/2 - (1px/2) - 100px);
-        padding: 75px 50px;
+        padding: 50px;
     }
     .stat_cell:nth-child(odd){
         border-left: none;

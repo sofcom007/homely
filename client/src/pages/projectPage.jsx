@@ -18,6 +18,26 @@ import PublicFooter from '../components/publicFooter'
 const projectPage = () => {
   //url
   const backendUrl = useApiUrl()
+
+  //update session
+  async function updateSession(){
+    try {
+      //make request
+      const response = await fetch(`${backendUrl}/update-session`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ project: slug })
+      })
+      const result = await response.json()
+      if(result.error)
+        alert(result.error)
+
+    } catch (error) {
+      alert("Error: Couldn't update session info")
+      console.log("Error updating session info:", error)
+    }
+  }
   
   //get the project slug
   const { slug } = useParams()
@@ -33,7 +53,8 @@ const projectPage = () => {
   }, [project])
   async function fetchProjectBySlug() {
     const response = await fetch(`${backendUrl}/projects/read-project/${slug}`, {
-      method: "GET"
+      method: "GET",
+      credentials: 'include'
     })
     const prj = await response.json()
 
@@ -74,6 +95,13 @@ const projectPage = () => {
   }
 
   useEffect(() => {
+    //update session
+    const upSesh = async () => {
+      await updateSession()
+    }
+    upSesh()
+
+
     fetchProjectBySlug()
   }, [])
     
@@ -83,7 +111,7 @@ const projectPage = () => {
 
       <main>
         <section id="project" className='double_topped bottomed wide_righted wide_lefted'>
-                  <p id='return_link' onClick={() => {navigate(-1)}}><FontAwesomeIcon icon={faChevronLeft} /> Return</p>
+          <p id='return_link' onClick={() => {navigate(-1)}}><FontAwesomeIcon icon={faChevronLeft} /> Return</p>
           
           <div id="prj_slider">
               <button className='prj_nav' onClick={() => {previousPicture()}}><FontAwesomeIcon icon={faChevronLeft} /></button>

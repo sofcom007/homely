@@ -12,21 +12,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminArticles = () => {
+    document.title = 'Articles | Homely Admin'
+    
     //url
     const backendUrl = useApiUrl()
 
     const [filtersOn, setFiltersOn] = useState(false);
-
-    const [articles, setArticles] = useState()
-    useEffect(() => {
-        if(articles){
-            if(updateId){
-                const article = articles.find(article => article._id === updateId)
-                if(article)
-                    setUMContent(article)
-            }
-        }
-    }, [articles])
 
     //create articles
     const [createModalOn, setCreateModalOn] = useState(false);
@@ -67,6 +58,18 @@ const adminArticles = () => {
     }
 
     //read articles
+    const [articles, setArticles] = useState()
+    const contentNumber = useRef()
+    useEffect(() => {
+        if(articles){
+            contentNumber.current.innerHTML = articles.length
+            if(updateId){
+                const article = articles.find(article => article._id === updateId)
+                if(article)
+                    setUMContent(article)
+            }
+        }
+    }, [articles])
     async function fetchArticles() {
         try{
             const response = await axios.get(`${backendUrl}/articles/read-articles`)
@@ -162,8 +165,6 @@ const adminArticles = () => {
 
     
     useEffect(() => {
-      document.title = "Admin Articles | Homely"
-
       const getArticles = async () => {
         const articles_ = await fetchArticles()
         setArticles(articles_)
@@ -219,6 +220,7 @@ const adminArticles = () => {
         </section>
 
         <section id="content" className="fixed_lefted righted bottomed">
+            <p><span ref={contentNumber} className='numb_disp'></span> Elements displayed</p>
             <table id="content_table">
                 <thead>
                     <tr id='ct_head'>
