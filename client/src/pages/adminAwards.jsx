@@ -262,7 +262,7 @@ const adminAwards = () => {
                 </div>
                 <input ref={updatePicture} type="file" name="" id="" required />
                 <div ref={updatePictureHolder} className="modal_picture" style={{ width: '300px', maxWidth: '100%', marginBottom: '10px'}}>
-                    <img ref={updatePictureEL} style={{ width: '100%' }} src="" alt="" />
+                    <img ref={updatePictureEL} style={{ width: '100%' }} src={null} alt="" />
                     <button type='button' className="picture_del"><FontAwesomeIcon icon={faTrash} onClick={() => { deleteAwardPicture() }} /></button>
                 </div>
                 <textarea ref={updateDescription} name="" id="" cols="30" rows="10" placeholder='Description' required></textarea>

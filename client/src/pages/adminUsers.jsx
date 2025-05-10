@@ -139,8 +139,11 @@ const adminUsers = () => {
                 updatePictureElRef.current.src = `${backendUrl}/uploads/${UMContent.picture}`
             } else {
                 updatePictureHolderRef.current.style.display = 'none'
-                updatePictureElRef.current.src = ""
+                updatePictureElRef.current.src = null
             }
+        } else {
+            updatePictureHolderRef.current.style.display = 'none'
+            updatePictureElRef.current.src = null
         }
     }, [UMContent])
     const [updateId, setUpdateId] = useState()
@@ -321,7 +324,7 @@ const adminUsers = () => {
                         <input ref={updatePictureRef} type="file" name="" />
                     </div>
                     <div ref={updatePictureHolderRef} className="modal_picture" style={{ width: '300px', maxWidth: '100%', marginBottom: '10px'}}>
-                        <img ref={updatePictureElRef} src="" alt="" style={{ width: '100%' }} />
+                        <img ref={updatePictureElRef} src={null} alt="" style={{ width: '100%' }} />
                         <button type='button' className="picture_del"><FontAwesomeIcon icon={faTrash} onClick={() => { deleteUserPicture() }} /></button>
                     </div>
                     <div className="input_holder">

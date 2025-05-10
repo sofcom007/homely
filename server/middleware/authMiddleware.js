@@ -20,6 +20,7 @@ async function checkAuthenticated(req, res, next) {
     }
 
     // If no token or malformed header
+    console.log("Not authorized: no token")
     return res.status(401).json({ message: 'Not authorized: no token' })
 }
 

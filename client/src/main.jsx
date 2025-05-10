@@ -23,6 +23,7 @@ import AdminArticles from './pages/adminArticles.jsx'
 import AdminAwards from './pages/adminAwards.jsx'
 import AdminStaff from './pages/adminStaff.jsx'
 import AdminUsers from './pages/adminUsers.jsx'
+import AdminUser from './pages/adminUser.jsx'
 import ProjectPage from './pages/projectPage.jsx'
 import ArticlePage from './pages/articlePage.jsx'
 //import css
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
       { path: "awards", element: <AdminAwards /> },
       { path: "staff", element: <AdminStaff /> },
       { path: "users", element: <AdminUsers /> },
+      { path: "user", element: <AdminUser /> }
     ],
     errorElement: <ErrorPage />
   }

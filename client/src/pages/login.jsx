@@ -17,7 +17,6 @@ const login = () => {
   //check if already authenticated
   async function checkAltAuth () {
     if(token) {
-      console.log(token)
       try {
         const response = await fetch(`${backendUrl}/users/check-authenticated`, {
           method: "GET",
@@ -26,12 +25,11 @@ const login = () => {
           }
         })
         if(response.status === 200) {
-          console.log('Is authenticated')
           navigate('/the-under-belly')
         }
       } catch (error) {
         alert("Error: Couldn't check if already authenticated")
-        console.log("Error checking if already authenticated", error)
+        console.error("Error checking if already authenticated", error)
       }
     }
   }
@@ -58,10 +56,10 @@ const login = () => {
         credentials: 'include'
       })
       const result = await response.json()
-      alert(result.message || result.error)
+      if(result.error)
+        alert(result.error)
       
       localStorage.setItem('token', result.token)
-      console.log(result.token)
 
       if(response.status === 200)
         navigate('/the-under-belly')
@@ -82,7 +80,7 @@ const login = () => {
         <form method='GET' action="/login">
             <input ref={usernameFieldRef} type="text" name="username" id="" placeholder='Email or username' required />
             <input ref={passwordFieldRef} type="password" name="password" id="" placeholder='Password' required />
-            <button type="button" className='cta' style={{ width: '100%' }} onClick={() => { logIn() }}><p>Login</p></button>
+            <button type="button" className='cta' style={{ width: '100%' }} onClick={async () => { await logIn() }}><p>Login</p></button>
         </form>
         <ul>
           <li><Link to={'/'}><p>Home</p></Link></li>

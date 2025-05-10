@@ -26,13 +26,23 @@ const { checkAuthenticated, checkUnauthenticated } = require('../middleware/auth
 //CRUD routes
 router.get('/read-users', checkAuthenticated, async (req, res) => {
     try {
-        const users = await userModel.find({})
+        const users = await userModel.find({ _id: {$ne : req.user._id}})
         if(!users)
             return res.json(400).json({ message: 'Users not found' })
         res.status(200).json(users)
     } catch (error) {
         console.log('Error reading users: ', error)
         res.status(500).json({ error: 'Error reading users' })
+    }
+})
+router.get('/read-user', checkAuthenticated, async (req, res) => {
+    try {
+        const id = req.user.id
+        const user = await userModel.findById(id)
+        return res.status(200).json(user)
+    } catch (error) {
+        console.log('Error reading single user: ', error)
+        res.status(500).json({ error: 'Error reading single user' })
     }
 })
 router.post('/create-user', checkAuthenticated, uploadPictures.single('picture'), async (req, res) => {
@@ -65,10 +75,7 @@ router.post('/create-user', checkAuthenticated, uploadPictures.single('picture')
         })
         await newUser.save()
 
-        //create jwt
-        const token = generateJWT(user._id, user.permission)
-
-        res.status(200).json({ message: 'User created successfully', token })
+        res.status(200).json({ message: 'User created successfully' })
     } catch (error) {
         console.log('Error creating user: ', error)
         res.status(500).json({ error: 'Error creating user' })
@@ -179,14 +186,14 @@ router.delete('/delete-all-users', checkAuthenticated, async (req, res) => {
     try {
         const users = await userModel.find({})
         users.forEach(user => {
-            if(user.picture) {
+            if(user.id != req.user.id  && user.picture) {
                 const picturePath = path.join(__dirname, '../uploads', path.basename(user.picture))
                 if(fs.existsSync(picturePath))
                     fs.unlinkSync(picturePath)
             }
         });
 
-        await userModel.deleteMany({})
+        await userModel.deleteMany({ _id : {$ne: req.user._id}})
 
         res.status(200).json({ message: 'Entire user base deleted successfully' })
     } catch (error) {
@@ -197,6 +204,25 @@ router.delete('/delete-all-users', checkAuthenticated, async (req, res) => {
 
 
 //auth routes
+router.get('/check-authenticated', checkAuthenticated, (req, res) => {
+    res.status(200).json({ message: "User is authenticated" })
+})
+router.get('/check-authenticated', async (req, res) => {
+    const authHeader = req.headers.authorization
+  
+    if (!authHeader || !authHeader.startsWith('Bearer '))
+        return res.status(401).json({ message: "No token provided" })
+  
+    const token = authHeader.split(' ')[1]
+    try {
+        jwt.verify(token, process.env.JWT_SECRET)
+        return res.status(200).json({ message: "Authenticated" })
+    } catch (error) {
+        if (error.name === 'TokenExpiredError')
+            return res.status(401).json({ message: "Token expired" })
+        return res.status(401).json({ message: "Invalid token" })
+    }
+}) 
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body
@@ -223,24 +249,14 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: "Error: couldn't log in" })
     }
 })
-router.get('/check-authenticated', checkAuthenticated, (req, res) => {
-    res.status(200).json({ message: "User is authenticated" })
-})
-router.get('/check-unauthenticated', (req, res) => {
-    const authHeader = req.headers.authorization
-
-    if (authHeader && authHeader.startsWith('Bearer')){
-        try {
-            const token = authHeader.split(' ')[1]
-            jwt.verify(token, process.env.JWT_SECRET)
-            return res.status(403).json({ message: "You're already authenticated" })
-        } catch (error) {
-            if (error.name === 'TokenExpiredError')
-                return res.status(200).json({ message: "User not authenticated: token expired" })
-            return res.status(400).json({ message: 'Invalid token' })
-        }
+router.delete('/logout', checkAuthenticated, async (req, res) => {
+    try {
+        req.user = null
+        return res.status(200).json({ message: "Logout successful" })
+    } catch (error) {
+        console.log("Error logging out:", error)
+        res.status(500).json({ error: "Error: Couldn't logout" })
     }
-    res.status(200).json({ message: "User is not authenticated" })
 })
 
 

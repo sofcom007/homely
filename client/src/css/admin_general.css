@@ -299,6 +299,33 @@
 }
 
 
+/*user page*/
+#user_header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #dadada;
+}
+#user_header img{
+    width: 150px;
+    max-width: 100%;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    background-color: aliceblue;
+}
+#user_header h1{
+    margin: 0px;
+}
+#user_header h3{
+    margin-bottom: 10px;
+}
+#update_user{
+    padding-top: 50px;
+}
+
+
 /* giant screen styling */
 @media ( min-width: 1601px ) {
     /*modal*/
@@ -335,6 +362,13 @@
     /*dashboard statistics*/
     #dash_statistics .stat_subsection{
         width: calc(100%/2 - (15px/2));
+    }
+
+
+    /*user page*/
+    #user_header {
+        gap: 25px;
+        padding-bottom: 25px;
     }
 }
 
@@ -411,6 +445,15 @@
         background-color: #dadada;
         padding: 5px 10px;
         border-radius: 5px;
+    }
+
+
+    /*user page*/
+    #user_header img{
+        width: 125px;
+    }
+    #user_header h3{
+        margin-bottom: 0;
     }
 }
 

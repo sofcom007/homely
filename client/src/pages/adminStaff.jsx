@@ -280,7 +280,7 @@ const adminStaff = () => {
                     <input ref={updatePictureRef} type="file" name="" id="" />
                 </div>
                 <div ref={updatePictureHolder} className="modal_picture" style={{ width: '300px', maxWidth: '100%', marginBottom: '10px'}}>
-                    <img ref={updatePictureElRef} src="" alt="" style={{ width: '100%' }} />
+                    <img ref={updatePictureElRef} src={null} alt="" style={{ width: '100%' }} />
                     <button type='button' className="picture_del"><FontAwesomeIcon icon={faTrash} onClick={() => { deleteMemberPicture() }} /></button>
                 </div>
                 <textarea ref={updateDescriptionRef} name="" id="" cols="30" rows="10" placeholder='Description'></textarea>

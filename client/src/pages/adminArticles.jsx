@@ -213,7 +213,7 @@ const adminArticles = () => {
                 <input type="text" ref={updateIdRef} name="" id="" style={{ display: "none" }} />
                 <input type="text" ref={updateTitleRef} name="article_title" id="" placeholder='Article title' required />
                 <input type="file" ref={updateThumbnailRef} name="article_thumbnail" id="" placeholder='Cover' required />
-                <img src="" ref={updateThumbnailImgRef} alt="" style={{ width: '300px', maxWidth: '100%' }} />
+                <img src={null} ref={updateThumbnailImgRef} alt="" style={{ width: '300px', maxWidth: '100%' }} />
                 <textarea ref={updateContentRef} name="article_content" id="" cols="30" rows="10" placeholder='Content' required></textarea>
                 <button className='cta form_submit' type="button" onClick={() => {updateArticle()}}><p>Update</p></button>
             </form>

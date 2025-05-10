@@ -24,6 +24,28 @@
     margin-bottom: 25px;
     margin-left: 15px;
 }
+#an_profile{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 30px;
+    margin-bottom: 25px;
+}
+#an_profile.current{
+    border: solid 1px black;
+}
+#an_profile h4 {
+    margin: 0;
+}
+#an_profile img{
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    background-color: aliceblue;
+    margin: 0;
+}
 #admin_nav ul{
     padding: 0;
     margin: 0;

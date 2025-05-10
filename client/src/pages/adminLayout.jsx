@@ -18,7 +18,6 @@ const adminLayout = () => {
 
   //token
   const token = localStorage.getItem('token')
-  console.log(token)
 
   //check if not authenticated
   const [authenticated, setAuthenticated] = useState(false)
@@ -61,7 +60,7 @@ const adminLayout = () => {
           <AdminFooter />
         </main>
       </div>
-      : <h1>You're not authenticated</h1>}
+      : <h1>Loading</h1>}
     </>
   )
 }

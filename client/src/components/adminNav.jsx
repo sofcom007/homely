@@ -31,6 +31,7 @@ const adminNav = () => {
                     <li><NavLink to='/the-under-belly/awards' className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>Awards</p></NavLink></li>
                     <li><NavLink to='/the-under-belly/staff' className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>Staff</p></NavLink></li>
                     <li><NavLink to='/the-under-belly/users' className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>Users</p></NavLink></li>
+                    <li><NavLink to='/the-under-belly/user' className={({ isActive }) => isActive ? 'nav_link current' : 'nav_link'}><p>My Account</p></NavLink></li>
                 </ul>
             </nav>
         </div>
