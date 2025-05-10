@@ -60,7 +60,7 @@ const router = createBrowserRouter([
     ],
     errorElement: <ErrorPage />
   }
-]);
+])
 
 createRoot(document.getElementById('root')).render(
   //<StrictMode>

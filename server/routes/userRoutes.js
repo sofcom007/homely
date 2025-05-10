@@ -226,7 +226,20 @@ router.post('/login', async (req, res) => {
 router.get('/check-authenticated', checkAuthenticated, (req, res) => {
     res.status(200).json({ message: "User is authenticated" })
 })
-router.get('/check-unauthenticated', checkUnauthenticated, (req, res) => {
+router.get('/check-unauthenticated', (req, res) => {
+    const authHeader = req.headers.authorization
+
+    if (authHeader && authHeader.startsWith('Bearer')){
+        try {
+            const token = authHeader.split(' ')[1]
+            jwt.verify(token, process.env.JWT_SECRET)
+            return res.status(403).json({ message: "You're already authenticated" })
+        } catch (error) {
+            if (error.name === 'TokenExpiredError')
+                return res.status(200).json({ message: "User not authenticated: token expired" })
+            return res.status(400).json({ message: 'Invalid token' })
+        }
+    }
     res.status(200).json({ message: "User is not authenticated" })
 })
 

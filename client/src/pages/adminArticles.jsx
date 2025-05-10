@@ -23,23 +23,6 @@ const adminArticles = () => {
     //token
     const token = localStorage.getItem('token')
 
-    //check if not authenticated
-    async function checkNotAuth () {
-      try {
-        const response = await fetch(`${backendUrl}/users/check-unauthenticated`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        if(response.status === 200)
-          navigate('/login')
-      } catch (error) {
-        console.error("Error checking if not authenticated", error)
-        alert("Error: Couldn't check if not authenticated")
-      }
-    }
-
     //create articles
     const [createModalOn, setCreateModalOn] = useState(false);
     const createTitleRef = useRef()
@@ -209,12 +192,7 @@ const adminArticles = () => {
         setArticles(articles_)
       }
       getArticles()
-
-      //check authentication
-      const checkAuth = async () => {
-        await checkNotAuth()
-      }
-      checkAuth()
+      
     }, [])
       
   return (
