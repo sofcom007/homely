@@ -18,6 +18,7 @@ const adminLayout = () => {
 
   //token
   const token = localStorage.getItem('token')
+  console.log(token)
 
   //check if not authenticated
   const [authenticated, setAuthenticated] = useState(false)
