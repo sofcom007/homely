@@ -22,29 +22,32 @@ const adminLayout = () => {
 
   //check if not authenticated
   const [authenticated, setAuthenticated] = useState(false)
-  async function checkNotAuth () {
+  async function checkAuth() {
     try {
-      const response = await fetch(`${backendUrl}/users/check-unauthenticated`, {
+      const response = await fetch(`${backendUrl}/users/check-authenticated`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
         }
-      })
-      if(response.status === 200)
-        return navigate('/login')
-      setAuthenticated(true)
+      });
+
+      if (response.status === 200) {
+        setAuthenticated(true);
+      } else {
+        navigate('/login'); // token is missing, invalid, or expired
+      }
     } catch (error) {
-      console.error("Error checking if not authenticated", error)
-      alert("Error: Couldn't check if not authenticated")
+      console.error("Error checking authentication", error);
+      alert("Could not check authentication status");
     }
   }
 
   useEffect(() => {
     //check authentication
-    const checkAuth = async () => {
-      await checkNotAuth()
+    const checkAlrAuth = async () => {
+      await checkAuth()
     }
-    checkAuth()
+    checkAlrAuth()
   }, [])
 
   return (
