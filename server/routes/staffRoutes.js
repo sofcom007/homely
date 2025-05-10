@@ -16,6 +16,8 @@ const storage = multer.diskStorage({
 const uploadPictures = multer({ storage })
 //model
 const staffModel = require('../models/staffMember.model')
+//auth middleware
+const { checkAuthenticated, checkUnauthenticated } = require('../middleware/authMiddleware')
 
 router.get('/read-staff', async (req, res) => {
     try{
@@ -28,7 +30,7 @@ router.get('/read-staff', async (req, res) => {
         res.status(500).json({ error: "Failed to read staff"})
     }
 })
-router.post('/create-staff', uploadPictures.single('picture'), async (req, res) => {
+router.post('/create-staff', checkAuthenticated, uploadPictures.single('picture'), async (req, res) => {
     try{
         const { firstName, lastName, position, description } = req.body
         if(!firstName || !lastName || !position)
@@ -52,7 +54,7 @@ router.post('/create-staff', uploadPictures.single('picture'), async (req, res) 
         res.status(500).json({ error: "Failed to create staff member"})
     }
 })
-router.put('/update-member/:id', uploadPictures.single('picture'), async (req, res) => {
+router.put('/update-member/:id', checkAuthenticated, uploadPictures.single('picture'), async (req, res) => {
     try{
         const { id } = req.params
         const { firstName, lastName, position, description } = req.body
@@ -89,7 +91,7 @@ router.put('/update-member/:id', uploadPictures.single('picture'), async (req, r
         res.status(500).json({ error: "Failed to update staff member"})
     }
 })
-router.delete('/delete-member-picture/:id', async (req, res) => {
+router.delete('/delete-member-picture/:id', checkAuthenticated, async (req, res) => {
     try {
         const { id } = req.params
 
@@ -115,7 +117,7 @@ router.delete('/delete-member-picture/:id', async (req, res) => {
         res.status(500).json({ error: "Failed to delete staff member picture"})
     }
 })
-router.delete('/delete-member/:id', async (req, res) => {
+router.delete('/delete-member/:id', checkAuthenticated, async (req, res) => {
     try{
         const { id } = req.params
         const member = await staffModel.findById(id)
@@ -137,7 +139,7 @@ router.delete('/delete-member/:id', async (req, res) => {
         res.status(500).json({ error: "Failed to delete staff member"})
     }
 })
-router.delete('/delete-staff', async (req, res) => {
+router.delete('/delete-staff', checkAuthenticated, async (req, res) => {
     try{
         const staff = await staffModel.find({})
 

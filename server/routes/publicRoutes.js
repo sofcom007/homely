@@ -111,7 +111,6 @@ async function updateAnalytics() {
         
         //update articles
         const visitArticles = visit.articles
-        console.log(visitArticles)
         visitArticles.forEach(article => {
             //is article already in the analytics
             let alreadyThere = false
@@ -161,9 +160,6 @@ router.get('/check-session', async (req, res) => {
 router.post('/update-session', async (req, res) => {
     try {
         const { page, project, article } = req.body
-
-        console.log('dynamic analytics:', analytics)
-        console.log('fixed analytics:', analyticsDefault)
 
         await sessionCheck(req)
         await readVisits()

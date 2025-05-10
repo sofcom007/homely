@@ -12,8 +12,9 @@ import Portfolio from './pages/portfolio.jsx'
 import Articles from './pages/articles.jsx'
 import About from './pages/about.jsx'
 import Contact from './pages/contact.jsx'
+//login
+import AdminLogin from './pages/login.jsx'
 //import admin pages
-import AdminLogin from './pages/adminLogin.jsx'
 import AdminStatisticsLayout from './pages/adminStatistics.jsx'
 import AdminLayout from './pages/adminLayout.jsx'
 import AdminDashboard from './pages/adminDashboard.jsx'

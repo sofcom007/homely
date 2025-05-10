@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router'
 //api url
 import { useApiUrl } from '../context/apiContext'
 //import components
@@ -12,11 +13,32 @@ import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminAwards = () => {
   document.title = 'Awards | Homely Admin'
+
+  //navigate
+  const navigate = useNavigate()
     
   //url
   const backendUrl = useApiUrl()
 
-  const [filtersOn, setFiltersOn] = useState(false)
+  //token
+  const token = localStorage.getItem('token')
+
+  //check if not authenticated
+  async function checkNotAuth () {
+    try {
+      const response = await fetch(`${backendUrl}/users/check-unauthenticated`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      if(response.status === 200)
+        navigate('/login')
+    } catch (error) {
+      console.error("Error checking if not authenticated", error)
+      alert("Error: Couldn't check if not authenticated")
+    }
+  }
 
   //fetch awards
   const [awards, setAwards] = useState()
@@ -31,7 +53,10 @@ const adminAwards = () => {
   async function fetchAwards(){
     try{
         const response = await fetch(`${backendUrl}/awards/read-awards`, {
-            method: "GET"
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         const result = await response.json()
         //console.log(result)
@@ -63,6 +88,9 @@ const adminAwards = () => {
         //make request
         const response = await fetch(`${backendUrl}/awards/create-award`, {
             method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             body: formData
         })
         const result = await response.json()
@@ -123,6 +151,9 @@ const adminAwards = () => {
         //make request
         const response = await fetch(`${backendUrl}/awards/update-award/${updateIdRef.current.value}`, {
             method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             body: formData
         })
         const result = await response.json()
@@ -145,7 +176,10 @@ const adminAwards = () => {
     try{
         //make request
         const response = await fetch(`${backendUrl}/awards/delete-award-picture/${updateIdRef.current.value}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         const result = await response.json()
         alert(result.message || result.error)
@@ -165,7 +199,10 @@ const adminAwards = () => {
   async function deleteAward() {
     try{
         const response = await fetch(`${backendUrl}/awards/delete-award/${delId}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         const result = await response.json()
         alert(result.message || result.error)
@@ -187,7 +224,10 @@ const adminAwards = () => {
   async function deleteAllAwards() {
     try{
         const response = await fetch(`${backendUrl}/awards/delete-all-awards`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         const result = await response.json()
         alert(result.message || result.error)
@@ -211,9 +251,14 @@ const adminAwards = () => {
         setAwards(awds)
     }
     getAwards()
+
+    //check authentication
+    const checkAuth = async () => {
+      await checkNotAuth()
+    }
+    checkAuth()
   }, [])
   
-
   return (
     <>
         {/*create modal*/} 

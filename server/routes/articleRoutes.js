@@ -16,6 +16,8 @@ const storage = multer.diskStorage({
 const uploadPictures = multer({ storage })
 //model
 const articleModel = require('../models/article.model')
+//auth middleware
+const { checkAuthenticated, checkUnauthenticated } = require('../middleware/authMiddleware')
 
 
 router.get('/read-article/:slug', async (req, res) => {
@@ -29,7 +31,7 @@ router.get('/read-article/:slug', async (req, res) => {
 
         res.status(200).json(article)
     } catch (error) {
-        console.error("Article fetching failed:", error);
+        console.log("Article fetching failed:", error);
         res.status(500).json({ error: "Failed to fetch article by slug" });
     }
 })
@@ -54,7 +56,7 @@ router.get('/read-recommended-articles/:id', async (req, res) => {
 
         res.status(200).json(newArticles)
     } catch (error) {
-        console.error("Article fetching failed:", error);
+        console.log("Article fetching failed:", error);
         res.status(500).json({ error: "Failed to fetch article by slug" });
     }
 })
@@ -70,7 +72,7 @@ router.get('/read-home-articles', async (req, res) => {
 
         res.status(200).json(homeArticles)
     } catch (error) {
-        console.error("Featured articles fetching failed:", error);
+        console.log("Featured articles fetching failed:", error);
         res.status(500).json({ error: "Failed to fetch featured articles" });
     }
 })
@@ -85,11 +87,11 @@ router.get('/read-articles', async (req, res) => {
 
         res.status(200).json(articles)
     } catch (error) {
-        console.error("Featured projects fetching failed:", error);
+        console.log("Featured projects fetching failed:", error);
         res.status(500).json({ error: "Failed to fetch featured projects" });
     }
 })
-router.post('/create-article', uploadPictures.single('thumbnail'), async (req, res) => {
+router.post('/create-article', checkAuthenticated, uploadPictures.single('thumbnail'), async (req, res) => {
     try{
         console.log( req.body )
         const { title, content } = req.body
@@ -109,11 +111,11 @@ router.post('/create-article', uploadPictures.single('thumbnail'), async (req, r
 
         res.status(200).json({ message: "Article created successfully" })
     } catch (error) {
-        console.error("Article creation failed failed:", error);
+        console.log("Article creation failed failed:", error);
         res.status(500).json({ error: "Failed to create article" });
     }
 })
-router.put('/update-article/:id', uploadPictures.single('thumbnail'), async (req, res) => {
+router.put('/update-article/:id', checkAuthenticated, uploadPictures.single('thumbnail'), async (req, res) => {
     try{
         const { id } = req.params
         const { title, content } = req.body
@@ -143,11 +145,11 @@ router.put('/update-article/:id', uploadPictures.single('thumbnail'), async (req
 
         res.status(200).json({ message: "Article updated successfully" })
     } catch (error) {
-        console.error("Article update failed failed:", error);
+        console.log("Article update failed failed:", error);
         res.status(500).json({ error: "Failed to update article" });
     }
 })
-router.delete('/delete-article/:id', async (req, res) => {
+router.delete('/delete-article/:id', checkAuthenticated, async (req, res) => {
     try{
         const { id } = req.params
 
@@ -167,11 +169,11 @@ router.delete('/delete-article/:id', async (req, res) => {
         res.status(200).json({ message: "Project deleted successfully" })
 
     } catch (error) {
-        console.error("Single article deletion failed:", error);
+        console.log("Single article deletion failed:", error);
         res.status(500).json({ error: "Failed to delete single article" });
     }
 })
-router.delete('/delete-articles', async (req, res) => {
+router.delete('/delete-articles', checkAuthenticated, async (req, res) => {
     try{
         const articles = await articleModel.find({})
 
@@ -192,7 +194,7 @@ router.delete('/delete-articles', async (req, res) => {
         res.status(200).json({ message: "All articles deleted successfully" })
 
     } catch (error) {
-        console.error("All articles deletion failed:", error);
+        console.log("All articles deletion failed:", error);
         res.status(500).json({ error: "Failed to delete all articles" });
     }
 })

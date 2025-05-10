@@ -208,6 +208,7 @@ input, textarea, select, #form_submit{
 }
 .article{
     width: calc(100%/2 - (25px/2));
+    height: fit-content;
     text-decoration: none;
 }
 .article img{
@@ -321,6 +322,7 @@ input, textarea, select, #form_submit{
     border-radius: 1000px;
     cursor: pointer;
     min-width: fit-content;
+    white-space: nowrap;
 }
 .bullet.current, .bullet:hover{
     background-color: #dadada;

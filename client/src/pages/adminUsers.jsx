@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router'
 //api url
 import { useApiUrl } from '../context/apiContext'
 //import components
@@ -14,8 +15,30 @@ import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 const adminUsers = () => {
     document.title = 'Users | Homely Admin'
     
+    //navigate
+    const navigate = useNavigate()
     //url
     const backendUrl = useApiUrl()
+    
+    //token
+    const token = localStorage.getItem('token')
+
+    //check if not authenticated
+    async function checkNotAuth () {
+        try {
+        const response = await fetch(`${backendUrl}/users/check-unauthenticated`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        if(response.status === 200)
+            navigate('/login')
+        } catch (error) {
+        console.error("Error checking if not authenticated", error)
+        alert("Error: Couldn't check if not authenticated")
+        }
+    }
 
     //filtering
     const [filtersOn, setFiltersOn] = useState(false)
@@ -37,7 +60,10 @@ const adminUsers = () => {
         try {
             //make request
             const response = await fetch(`${backendUrl}/users/read-users`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
             const result = await response.json()
             if(result.message)
@@ -82,20 +108,26 @@ const adminUsers = () => {
             //make request
             const response = await fetch(`${backendUrl}/users/create-user`, {
                 method: 'POST',
-                body: formData
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData,
+                credentials: 'include'
             })
             const result = await response.json()
             alert(result.message || result.error)
 
             //clear fields
-            newFirstNameRef.current.value = ''
-            newLastNameRef.current.value = ''
-            newUsernameRef.current.value = ''
-            newPermissionRef.current.value = ''
-            newEmailRef.current.value = ''
-            newPhoneRef.current.value = ''
-            newPasswordRef.current.value = ''
-            newPictureRef.current.value = ''
+            if(response.status === 200) {
+                newFirstNameRef.current.value = ''
+                newLastNameRef.current.value = ''
+                newUsernameRef.current.value = ''
+                newPermissionRef.current.value = ''
+                newEmailRef.current.value = ''
+                newPhoneRef.current.value = ''
+                newPasswordRef.current.value = ''
+                newPictureRef.current.value = ''
+            } 
 
             //refresh data
             const usrs = await fetchUsers()
@@ -157,6 +189,9 @@ const adminUsers = () => {
             //make request
             const response = await fetch(`${backendUrl}/users/update-user/${updateIdRef.current.value}`, {
                 method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
                 body: formData
             })
             const result = await response.json()
@@ -179,7 +214,10 @@ const adminUsers = () => {
         try {
             //make request
             const response = await fetch(`${backendUrl}/users/delete-user-picture/${updateIdRef.current.value}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
             const result = await response.json()
             alert(result.message || result.error)
@@ -200,7 +238,10 @@ const adminUsers = () => {
         try {
             //make request
             const response = await fetch(`${backendUrl}/users/delete-user/${delId}`, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
             const result = await response.json()
             alert(result.message || result.error)
@@ -224,7 +265,10 @@ const adminUsers = () => {
         try {
             //make request
             const response = await fetch(`${backendUrl}/users/delete-all-users`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
             const result = await response.json()
             alert(result.message || result.error)
@@ -248,6 +292,12 @@ const adminUsers = () => {
             setUsers(usrs)
         }
         readUsers()
+
+        //check authentication
+        const checkAuth = async () => {
+          await checkNotAuth()
+        }
+        checkAuth()
     }, [])
   
     return (
@@ -341,7 +391,8 @@ const adminUsers = () => {
                     <thead>
                         <tr id="ct_head">
                             <th><p>Permission</p></th>
-                            <th><p>Name</p></th>
+                            <th><p>Username</p></th>
+                            <th><p>Email</p></th>
                             <th className='action_head'><p>Actions</p></th>
                         </tr>
                     </thead>
@@ -349,7 +400,8 @@ const adminUsers = () => {
                         {users.map(user => (
                             <tr key={user._id}>
                                 <td data-label="Permission"><p>{user.permission}</p></td>
-                                <td data-label="Name"><p>{user.fullName}</p></td>
+                                <td data-label="Username"><p>{user.username}</p></td>
+                                <td data-label="Email"><p>{user.email}</p></td>
                                 <td data-label="Actions" className='action_cell'>
                                     <button className="edit_btn cta" onClick={() => { setUpdateModalOn(true); setUpdateId(user._id); setUMContent(user) }}><FontAwesomeIcon icon={faPencil}/></button>
                                     <button className="del_btn cta red"><FontAwesomeIcon icon={faTrash} onClick={() => { setDelModalOn(true); setDelId(user._id) }}/></button>

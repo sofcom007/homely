@@ -119,6 +119,7 @@
 .modal_picture{
     width: calc(100%/2 - (5px)/2);
     max-width: 100%;
+    height: fit-content;
     position: relative;
 }
 .picture_del{
@@ -156,6 +157,7 @@
 .numb_disp{
     background-color: #dadada;
     padding: 5px 10px;
+    border-radius: 5px;
 }
 #content_table{
     width: 100%;
@@ -199,11 +201,17 @@
     flex-wrap: wrap;
     gap: 25px;
 }
+.stat_section, .stat_subsection{
+    border: 2px solid #eee;
+    box-sizing: border-box;
+}
 .stat_section{
     padding: 25px;
     border-radius: 10px;
-    border: 2px solid #eee;
-    box-sizing: border-box;
+}
+.stat_subsection{
+    padding: 15px;
+    border-radius: 5px;
 }
 .stat_section.single{
     width: 100%;
@@ -261,6 +269,8 @@
 }
 .hg_labels p {
     padding: 5px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .hg_bars {
     display: flex;
@@ -275,6 +285,17 @@
     background-color: #dadada;
     padding: 5px 10px;
     border-radius: 5px;
+}
+
+/*dashboard statistics*/
+#dash_statistics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+#dash_statistics .stat_subsection{
+    width: calc(100%/3 - (30px/3));
 }
 
 
@@ -309,6 +330,11 @@
     /*statistics*/
     .stat_section.single, .stat_section.double{
         width: 100%;
+    }
+
+    /*dashboard statistics*/
+    #dash_statistics .stat_subsection{
+        width: calc(100%/2 - (15px/2));
     }
 }
 
@@ -349,6 +375,12 @@
     .modal_picture{
         width: calc(100%/2 - (5px)/2);
     }
+
+    
+    /*dashboard statistics*/
+    #dash_statistics .stat_subsection{
+        width: 100%;
+    }
 }
 
 
@@ -357,6 +389,28 @@
     /*modal*/
     .modal_picture{
         width: 100%;
+    }
+
+
+    /*graphs*/
+    .hg_labels {
+        min-width: 120px;
+        width: 150px;
+        overflow-x: hidden;
+    }
+    .hg_bars {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+    .hg_bar{
+        background-color: #dadada;
+        padding: 5px 10px;
+        border-radius: 5px;
     }
 }
 

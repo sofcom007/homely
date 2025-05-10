@@ -5,6 +5,9 @@ dotenv.config()
 const mongoose = require('mongoose')
 const cors = require('cors')
 const path = require('path')
+//model
+const userModel = require('./models/user.model')
+let users
 
 
 //setting up
@@ -29,6 +32,19 @@ app.use(cors({
     origin: ["http://localhost:5050", "https://homely-architecture.onrender.com"]
 }))
 console.log('Cors was setup successfully')
+
+
+//getting users from db
+async function findUsers() {
+    const users = await userModel.find({})
+    if(!users)
+        return res.json(400).json({ message: 'Users not found' })
+    return users
+}
+async function initUsers () {
+    users = await findUsers()
+}
+initUsers()
 
 
 //server and db config

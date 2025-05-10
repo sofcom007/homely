@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import axios from 'axios'
 //api url
 import { useApiUrl } from '../context/apiContext'
@@ -12,9 +12,32 @@ import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminProjects = () => {
     document.title = 'Statistics | Homely Admin'
+
+    //navigate
+    const navigate = useNavigate()
     
     //url
     const backendUrl = useApiUrl()
+
+    //token
+    const token = localStorage.getItem('token')
+
+    //check if not authenticated
+    async function checkNotAuth () {
+      try {
+        const response = await fetch(`${backendUrl}/users/check-unauthenticated`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        if(response.status === 200)
+          navigate('/login')
+      } catch (error) {
+        console.error("Error checking if not authenticated", error)
+        alert("Error: Couldn't check if not authenticated")
+      }
+    }
 
     //fetch analytics
     const [data, setData] = useState()
@@ -22,6 +45,9 @@ const adminProjects = () => {
         try {
             const response = await fetch(`${backendUrl}/analytics/read-data`, {
                 method: "GET",
+                headers: {
+                  Authorization: `Bearer ${token}`
+                },
                 credentials: 'include'
             })
             const result = await response.json()
@@ -37,8 +63,6 @@ const adminProjects = () => {
 
     //filter pages
     const filterPageTimeRef = useRef()
-    const [filterPage, setFilterPage] = useState("")
-    //useEffect(() => { console.log(`page filter time interval: ${filterPage}`) } , [filterPage])
     function filterPages() {
         const now = new Date()
 
@@ -203,10 +227,17 @@ const adminProjects = () => {
     const [articleData, setArticleData] = useState([])
 
     useEffect(() => {
+        //get data
         const getData = async () => {
             await fetchData()
         }
         getData()
+
+        //check authentication
+        const checkAuth = async () => {
+          await checkNotAuth()
+        }
+        checkAuth()
     }, [])
         
     return (

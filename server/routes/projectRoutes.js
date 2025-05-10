@@ -16,6 +16,8 @@ const storage = multer.diskStorage({
 const uploadPictures = multer({ storage })
 //model
 const projectModel = require('../models/project.model')
+//auth middleware
+const { checkAuthenticated, checkUnauthenticated } = require('../middleware/authMiddleware')
 
 
 router.get('/read-project/:slug', async (req, res) => {
@@ -31,7 +33,7 @@ router.get('/read-project/:slug', async (req, res) => {
         
         res.status(200).json(project)
     } catch (error) {
-        console.error("Project fetching by slug failed:", error);
+        console.log("Project fetching by slug failed:", error);
         res.status(500).json({ error: "Failed to fetch project by slug" });
     }
 })
@@ -43,7 +45,7 @@ router.get('/read-home-projects', async (req, res) => {
 
         res.status(200).json(prjs)
     } catch (error) {
-        console.error("Featured projects fetching failed:", error);
+        console.log("Featured projects fetching failed:", error);
         res.status(500).json({ error: "Failed to fetch featured projects" });
     }
 })
@@ -53,11 +55,11 @@ router.get('/read-projects', async (req, res) => {
         projects.sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt))
         res.status(200).json(projects);
     } catch (error) {
-        console.error("Project fetching failed:", error);
+        console.log("Project fetching failed:", error);
         res.status(500).json({ error: "Failed to fetch projects" });
     }
 });
-router.post('/create-project', uploadPictures.fields([{ name: 'cover', maxCount: 1 }, { name: 'pictures', maxCount: 10 }]), async (req, res) => {
+router.post('/create-project', checkAuthenticated, uploadPictures.fields([{ name: 'cover', maxCount: 1 }, { name: 'pictures', maxCount: 10 }]), async (req, res) => {
     try{
         //get and check the body
         const { name, status, description } = req.body
@@ -87,11 +89,11 @@ router.post('/create-project', uploadPictures.fields([{ name: 'cover', maxCount:
 
         res.status(200).json({ message: 'Project created successfully' })
     } catch (error ){
-        console.error("Project fetching failed:", error);
+        console.log("Project fetching failed:", error);
         res.status(500).json({ error: "Failed to create project " + error });
     }
 })
-router.put('/update-project/:id', uploadPictures.fields([{ name: 'cover', maxCount: 1 }, { name: 'pictures', maxCount: 10 }]), async (req, res) => {
+router.put('/update-project/:id', checkAuthenticated, uploadPictures.fields([{ name: 'cover', maxCount: 1 }, { name: 'pictures', maxCount: 10 }]), async (req, res) => {
     try {
         const { id } = req.params;
         const { name, status, description } = req.body;
@@ -141,11 +143,11 @@ router.put('/update-project/:id', uploadPictures.fields([{ name: 'cover', maxCou
         res.status(200).json({ message: 'Project updated successfully' });
 
     } catch (error) {
-        console.error("Project update failed:", error);
+        console.log("Project update failed:", error);
         res.status(500).json({ error: "Failed to update project" });
     }
 })
-router.delete('/delete-project-picture/:id/:picture', async (req, res) => {
+router.delete('/delete-project-picture/:id/:picture', checkAuthenticated, async (req, res) => {
     try{
         const { id, picture } = req.params
 
@@ -166,11 +168,11 @@ router.delete('/delete-project-picture/:id/:picture', async (req, res) => {
 
         res.status(200).json({ message: "Image deleted successfully" })
     } catch (error){
-        console.error("Project picture deletion failed:", error)
+        console.log("Project picture deletion failed:", error)
         res.status(500).json({ error: "Failed to delete project picture" })
     }
 })
-router.delete('/delete-project/:id', async (req, res) => {
+router.delete('/delete-project/:id', checkAuthenticated, async (req, res) => {
     try{
         const id = req.params.id
 
@@ -196,11 +198,11 @@ router.delete('/delete-project/:id', async (req, res) => {
 
         res.status(200).json({ message: "Project deleted successfully" })
     } catch (error){
-        console.error("Project deletion failed:", error)
+        console.log("Project deletion failed:", error)
         res.status(500).json({ error: "Failed to delete entire project" })
     }
 })
-router.delete('/delete-portfolio', async (req, res) => {
+router.delete('/delete-portfolio', checkAuthenticated, async (req, res) => {
     try{
         const portfolio = await projectModel.find({})
 
@@ -223,7 +225,7 @@ router.delete('/delete-portfolio', async (req, res) => {
 
         res.status(200).json({ message: "Entire portfolio deleted successfully" })
     } catch (error){
-        console.error("Portfolio deletion failed:", error)
+        console.log("Portfolio deletion failed:", error)
         res.status(500).json({ error: "Failed to delete entire portfolio" })
     }
 })

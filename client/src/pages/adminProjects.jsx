@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
+import { useNavigate } from 'react-router'
 //api url
 import { useApiUrl } from '../context/apiContext'
 //import components
@@ -14,9 +14,32 @@ import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminProjects = () => {
     document.title = 'Projects | Homely Admin'
+
+    //navigate
+    const navigate = useNavigate()
     
     //url
     const backendUrl = useApiUrl()
+
+    //token
+    const token = localStorage.getItem('token')
+
+    //check if not authenticated
+    async function checkNotAuth () {
+      try {
+        const response = await fetch(`${backendUrl}/users/check-unauthenticated`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        if(response.status === 200)
+          navigate('/login')
+      } catch (error) {
+        console.error("Error checking if not authenticated", error)
+        alert("Error: Couldn't check if not authenticated")
+      }
+    }
   
     //filter projects
     const [filtersOn, setFiltersOn] = useState(false)
@@ -42,18 +65,14 @@ const adminProjects = () => {
         for (let i = 0; i < createPicturesRef.current.files.length; i++){
             const picture = createPicturesRef.current.files[i]
             formData.append("pictures", picture)
-            console.log(picture)
         }
-
-        console.log(createNameRef.current.value)
-        console.log(createStatusRef.current.value)
-        console.log(createCoverRef.current.files[0])
-        console.log(createDescriptionRef.current.value)
-        console.log(createPicturesRef.current.files)
 
         //make request
         const response = await fetch(`${backendUrl}/projects/create-project`, {
             method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
             body: formData
         });
         const result = await response.json();
@@ -107,12 +126,14 @@ const adminProjects = () => {
             for (let i = 0; i < updatePicturesRef.current.files.length; i++){
                 const picture = updatePicturesRef.current.files[i]
                 formData.append("pictures", picture)
-                console.log(picture)
             }
 
         //make request
         const response = await fetch(`${backendUrl}/projects/update-project/${updateIdRef.current.value}`, {
             method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
             body: formData
         })
         const result = await response.json()
@@ -130,14 +151,21 @@ const adminProjects = () => {
     const [projects, setProjects] = useState([])
     const contentNumber = useRef()
     useEffect(() => {
-        contentNumber.current.innerHTML = projects.length
-        const project = projects.find(prj => prj._id === editId)
-        setEMContent(project)
+        if(projects) {
+            contentNumber.current.innerHTML = projects.length
+            const project = projects.find(prj => prj._id === editId)
+            setEMContent(project)
+        }
     }, [projects])
     const fetchProjects = async () => {
         try{
-            const response = await axios.get(`${backendUrl}/projects/read-projects`)
-            const data = response.data
+            const response = await fetch(`${backendUrl}/projects/read-projects`, {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+            })
+            const data = await response.json()
 
             //filter
             let newPrjs = data
@@ -154,11 +182,11 @@ const adminProjects = () => {
     //delete single project image
     async function delSinglePic(delPicture){
         try{
-            console.log("deleting pic", delPicture)
             const response = await fetch(`${backendUrl}/projects/delete-project-picture/${editId}/${delPicture}`, {
                 method: 'DELETE',
                 headers: {
-                    "content-type" : "application/json"
+                    "content-type" : "application/json",
+                    Authorization: `Bearer ${token}`
                 }
             })
             const result = await response.json()
@@ -181,7 +209,8 @@ const adminProjects = () => {
             const response = await fetch(`${backendUrl}/projects/delete-project/${delId}`, {
                 method: "DELETE",
                 headers: {
-                    "content-type": "application/json"
+                    "content-type": "application/json",
+                    Authorization: `Bearer ${token}`
                 }
             })
 
@@ -207,7 +236,8 @@ const adminProjects = () => {
         const response = await fetch(`${backendUrl}/projects/delete-portfolio`, {
             method: "DELETE",
             headers: {
-            "content-type": "application/json"
+                "content-type": "application/json",
+                Authorization: `Bearer ${token}`
             }
         })
 
@@ -229,20 +259,18 @@ const adminProjects = () => {
 
     //general effects
     useEffect(() => {        
-        //CRUD read
+        //read
         const getProjects = async () => {
             const prjs = await fetchProjects()
             setProjects(prjs)
         }
         getProjects()
 
-        //CRUD create
-        const createBtn = createBtnRef.current
-        createBtn.addEventListener('click', () => {createProject()})
-
-        //CRUD edit
-        const updateBtn = updateBtnRef.current
-        updateBtn.addEventListener('click', () => {updateProject()})
+        //check authentication
+        const checkAuth = async () => {
+          await checkNotAuth()
+        }
+        checkAuth()
 
     }, [])
         
@@ -263,7 +291,7 @@ const adminProjects = () => {
                         <input type="file" ref={createPicturesRef} name="new_prj_pictures" id="new_pictures" multiple required/>
                     </div>
                     <textarea ref={createDescriptionRef} name="new_prj_desc" id="new_desc" cols="30" rows="10" placeholder='Description' required></textarea>
-                    <button ref={createBtnRef} className='cta form_submit' type="button"><p>Create</p></button>
+                    <button ref={createBtnRef} className='cta form_submit' onClick={() => {createProject()}} type="button"><p>Create</p></button>
                 </form>
             </FormModalWrapper>
             
@@ -296,7 +324,7 @@ const adminProjects = () => {
                         </div> : null}
                     </div>
                     <textarea ref={updateDescriptionRef} name="edit_prj_desc" id="edit_desc" cols="30" rows="10" placeholder='Description' required></textarea>
-                    <button ref={updateBtnRef} className='cta form_submit' type="button"><p>Update</p></button>
+                    <button ref={updateBtnRef} className='cta form_submit' onClick={() => {updateProject()}} type="button"><p>Update</p></button>
                 </form>
             </FormModalWrapper>
             

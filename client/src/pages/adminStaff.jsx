@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router'
 //api url
 import { useApiUrl } from '../context/apiContext'
 //import components
@@ -12,11 +13,32 @@ import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminStaff = () => {
   document.title = 'Staff | Homely Admin'
+
+  //navigate
+  const navigate = useNavigate()
     
   //url
   const backendUrl = useApiUrl()
 
-  const [filtersOn, setFiltersOn] = useState(false)
+  //token
+  const token = localStorage.getItem('token')
+
+  //check if not authenticated
+  async function checkNotAuth () {
+    try {
+      const response = await fetch(`${backendUrl}/users/check-unauthenticated`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      if(response.status === 200)
+        navigate('/login')
+    } catch (error) {
+      console.error("Error checking if not authenticated", error)
+      alert("Error: Couldn't check if not authenticated")
+    }
+  }
 
   //fetch staff
   const [staff, setStaff] = useState()
@@ -31,7 +53,10 @@ const adminStaff = () => {
   async function fetchStaff() {
     try{
         const response = await fetch(`${backendUrl}/staff/read-staff`, {
-            method: "GET"
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         const result = await response.json()
         if(response.message)
@@ -64,6 +89,9 @@ const adminStaff = () => {
         //make the request
         const response = await fetch(`${backendUrl}/staff/create-staff`, {
             method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             body: formData
         })
         const result = await response.json()
@@ -130,6 +158,9 @@ const adminStaff = () => {
         //make request
         const response = await fetch (`${backendUrl}/staff/update-member/${updateIdRef.current.value}`, {
             method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             body: formData
         })
         const result = await response.json()
@@ -153,7 +184,10 @@ const adminStaff = () => {
     try{
         //make request
         const response = await fetch(`${backendUrl}/staff/delete-member-picture/${updateIdRef.current.value}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         const result = await response.json()
         alert(result.message || result.error)
@@ -174,7 +208,10 @@ const adminStaff = () => {
     try{
         //make request
         const response = await fetch (`${backendUrl}/staff/delete-member/${delId}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         const result = await response.json()
         alert(result.message || result.error)
@@ -198,7 +235,10 @@ const adminStaff = () => {
     try{
         //make request
         const response = await fetch (`${backendUrl}/staff/delete-staff`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         })
         const result = await response.json()
         alert(result.message || result.error)
@@ -217,11 +257,18 @@ const adminStaff = () => {
   }
 
   useEffect(() => {
+    //get staff
     async function setTheStaff() {
         const staff_ = await fetchStaff()
         setStaff(staff_)
     }
     setTheStaff()
+
+    //check authentication
+    const checkAuth = async () => {
+      await checkNotAuth()
+    }
+    checkAuth()
   }, [])
   
   return (

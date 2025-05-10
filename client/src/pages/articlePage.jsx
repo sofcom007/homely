@@ -119,7 +119,7 @@ const articlePage = () => {
     { threshold: 0.1 })
     const animatedElements = document.querySelectorAll('.animated')
     animatedElements.forEach((el) => observer.observe(el))
-  }, [])
+  }, [slug])
 
   return (
     <>
@@ -144,7 +144,7 @@ const articlePage = () => {
                     link={article.slug}
                     image={article.thumbnail}
                     title={article.title}
-                    date="00.00.0000"
+                    date={new Date(article.updatedAt).toISOString().split("T")[0]}
                     key={i}
                   />)
               })}

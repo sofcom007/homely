@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
+import { useNavigate } from 'react-router'
 //api url
 import { useApiUrl } from '../context/apiContext'
 //import components
@@ -13,11 +13,32 @@ import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const adminArticles = () => {
     document.title = 'Articles | Homely Admin'
+
+    //navigate
+    const navigate = useNavigate()
     
     //url
     const backendUrl = useApiUrl()
 
-    const [filtersOn, setFiltersOn] = useState(false);
+    //token
+    const token = localStorage.getItem('token')
+
+    //check if not authenticated
+    async function checkNotAuth () {
+      try {
+        const response = await fetch(`${backendUrl}/users/check-unauthenticated`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        if(response.status === 200)
+          navigate('/login')
+      } catch (error) {
+        console.error("Error checking if not authenticated", error)
+        alert("Error: Couldn't check if not authenticated")
+      }
+    }
 
     //create articles
     const [createModalOn, setCreateModalOn] = useState(false);
@@ -35,6 +56,9 @@ const adminArticles = () => {
             //make the request
             const response = await fetch(`${backendUrl}/articles/create-article`, {
                 method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
                 body: formData
             })
     
@@ -72,8 +96,13 @@ const adminArticles = () => {
     }, [articles])
     async function fetchArticles() {
         try{
-            const response = await axios.get(`${backendUrl}/articles/read-articles`)
-            const data = response.data
+            const response = await fetch(`${backendUrl}/articles/read-articles`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const data = await response.json()
             return(data)
         } catch (error) {
             alert("Error: couldn't fetch articles")
@@ -110,6 +139,9 @@ const adminArticles = () => {
             //make the request
             const response = await fetch(`${backendUrl}/articles/update-article/${updateIdRef.current.value}`, {
                 method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
                 body: formData
             })
             const result = await response.json()
@@ -130,7 +162,10 @@ const adminArticles = () => {
     async function deleteSingleArticle() {
         try{
             const response = await fetch(`${backendUrl}/articles/delete-article/${delId}`, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
             const result = await response.json()
             alert(result.message || result.error)
@@ -149,7 +184,10 @@ const adminArticles = () => {
     async function delAllArticles() {
         try{
             const response = await fetch(`${backendUrl}/articles/delete-articles`, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
             const result = await response.json()
             alert(result.message || result.error)
@@ -165,11 +203,18 @@ const adminArticles = () => {
 
     
     useEffect(() => {
+      //get articles
       const getArticles = async () => {
         const articles_ = await fetchArticles()
         setArticles(articles_)
       }
       getArticles()
+
+      //check authentication
+      const checkAuth = async () => {
+        await checkNotAuth()
+      }
+      checkAuth()
     }, [])
       
   return (

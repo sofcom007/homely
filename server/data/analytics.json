@@ -1,5 +1,5 @@
 {
-  "visitors": 25,
+  "visitors": 85,
   "pages": [
     {
       "name": "home",
@@ -14,7 +14,57 @@
         "2025-05-05T04:35:38.864Z",
         "2025-05-05T05:35:41.520Z",
         "2025-05-05T06:51:43.672Z",
-        "2025-05-05T19:17:48.904Z"
+        "2025-05-05T19:17:48.904Z",
+        "2025-05-05T21:29:20.674Z",
+        "2025-05-05T21:40:59.747Z",
+        "2025-05-06T00:08:15.283Z",
+        "2025-05-06T02:04:02.140Z",
+        "2025-05-06T04:41:49.908Z",
+        "2025-05-07T06:36:21.288Z",
+        "2025-05-07T16:35:15.969Z",
+        "2025-05-07T19:19:56.408Z",
+        "2025-05-07T21:50:33.211Z",
+        "2025-05-07T22:17:49.052Z",
+        "2025-05-07T22:21:38.318Z",
+        "2025-05-08T03:33:47.285Z",
+        "2025-05-08T06:53:24.366Z",
+        "2025-05-08T20:02:20.893Z",
+        "2025-05-08T21:40:30.089Z",
+        "2025-05-08T23:20:36.883Z",
+        "2025-05-09T00:35:40.981Z",
+        "2025-05-09T04:38:58.745Z",
+        "2025-05-09T04:44:42.846Z",
+        "2025-05-09T05:03:51.954Z",
+        "2025-05-09T05:42:52.376Z",
+        "2025-05-09T05:55:07.105Z",
+        "2025-05-09T10:45:10.486Z",
+        "2025-05-09T10:51:59.762Z",
+        "2025-05-09T14:39:59.240Z",
+        "2025-05-09T15:13:13.084Z",
+        "2025-05-09T16:54:01.208Z",
+        "2025-05-09T16:58:07.122Z",
+        "2025-05-09T17:02:02.924Z",
+        "2025-05-09T17:05:04.898Z",
+        "2025-05-09T17:09:20.613Z",
+        "2025-05-09T18:32:01.661Z",
+        "2025-05-09T18:59:53.122Z",
+        "2025-05-09T19:32:50.720Z",
+        "2025-05-09T19:40:07.309Z",
+        "2025-05-09T19:49:57.314Z",
+        "2025-05-10T01:04:07.777Z",
+        "2025-05-10T01:05:55.009Z",
+        "2025-05-10T01:16:44.019Z",
+        "2025-05-10T01:21:23.172Z",
+        "2025-05-10T01:26:26.759Z",
+        "2025-05-10T01:30:25.096Z",
+        "2025-05-10T02:41:36.307Z",
+        "2025-05-10T02:54:30.847Z",
+        "2025-05-10T02:57:39.959Z",
+        "2025-05-10T02:59:14.722Z",
+        "2025-05-10T03:03:02.835Z",
+        "2025-05-10T03:06:40.524Z",
+        "2025-05-10T03:06:56.579Z",
+        "2025-05-10T03:12:59.292Z"
       ]
     },
     {
@@ -26,7 +76,23 @@
         "2025-05-05T01:35:20.532Z",
         "2025-05-05T06:51:43.672Z",
         "2025-05-05T19:17:58.055Z",
-        "2025-05-05T19:22:37.955Z"
+        "2025-05-05T19:22:37.955Z",
+        "2025-05-05T21:40:59.747Z",
+        "2025-05-06T00:08:15.283Z",
+        "2025-05-06T02:04:02.140Z",
+        "2025-05-06T04:41:49.908Z",
+        "2025-05-07T06:36:21.288Z",
+        "2025-05-07T16:35:15.969Z",
+        "2025-05-07T22:21:38.318Z",
+        "2025-05-07T22:24:44.659Z",
+        "2025-05-07T22:35:14.103Z",
+        "2025-05-07T22:39:03.060Z",
+        "2025-05-07T22:46:53.511Z",
+        "2025-05-07T22:53:08.691Z",
+        "2025-05-08T06:53:24.366Z",
+        "2025-05-08T21:40:30.089Z",
+        "2025-05-09T00:35:40.981Z",
+        "2025-05-10T03:12:59.292Z"
       ]
     },
     {
@@ -47,7 +113,19 @@
         "2025-05-05T01:35:20.532Z",
         "2025-05-05T06:51:43.672Z",
         "2025-05-05T18:37:07.072Z",
-        "2025-05-05T19:22:39.541Z"
+        "2025-05-05T19:22:39.541Z",
+        "2025-05-05T21:40:59.747Z",
+        "2025-05-06T00:08:15.283Z",
+        "2025-05-06T02:04:02.140Z",
+        "2025-05-06T04:41:49.908Z",
+        "2025-05-07T06:36:21.288Z",
+        "2025-05-07T16:35:15.969Z",
+        "2025-05-08T06:53:24.366Z",
+        "2025-05-08T20:02:20.893Z",
+        "2025-05-08T21:40:30.089Z",
+        "2025-05-09T00:35:40.981Z",
+        "2025-05-09T01:36:32.989Z",
+        "2025-05-09T03:04:42.779Z"
       ]
     },
     {
@@ -63,7 +141,19 @@
         "2025-05-05T01:35:20.532Z",
         "2025-05-05T02:16:47.169Z",
         "2025-05-05T18:37:07.072Z",
-        "2025-05-05T19:08:17.076Z"
+        "2025-05-05T19:08:17.076Z",
+        "2025-05-05T21:29:20.674Z",
+        "2025-05-06T00:08:15.283Z",
+        "2025-05-06T02:04:02.140Z",
+        "2025-05-06T04:41:49.908Z",
+        "2025-05-07T06:36:21.288Z",
+        "2025-05-07T16:35:15.969Z",
+        "2025-05-07T19:19:56.408Z",
+        "2025-05-08T06:53:24.366Z",
+        "2025-05-08T20:02:20.893Z",
+        "2025-05-08T21:40:30.089Z",
+        "2025-05-08T23:20:36.883Z",
+        "2025-05-09T00:35:40.981Z"
       ]
     },
     {
@@ -71,7 +161,12 @@
       "visits": [
         "2025-05-04T03:11:46.478Z",
         "2025-05-04T03:12:33.475Z",
-        "2025-05-04T18:04:19.877Z"
+        "2025-05-04T18:04:19.877Z",
+        "2025-05-06T00:08:15.283Z",
+        "2025-05-06T04:41:49.908Z",
+        "2025-05-07T06:36:21.288Z",
+        "2025-05-07T16:35:15.969Z",
+        "2025-05-08T06:53:24.366Z"
       ]
     }
   ],
@@ -255,6 +350,222 @@
       "visits": [
         "2025-05-05T18:37:07.072Z"
       ]
+    },
+    {
+      "slug": "the-atrium-block",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "verdant-retreat",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "courtyard-horizon",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-atrium-block",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-atrium-block",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-atrium-block",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-atrium-block",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-crestline-villa",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-atrium-block",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-atrium-block",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-atrium-block",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "urban-solace",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-07T19:19:56.408Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "the-atrium-block",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "verdant-retreat",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "courtyard-horizon",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "the-terraces-of-rivermark",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "the-meadow-house",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-08T23:20:36.883Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T00:35:40.981Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T01:36:32.989Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T01:36:32.989Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T01:36:32.989Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T01:54:26.218Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T02:17:47.096Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T02:17:47.096Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T02:17:47.096Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T02:17:47.096Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T02:24:20.915Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T02:24:20.915Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T02:24:20.915Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T02:24:20.915Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T02:24:20.915Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T02:24:20.915Z"
+      ]
+    },
+    {
+      "slug": "the-oakridge-retreat",
+      "visits": [
+        "2025-05-09T04:38:58.745Z"
+      ]
     }
   ],
   "articles": [
@@ -370,6 +681,234 @@
       "slug": "from-vision-to-reality-how-homely-brings-dream-homes-to-life",
       "visits": [
         "2025-05-05T18:37:07.072Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-beauty-of-custom-why-bespoke-design-elevates-every-home",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "the-entryway-experience-first-impressions-that-last",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "from-vision-to-reality-how-homely-brings-dream-homes-to-life",
+      "visits": [
+        "2025-05-06T02:04:02.140Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "the-beauty-of-custom-why-bespoke-design-elevates-every-home",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "the-entryway-experience-first-impressions-that-last",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "from-vision-to-reality-how-homely-brings-dream-homes-to-life",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "quiet-luxury-designing-homes-that-whisper-elegance",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "embracing-timeless-elegance-the-new-age-of-luxury-home-design",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "nature-inspired-design-bringing-the-outdoors-into-luxury-living",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "the-power-of-light-designing-homes-that-embrace-natural-illumination",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "timeless-vs-trendy-how-homely-designs-for-generations",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "crafting-spaces-that-tell-a-story-the-art-of-personalized-architecture",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "nature-inspired-design-bringing-the-outdoors-into-luxury-living",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "the-entryway-experience-first-impressions-that-last",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "the-beauty-of-custom-why-bespoke-design-elevates-every-home",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "the-beauty-of-custom-why-bespoke-design-elevates-every-home",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "the-beauty-of-custom-why-bespoke-design-elevates-every-home",
+      "visits": [
+        "2025-05-06T04:41:49.908Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-07T19:19:56.408Z"
+      ]
+    },
+    {
+      "slug": "the-beauty-of-custom-why-bespoke-design-elevates-every-home",
+      "visits": [
+        "2025-05-07T19:19:56.408Z"
+      ]
+    },
+    {
+      "slug": "from-vision-to-reality-how-homely-brings-dream-homes-to-life",
+      "visits": [
+        "2025-05-07T19:19:56.408Z"
+      ]
+    },
+    {
+      "slug": "from-vision-to-reality-how-homely-brings-dream-homes-to-life",
+      "visits": [
+        "2025-05-07T21:50:33.211Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-07T21:50:33.211Z"
+      ]
+    },
+    {
+      "slug": "the-entryway-experience-first-impressions-that-last",
+      "visits": [
+        "2025-05-07T21:50:33.211Z"
+      ]
+    },
+    {
+      "slug": "the-entryway-experience-first-impressions-that-last",
+      "visits": [
+        "2025-05-07T21:50:33.211Z"
+      ]
+    },
+    {
+      "slug": "the-entryway-experience-first-impressions-that-last",
+      "visits": [
+        "2025-05-07T21:50:33.211Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-07T21:50:33.211Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-08T20:02:20.893Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "the-entryway-experience-first-impressions-that-last",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "the-entryway-experience-first-impressions-that-last",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "the-beauty-of-custom-why-bespoke-design-elevates-every-home",
+      "visits": [
+        "2025-05-08T21:40:30.089Z"
+      ]
+    },
+    {
+      "slug": "timeless-vs-trendy-how-homely-designs-for-generations",
+      "visits": [
+        "2025-05-08T23:20:36.883Z"
+      ]
+    },
+    {
+      "slug": "architecture-meets-nature-designing-homes-that-breathe",
+      "visits": [
+        "2025-05-08T23:20:36.883Z"
       ]
     }
   ]

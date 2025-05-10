@@ -69,4 +69,10 @@
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
 }
 
-/*articles*/
+
+/* big phone styling */
+@media ( max-width: 450px ) {
+    #prj_slider{
+        height: calc(94vw/3 * 4);
+    }
+}

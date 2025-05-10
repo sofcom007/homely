@@ -5,6 +5,7 @@ const path = require('path')
 const fs = require('fs')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
+const jwt = require('jsonwebtoken')
 //multer setup
 const storage = multer.diskStorage({
     destination: "uploads/",
@@ -18,26 +19,33 @@ const storage = multer.diskStorage({
 const uploadPictures = multer({ storage })
 //model
 const userModel = require('../models/user.model')
+//auth middleware
+const { checkAuthenticated, checkUnauthenticated } = require('../middleware/authMiddleware')
 
-router.get('/read-users', async (req, res) => {
+
+//CRUD routes
+router.get('/read-users', checkAuthenticated, async (req, res) => {
     try {
         const users = await userModel.find({})
         if(!users)
             return res.json(400).json({ message: 'Users not found' })
-
         res.status(200).json(users)
     } catch (error) {
-        console.error('Error reading users: ', error)
+        console.log('Error reading users: ', error)
         res.status(500).json({ error: 'Error reading users' })
     }
 })
-router.post('/create-user', uploadPictures.single('picture'), async (req, res) => {
+router.post('/create-user', checkAuthenticated, uploadPictures.single('picture'), async (req, res) => {
     try {
         const { firstName, lastName, permission, username, email, phone, password } = req.body
         if(!firstName || !lastName || !permission || !username || !email || !password)
             return res.status(200).json({ message: 'All fields except picture and phone are necessary' })
         if(!validator.isEmail(email))
             return res.status(200).json({ message: 'Email format invalid' })
+
+        const userExists = await userModel.findOne({ email })
+        if(userExists)
+            return res.status(300).json({ message: 'Email already in use' })
 
         const picture = req.file? req.file.filename : ''
 
@@ -57,13 +65,16 @@ router.post('/create-user', uploadPictures.single('picture'), async (req, res) =
         })
         await newUser.save()
 
-        res.status(200).json({ message: 'User created successfully' })
+        //create jwt
+        const token = generateJWT(user._id, user.permission)
+
+        res.status(200).json({ message: 'User created successfully', token })
     } catch (error) {
-        console.error('Error creating user: ', error)
+        console.log('Error creating user: ', error)
         res.status(500).json({ error: 'Error creating user' })
     }
 })
-router.put('/update-user/:id', uploadPictures.single('picture'), async (req, res) => {
+router.put('/update-user/:id', checkAuthenticated, uploadPictures.single('picture'), async (req, res) => {
     try {
         const { id } = req.params
         const { firstName, lastName, permission, username, email, phone, password } = req.body
@@ -109,11 +120,11 @@ router.put('/update-user/:id', uploadPictures.single('picture'), async (req, res
         res.status(200).json({ message: 'User updated successfully' })
 
     } catch (error) {
-        console.error('Error creating user: ', error)
+        console.log('Error creating user: ', error)
         res.status(500).json({ error: 'Error creating user' })
     }
 })
-router.delete('/delete-user-picture/:id', async (req, res) => {
+router.delete('/delete-user-picture/:id', checkAuthenticated, async (req, res) => {
     try {
         const { id } = req.params
         console.log(id)
@@ -141,11 +152,11 @@ router.delete('/delete-user-picture/:id', async (req, res) => {
         
         res.status(200).json({ message: 'User picture deleted successfully' })
     } catch (error) {
-        console.error('Error deleting user picture: ', error)
+        console.log('Error deleting user picture: ', error)
         res.status(500).json({ error: 'Error deleting user picture' })
     }
 })
-router.delete('/delete-user/:id', async (req, res) => {
+router.delete('/delete-user/:id', checkAuthenticated, async (req, res) => {
     try { 
         const { id } = req.params
         const user = await userModel.findById(id)
@@ -160,11 +171,11 @@ router.delete('/delete-user/:id', async (req, res) => {
 
         res.status(200).json({ message: "User deleted successfully" })
     } catch (error) {
-        console.error('Error deleting user picture: ', error)
+        console.log('Error deleting user picture: ', error)
         res.status(500).json({ error: 'Error deleting user picture' })
     }
 })
-router.delete('/delete-all-users', async (req, res) => {
+router.delete('/delete-all-users', checkAuthenticated, async (req, res) => {
     try {
         const users = await userModel.find({})
         users.forEach(user => {
@@ -179,9 +190,52 @@ router.delete('/delete-all-users', async (req, res) => {
 
         res.status(200).json({ message: 'Entire user base deleted successfully' })
     } catch (error) {
-        console.error('Error deleting user picture: ', error)
+        console.log('Error deleting user picture: ', error)
         res.status(500).json({ error: 'Error deleting user picture' })
     }
 })
+
+
+//auth routes
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body
+        if(!email || !password)
+            return res.status(400).json({ message: "All fields are necessary" })
+
+        const user = await userModel.findOne({ $or: [{email: email}, {username: email}] })
+
+        if(!user)
+            return res.status(400).json({ message: "Email or username unregistered" })
+
+        const passwordMatch = await bcrypt.compare(password, user.password)
+
+        if(!passwordMatch)
+            return res.status(400).json({ message: "Password incorrect" })
+
+
+        const token = generateJWT(user._id, user.permission)
+        req.session.user = user
+        res.status(200).json({ message: "Logged in successfully", token: token })
+
+    } catch (error) {
+        console.log("Error login in:", error)
+        res.status(500).json({ error: "Error: couldn't log in" })
+    }
+})
+router.get('/check-authenticated', checkAuthenticated, (req, res) => {
+    res.status(200).json({ message: "User is authenticated" })
+})
+router.get('/check-unauthenticated', checkUnauthenticated, (req, res) => {
+    res.status(200).json({ message: "User is not authenticated" })
+})
+
+
+//jwt
+function generateJWT (id, permission) {
+    return jwt.sign({ id, permission }, process.env.JWT_SECRET, {
+        expiresIn: '30m'
+    })
+}
 
 module.exports = router
